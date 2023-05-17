@@ -100,3 +100,21 @@ h2 {
   text-align: center;
   margin-top: 20px;
 }
+
+.bullet {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 50%;
+  transition: transform 0.5s;
+}
+
+#player-hp {
+  background-color: green;
+  height: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+}
