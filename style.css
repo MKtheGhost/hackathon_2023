@@ -1,6 +1,14 @@
+/* Styles généraux */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
 #banner {
   background-color: #f1f1f1;
   height: 100px;
+  /* Ajoutez d'autres styles pour la bannière selon vos besoins */
 }
 
 #content {
@@ -12,14 +20,43 @@ h1 {
   font-size: 32px;
 }
 
-button {
-  margin: 10px;
+/* Bouton "Start" */
+#start-button {
+  width: 150px;
+  max-width: 30%;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
-#game-content {
-  display: none;
+#start-button:hover {
+  transform: scale(1.1);
 }
 
+/* Bouton "Paramètres" */
+#settings-button {
+  width: 150px;
+  max-width: 30%;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#settings-button:hover {
+  transform: scale(1.1);
+}
+
+/* Bouton "Fermer" */
+#close-button {
+  width: 150px;
+  max-width: 30%;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#close-button:hover {
+  transform: scale(1.1);
+}
+
+/* Styles pour la sidebar des paramètres */
 #sidebar {
   width: 200px;
   background-color: #f1f1f1;
@@ -32,10 +69,4 @@ button {
 
 #sidebar.open {
   right: 0;
-}
-
-#close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
 }
