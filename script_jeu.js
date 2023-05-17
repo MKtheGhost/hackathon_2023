@@ -7,6 +7,7 @@ const cards = [
 let selectedCards;
 let mysteryCard;
 let score = 10;
+let playerHP = 100;
 let bossHP = 100;
 const propositions = [];
 
@@ -48,10 +49,12 @@ function checkGuess() {
   if (guess.toLowerCase() === mysteryCard.name.toLowerCase()) {
     score += 10;
     document.getElementById("result").textContent = "Bravo ! Vous avez trouvé la bonne carte.";
+    animateBullet();
     killBoss();
   } else {
     score = 0;
     document.getElementById("result").textContent = "Dommage, ce n'est pas la bonne carte.";
+    reducePlayerHP();
   }
 
   guessInput.value = "";
@@ -67,11 +70,39 @@ function checkGuess() {
   displayPropositions();
 }
 
+function animateBullet() {
+  const bullet = document.createElement("div");
+  bullet.className = "bullet";
+  document.body.appendChild(bullet);
+
+  const boss = document.getElementById("boss-img");
+  const bossPosition = boss.getBoundingClientRect();
+
+  bullet.style.top = window.innerHeight - 100 + "px";
+  bullet.style.left = window.innerWidth / 2 + "px";
+
+  setTimeout(function() {
+    bullet.style.transform = `translate(${bossPosition.left - window.innerWidth / 2}px, ${bossPosition.top - 100}px)`;
+    setTimeout(function() {
+      bullet.parentNode.removeChild(bullet);
+    }, 500);
+  }, 100);
+}
+
 function killBoss() {
   bossHP -= 10;
   document.getElementById("boss-hp").style.width = bossHP + "%";
   if (bossHP === 0) {
     document.getElementById("boss").innerHTML = "<p>Vous avez tué le boss !</p>";
+  }
+}
+
+function reducePlayerHP() {
+  playerHP -= 10;
+  document.getElementById("player-hp").style.width = playerHP + "%";
+  if (playerHP === 0) {
+    document.getElementById("result").textContent = "Vous avez perdu !";
+    document.getElementById("guess").style.display = "none";
   }
 }
 
