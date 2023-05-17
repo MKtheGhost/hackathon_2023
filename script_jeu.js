@@ -1,16 +1,14 @@
 const cards = [
   { name: "Person 1", category: "Category 1", affirmation: "Affirmation 1" },
   { name: "Person 2", category: "Category 2", affirmation: "Affirmation 2" },
-  { name: "Person 3", category: "Category 3", affirmation: "Affirmation 3" },
-  { name: "Person 4", category: "Category 4", affirmation: "Affirmation 4" },
-  { name: "Person 5", category: "Category 5", affirmation: "Affirmation 5" },
-  { name: "Person 6", category: "Category 6", affirmation: "Affirmation 6" },
-  { name: "Person 7", category: "Category 7", affirmation: "Affirmation 7" },
   // ... Add more cards
 ];
 
+let selectedCards;
 let mysteryCard;
 let score = 10;
+let bossHP = 100;
+const propositions = [];
 
 function selectRandomCards(numCards) {
   const selectedCards = [];
@@ -50,6 +48,7 @@ function checkGuess() {
   if (guess.toLowerCase() === mysteryCard.name.toLowerCase()) {
     score += 10;
     document.getElementById("result").textContent = "Bravo ! Vous avez trouvé la bonne carte.";
+    killBoss();
   } else {
     score = 0;
     document.getElementById("result").textContent = "Dommage, ce n'est pas la bonne carte.";
@@ -62,6 +61,27 @@ function checkGuess() {
   if (score === 0) {
     document.getElementById("result").textContent = "Vous avez perdu !";
     document.getElementById("guess").style.display = "none";
+  }
+
+  propositions.push(guess);
+  displayPropositions();
+}
+
+function killBoss() {
+  bossHP -= 10;
+  document.getElementById("boss-hp").style.width = bossHP + "%";
+  if (bossHP === 0) {
+    document.getElementById("boss").innerHTML = "<p>Vous avez tué le boss !</p>";
+  }
+}
+
+function displayPropositions() {
+  const propositionsContainer = document.getElementById("propositions");
+  propositionsContainer.innerHTML = "";
+  for (let i = 0; i < propositions.length; i++) {
+    const proposition = document.createElement("p");
+    proposition.textContent = propositions[i];
+    propositionsContainer.appendChild(proposition);
   }
 }
 
