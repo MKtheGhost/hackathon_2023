@@ -45,3 +45,58 @@ h1 {
   transition: right 0.3s ease;
   /* Styles supplémentaires pour la sidebar */
 }
+
+h1 {
+  text-align: center;
+}
+
+#cards {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.card {
+  width: 80px;
+  height: 120px;
+  background-color: #ccc;
+  border: 1px solid #000;
+  margin: 0 10px;
+}
+
+#guess {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#result {
+  text-align: center;
+  margin-top: 20px;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 40px;
+}
+
+#boss {
+  text-align: center;
+}
+
+#boss-img {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 20px;
+}
+
+#boss-hp {
+  background-color: red;
+  height: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+#propositions {
+  text-align: center;
+  margin-top: 20px;
+}
