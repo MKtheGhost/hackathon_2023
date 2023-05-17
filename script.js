@@ -12,13 +12,21 @@ startButton.addEventListener('click', () => {
 
   // Afficher le nouveau contenu (par exemple, une autre div avec le contenu du jeu)
   gameContent.style.display = 'block';
+
+  // Afficher le bouton Paramètres en haut à droite
+  settingsButton.style.position = 'fixed';
+  settingsButton.style.right = '10px';
+  settingsButton.style.top = '10px';
 });
 
-// Gestion du bouton de paramètres
+// Gestion du bouton Paramètres
 settingsButton.addEventListener('click', () => {
   sidebar.classList.toggle('open');
 });
 
 closeButton.addEventListener('click', () => {
   sidebar.classList.remove('open');
+  settingsButton.style.position = 'absolute';
+  settingsButton.style.right = '10px';
+  settingsButton.style.bottom = '10px';
 });
