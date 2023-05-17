@@ -21,6 +21,47 @@
     <!-- Autres images pour les boutons de paramètres -->
   </div>
 
-  <script src="script.js"></script>
+	<script src="script.js"></script>
+  
+	<style>
+		h1 {
+		  text-align: center;
+		}
+
+		#cards {
+		  display: flex;
+		  justify-content: center;
+		  margin-top: 50px;
+		}
+
+		.card {
+		  width: 80px;
+		  height: 120px;
+		  background-color: #ccc;
+		  border: 1px solid #000;
+		  margin: 0 10px;
+		}
+
+		#guess {
+		  text-align: center;
+		  margin-top: 20px;
+		}
+
+		#result {
+		  text-align: center;
+		  margin-top: 20px;
+		}
+	</style>
+	  <div id="cards"></div>
+	  <div id="guess">
+		<label for="guess-input">Qui est-ce ?</label>
+		<input type="text" id="guess-input">
+		<button onclick="checkGuess()">Vérifier</button>
+	  </div>
+	  <div id="result"></div>
+
+  <script src="script_jeu.js"></script>
+  
+  
 </body>
 </html>
