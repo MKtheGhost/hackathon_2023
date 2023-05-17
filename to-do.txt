@@ -1,0 +1,15 @@
+TO-DO :
+
+ - Titre du jeu
+ - choix des evenements à définir selon le sujet
+ - fil conducteur du jeu
+ 
+
+ TBLR :
+ - Logo et Banniere du jeu
+ - Boutons
+ - Manuel d'utilsisation
+ 
+ MK :
+ - Musiques et sons
+ - personnages et décors
