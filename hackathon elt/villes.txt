@@ -1,0 +1,48 @@
+VILLES
+
+
+Tokyo
+- ville-monde
+- en asie
+- ville historique
+
+Paris
+- ville-monde
+- en europe
+-important dans l'histoire des français
+- pouvoir politique mondiale
+- ville historique
+
+New york
+- ville-monde
+- en amérique
+- pouvoir politique mondiale
+
+Londres
+- ville-monde
+- en europe
+- pouvoir politique mondiale 
+- ville historique
+
+Singapour
+- en asie
+
+Mumbai
+- en asie
+- ancien colonie
+
+Los Angeles
+- en amérique
+
+Johannesburg
+- en afrique
+
+Chicago
+- en amérique
+
+Buenos Aires
+- en amérique
+- ville historique
+- ancien colonie
+
+
