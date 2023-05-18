@@ -51,36 +51,16 @@
 		  #menu-boutons.show {
 			opacity: 1;
 		  }
-		  #menu-niv {
-		    opacity: 0;
-		    transition: opacity 0.5s ease;
-		  }
-		  #menu-niv.show {
-			opacity: 1;
-		  }
-		
+				
 		  @media only screen and (max-width: 768px) {
 			#settings {
 			  height: 30vh;
-			}
-			#nivs {
-			  height: 500vh;
 			}
 			#sound {
 				width: 8vh;
 				max-width: 40px;
 				background-color: transparent;
 				background-image: url('boutons/son_on.png');
-				background-size: contain;
-				background-repeat: no-repeat;
-				background-position: center;
-				border:none;
-			}
-			#language {
-				width: 8vh;
-				max-width: 40px;
-				background-color: transparent;
-				background-image: url('boutons/langues.png');
 				background-size: contain;
 				background-repeat: no-repeat;
 				background-position: center;
@@ -96,27 +76,7 @@
 				background-position: center;
 				border:none;
 			}
-			#autres_jeux {
-				width: 8vh;
-				max-width: 40px;
-				background-color: transparent;
-				background-image: url('boutons/autres_jeux.png');
-				background-size: contain;
-				background-repeat: no-repeat;
-				background-position: center;
-				border:none;
-			}
 			#bouton-parametres {
-				width: 8vh;
-				max-width: 40px;
-				background-color: transparent;
-				background-image: url('boutons/paramètres.png');
-				background-size: contain;
-				background-repeat: no-repeat;
-				background-position: center;
-				border:none;
-			}
-			#menu_niv {
 				width: 8vh;
 				max-width: 40px;
 				background-color: transparent;
@@ -151,13 +111,6 @@
 			  width:7%;
 			}
 			
-			.menu_niv {
-			  position: absolute;
-			  top: 2%;
-			  left: 92%;
-			  width:7%;
-			}
-
 			@font-face {
 				font-family: 'FullHouse';
 				src: url('polices/fullhouse.woff') format('woff');
@@ -238,23 +191,12 @@
 			#popup-message {
 			  margin: 0;
 			}
-			
-			/* Style pour les niveaux */
-			.niveau {
-			  display: inline-block;
-			  margin: 10px;
-			  width: 8%;
-			}
-			  
+					  
 			/* Style pour les images de personnage */
 			.selected-image {
 			  display: block;
 			  margin: auto;
 			  max-width: 50%;
-			}
-			#niv {
-			  background-image: url('fonds/Niveaux.jpg');
-			  background-size: cover;
 			}
 		</style>
 	</head>
@@ -280,7 +222,6 @@
 			<!-- Choix des personnages -->
 			<div id="choix_perso" style="display:none">
 				<style>
-					/* Styles pour la mise en page et la présentation */
 					body {
 					  background-color: #222;
 					  font-family: 'Arial', sans-serif;
@@ -391,7 +332,7 @@
 		<!-- Defis choix -->
 		<div id="niv" style="display:none;">
 			<div id="selectedImageContainer" style="float:left; width:20%; margin-top:8%;"><img class="selected-image">
-			<button onclick="sortir()">Revenir aux niveaux</button></div>
+			<center><button onclick="sortir()" style="margin-right:5px">Revenir aux niveaux</button></center></div>
 				<div id="contenu_defis">
 					<!-- Défis -->
 					<button onclick="afficherMiniJeu1()" style="border:none; background-color:transparent; width:8%; margin:0px;">
@@ -458,7 +399,7 @@
 							margin-left:1%;
 						}
 						
-						.character img {
+						.character2 img {
 							width: 150px;
 							height: 150px;
 						}
@@ -525,12 +466,12 @@
 					<center><h1 style="font-size:20px">Jeux des cartes mystères</h1></center>
 
 					<div id="characters" style="float:left; width:100%; background-image:url('fonds/mini_jeu.PNG'); background-size:cover;">
-						<div class="character">
+						<div class="character2">
 						<div id="player-health" class="health-bar-player" style="font-size:11px;"><span id="player-score">&nbsp;Joueur</span></div>		
 							<img src="personnages/joueur.png" class="joueur" alt="Joueur">
 						</div>
 
-						<div class="character">
+						<div class="character2">
 						<div id="boss-health" class="health-bar-boss" style="font-size:11px;"><span id="boss-score">&nbsp;Boss</span></div>
 							<img src="personnages/boss1.png" class="boss" alt="Boss">
 						</div>
@@ -809,56 +750,45 @@
 						// Initialise le jeu au chargement de la page
 						window.onload = initializeGame;
 					</script>
-				
-					
-					
-					
-					<button onclick="sortir()">Revenir aux niveaux</button>
 				</div>
+				
+				<!-- Mini-jeu 2 -->
+				<div id="mini-jeu2" style="display:none;">
+					
+					
+					
+					
+					
+				</div>
+				
+				<!-- Mini-jeu 3 -->
+				<div id="mini-jeu3" style="display:none;">
+					
+
+
+
+
+				</div>
+
 				<script>
-				  function afficherMiniJeu1() {
+				function afficherMiniJeu1() {
 					// Cacher le contenu_defis d'origine
 					document.getElementById("contenu_defis").style.display = "none";
 					// Afficher le mini-jeu
 					document.getElementById("mini-jeu1").style.display = "block";
 				  }
-
-				  function sortir() {
-					// Cacher le mini-jeu
-					document.getElementById("mini-jeu1").style.display = "none";
-					// Afficher le contenu_defis d'origine
-					document.getElementById("contenu_defis").style.display = "block";
-				  }
-				</script>
-				
-				<!-- Mini-jeu 2 -->
-				<div id="mini-jeu2" style="display:none;">
-					<button onclick="terminerMiniJeu2()">Terminer 2</button>
-				</div>
-				<script>
-				  function afficherMiniJeu2() {
+				   function afficherMiniJeu2() {
 					document.getElementById("contenu_defis").style.display = "none";
 					document.getElementById("mini-jeu2").style.display = "block";
 				  }
-
-				  function terminerMiniJeu2() {
-					document.getElementById("mini-jeu2").style.display = "none";
-					document.getElementById("contenu_defis").style.display = "block";
-				  }
-				</script>
-				
-				<!-- Mini-jeu 3 -->
-				<div id="mini-jeu3" style="display:none;">
-					<button onclick="terminerMiniJeu3()">Terminer 3</button>
-				</div>
-				<script>
 				  function afficherMiniJeu3() {
 					document.getElementById("contenu_defis").style.display = "none";
 					document.getElementById("mini-jeu3").style.display = "block";
 				  }
-
-				  function terminerMiniJeu3() {
-					document.getElementById("mini-jeu3").style.display = "none";
+				function sortir() {
+					// Cacher le mini-jeu
+					document.getElementById("mini-jeu1").style.display = "none";
+					// Afficher le contenu_defis d'origine
 					document.getElementById("contenu_defis").style.display = "block";
 				  }
 				</script>
@@ -873,10 +803,6 @@
 			<div id="settings">
 				<button style="border:none; background-color:transparent;" id="sound" onclick="muteSounds()">
 					<img src="boutons/son_on.png" style="width:13%"/>
-				</button>
-				
-				<button style="border:none; background-color:transparent;" id="language">
-					<img src="boutons/langues.png" style="width:13%"/>
 				</button>
 				
 				<button style="border:none; background-color:transparent;" id="infos" onclick="showPopup()">
@@ -900,31 +826,6 @@
 
 					function closePopup() {
 					  document.getElementById("popup").style.display = "none";
-					}
-				</script>
-				
-				<button style="border:none; background-color:transparent;" id="autres_jeux" onclick="showPopup2()">
-					<img src="boutons/autres_jeux.png" style="width:13%"/>
-				</button>	
-				<div id="popup2" style="display:none;">
-				  <div id="popup-container">
-					<div id="popup-header">
-					  <center style="margin-right:8%">Autres jeux</center>
-					  <button id="popup-close" onclick="closePopup2()">X</button>
-					</div>
-					<div id="popup-content">
-					  <p id="popup-message" style="color:black; letter-spacing:1px; line-height:20px;">Venez decouvrir les autres jeux : 
-					  <br><br>A venir ...</p>
-					</div>
-				  </div>
-				</div>
-				<script>					
-				function showPopup2() {
-					  document.getElementById("popup2").style.display = "block";
-					}
-
-					function closePopup2() {
-					  document.getElementById("popup2").style.display = "none";
 					}
 				</script>
 			</div>
