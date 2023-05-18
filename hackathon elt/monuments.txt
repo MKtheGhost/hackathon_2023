@@ -4,33 +4,52 @@ MONUMENT
 
 chapelle sixtine
 - en europe
+- monument religieux
+- XVe siecle
 
 chateau de versailles
 - en europe
 -important dans l'histoire des français
+-monument historique
+- XVIIe siecle
 
 golden gate, san francisco
 - en amérique
+- monument touristique
+-XXe siecles
 
 grande muraille de chine
 - en asie
+-monumetn historique
+- IIIe siecle à XVIIe siecle
 
 the gherkin
 - en europe
+- XXIe siecle
+- monument économique
 
 panthéon, rome
 - en europe
 -important pour Rome
+- monument historique
 
-perthénon
+parthénon
 - en europe
+-monument historique
+- IIeme siecle
 
 tour eiffel
 - en europe
 -important dans l'histoire des français
+-XIXe siecle
+- monument artistique
 
 tour de pize
 - en europe
+-XIIe _ XIVe siecles
+-site touristique
 
 tower bridge
 - en europe
+-XIXe siecles
+- fonction touristique/ transport
