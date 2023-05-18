@@ -71,24 +71,31 @@
 	  height: 200px;
       margin-bottom: 20px;
     }
+	
 	#player-hp {
 	  background-color: green;
 	  height: 20px;
 	  width: 100%;
-	  margin-bottom: 20px;
+	  position: absolute;
+      top: 20px;
+      left: 20px;
 	}
 
 	#boss-img {
 	  width: 200px;
 	  height: 200px;
 	  margin-bottom: 20px;
+	  margin-left:500%;
 	}
 
 	#boss-hp {
 	  background-color: red;
 	  height: 20px;
 	  width: 100%;
-	  margin-bottom: 20px;
+	  position: absolute;
+      top: 20px;
+      left: 20px;
+	  margin-left:490%;
 	}
 
 	.bullet {
@@ -104,7 +111,7 @@
   </style>
 </head>
 <body>
-  <div class="game-container" style="margin-top : 20%; width:100%">
+  <div class="game-container" style="margin-top : 23%;">
     <h1>Qui est-ce ?</h1>
     <div id="cards"></div>
     <div id="guess">
@@ -118,7 +125,7 @@
   
   <div id="propositions" style="margin-top:20%">
     <h2>Affirmations proposées</h2>
-    <div id="propositions"></div>
+    <div id="propositions-container"></div>
   </div>
   
   <div id="boss">
@@ -266,7 +273,7 @@
     }
 
     function displayPropositions() {
-      const propositionsContainer = document.getElementById("propositions");
+      const propositionsContainer = document.getElementById("propositions-container");
       propositionsContainer.innerHTML = "";
       for (let i = 0; i < propositions.length; i++) {
         const proposition = document.createElement("div");
