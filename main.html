@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Qui est-ce ?</title>
+  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+  <style>
+    .game-container {
+      position: relative;
+      width: 100%;
+    }
+
+    #cards {
+      width: 70%;
+      margin: 0 auto;
+    }
+
+    #propositions {
+      width: 30%;
+      margin: 0 auto;
+    }
+
+	#cards {
+	  display: flex;
+	  justify-content: center;
+	  margin-top: 50px;
+	}
+
+	.card {
+	  width: 80px;
+	  height: 120px;
+	  background-color: #ccc;
+	  border: 1px solid #000;
+	  margin: 0 10px;
+	}
+
+	#guess {
+	  text-align: center;
+	  margin-top: 20px;
+	}
+
+	#result {
+	  text-align: center;
+	  margin-top: 20px;
+	}
+
+	h2 {
+	  text-align: center;
+	  margin-top: 40px;
+	}
+
+    #boss {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    #player-img {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+	  width: 200px;
+	  height: 200px;
+      margin-bottom: 20px;
+    }
+	
+	.player-hp {
+	  background-color: green;
+	  height: 20px;
+	  width: 100%;
+	  position: absolute;
+      top: 20px;
+      left: 20px;
+	}
+
+	#boss-img {
+	  width: 200px;
+	  height: 200px;
+	  margin-bottom: 20px;
+	  margin-left:500%;
+	}
+
+	#boss-hp {
+	  background-color: red;
+	  height: 20px;
+	  width: 100%;
+	  position: absolute;
+      top: 20px;
+      left: 20px;
+	  margin-left:490%;
+	}
+
+	.bullet {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 20px;
+	  height: 20px;
+	  background-color: red;
+	  border-radius: 50%;
+	  transition: transform 0.5s;
+	}
+  </style>
+</head>
+<body>
+  <div class="game-container" style="margin-top : 23%;">
+    <h1>Qui est-ce ?</h1>
+    <div id="cards"></div>
+    <div id="guess">
+      <label for="guess-input">Qui est-ce ?</label>
+      <input type="text" id="guess-input">
+      <select id="affirmation-select"></select>
+      <button onclick="checkGuess()">Vérifier</button>
+    </div>
+    <div id="result"></div>
+  </div>
+  
+  <div id="propositions" style="margin-top:20%">
+    <h2>Affirmations proposées</h2>
+    <div id="propositions-container"></div>
+  </div>
+
+	<div id="boss">
+    <img src="personnages/boss1.png" alt="Boss" id="boss-img">
+    <div id="boss-hp"></div>
+  </div>
+  
+  <img src="personnages/joueur.png" alt="player" id="player-img">
+	<div id="player-hp" class="player-hp"></div>  
+  
+  <script>
+    const cards = [
+      { name: "Person 1", category: "Category 1", affirmations: ["Affirmation 1", "Affirmation 2", "Affirmation 3", "Affirmation 4", "Affirmation 5", "Affirmation 6", "Affirmation 7", "Affirmation 8", "Affirmation 9", "Affirmation 10"] },
+      { name: "Person 2", category: "Category 2", affirmations: ["Affirmation 11", "Affirmation 12", "Affirmation 13", "Affirmation 14", "Affirmation 15", "Affirmation 16", "Affirmation 17", "Affirmation 18", "Affirmation 19", "Affirmation 20"] },
+      // ... Add more cards
+    ];
+
+    let selectedCards;
+    let mysteryCard;
+    let score = 10;
+    let playerHP = 100;
+    let bossHP = 100;
+    const propositions = [];
+
+    function selectRandomCards(numCards) {
+      const selectedCards = [];
+      for (let i = 0; i < numCards; i++) {
+        const randomIndex = Math.floor(Math.random() * cards.length);
+        selectedCards.push(cards[randomIndex]);
+      }
+      return selectedCards;
+    }
+
+    function chooseMysteryCard(cards) {
+      const randomIndex = Math.floor(Math.random() * cards.length);
+      return cards[randomIndex];
+    }
+
+    function displayCards() {
+      const cardsContainer = document.getElementById("cards");
+      cardsContainer.innerHTML = "";
+      for (let i = 0; i < selectedCards.length; i++) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.textContent = selectedCards[i].name;
+        cardsContainer.appendChild(card);
+      }
+    }
+
+    function displayAffirmationSelect() {
+      const select = document.getElementById("affirmation-select");
+      select.innerHTML = "";
+      for (let i = 0; i < mysteryCard.affirmations.length; i++) {
+        const option = document.createElement("option");
+        option.value = mysteryCard.affirmations[i];
+        option.textContent = mysteryCard.affirmations[i];
+        select.appendChild(option);
+      }
+    }
+
+    function startGame() {
+      selectedCards = selectRandomCards(15);
+      mysteryCard = chooseMysteryCard(selectedCards);
+      displayCards();
+      displayAffirmationSelect();
+    }
+
+    function checkGuess() {
+      const guessInput = document.getElementById("guess-input");
+      const guess = guessInput.value;
+
+      const affirmationSelect = document.getElementById("affirmation-select");
+      const selectedAffirmation = affirmationSelect.value;
+
+      if (guess.toLowerCase() === mysteryCard.name.toLowerCase()) {
+        score += 10;
+        document.getElementById("result").textContent = "Bravo ! Vous avez trouvé la bonne carte.";
+        animateBullet();
+        killBoss();
+      } else {
+        score = 0;
+        document.getElementById("result").textContent = "Dommage, ce n'est pas la bonne carte.";
+        reducePlayerHP();
+        highlightWrongCards();
+      }
+
+      guessInput.value = "";
+      guessInput.focus();
+
+      score--;
+      if (score === 0) {
+        document.getElementById("result").textContent = "Vous avez perdu !";
+        document.getElementById("guess").style.display = "none";
+      }
+
+      propositions.push(selectedAffirmation);
+      displayPropositions();
+    }
+
+    function animateBullet() {
+      const bullet = document.createElement("div");
+      bullet.className = "bullet";
+      document.body.appendChild(bullet);
+
+      const boss = document.getElementById("boss-img");
+      const bossPosition = boss.getBoundingClientRect();
+
+      bullet.style.top = window.innerHeight - 100 + "px";
+      bullet.style.left = window.innerWidth / 2 + "px";
+
+      setTimeout(function() {
+        bullet.style.transform = `translate(${bossPosition.left - window.innerWidth / 2}px, ${bossPosition.top - 100}px)`;
+        setTimeout(function() {
+          bullet.parentNode.removeChild(bullet);
+        }, 500);
+      }, 100);
+    }
+
+    function killBoss() {
+      bossHP -= 10;
+      document.getElementById("boss-hp").style.width = bossHP + "%";
+      if (bossHP === 0) {
+        document.getElementById("result").textContent = "Félicitations ! Vous avez gagné !";
+        document.getElementById("guess").style.display = "none";
+      }
+    }
+
+    function reducePlayerHP() {
+      playerHP -= 10;
+      document.getElementById("player-hp").style.width = playerHP + "%";
+      if (playerHP === 0) {
+        document.getElementById("result").textContent = "Vous avez perdu !";
+        document.getElementById("guess").style.display = "none";
+      }
+    }
+
+    function highlightWrongCards() {
+      const cardsContainer = document.getElementById("cards");
+      const cardElements = cardsContainer.getElementsByClassName("card");
+      for (let i = 0; i < cardElements.length; i++) {
+        const cardName = cardElements[i].textContent;
+        if (cardName.toLowerCase() !== mysteryCard.name.toLowerCase()) {
+          cardElements[i].classList.add("wrong");
+        }
+      }
+    }
+
+    function displayPropositions() {
+      const propositionsContainer = document.getElementById("propositions-container");
+      propositionsContainer.innerHTML = "";
+      for (let i = 0; i < propositions.length; i++) {
+        const proposition = document.createElement("div");
+        proposition.textContent = propositions[i];
+        propositionsContainer.appendChild(proposition);
+      }
+    }
+
+    startGame();
+  </script>
+</body>
+</html>

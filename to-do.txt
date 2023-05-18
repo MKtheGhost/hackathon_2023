@@ -1,8 +1,7 @@
 TO-DO :
-
  - Titre du jeu
- - choix des evenements à définir selon le sujet
- - fil conducteur du jeu
+ - Choix des evenements
+ - Fil conducteur du jeu
  
 
  TBLR :
@@ -12,4 +11,4 @@ TO-DO :
  
  MK :
  - Musiques et sons
- - personnages et décors
+ - Personnages et décors
