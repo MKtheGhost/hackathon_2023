@@ -65,6 +65,12 @@
         </div>
     </div>
 
+    <div id="affirmation-frame">
+        <h2>Affirmations :</h2>
+        <p id="affirmation"></p>
+        <button onclick="displayRandomAffirmation()">Afficher une autre affirmation</button>
+    </div>
+
     <script>
         // Liste des 50 cartes possibles avec leurs affirmations
         const cards = [
@@ -94,6 +100,31 @@
             { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
             // Ajoutez les autres cartes ici
         ];
+
+        // Liste des affirmations affichées
+        let displayedAffirmations = [];
+
+        // Sélectionne une affirmation aléatoire parmi les affirmations disponibles pour une carte donnée
+        function getRandomAffirmation(card) {
+            const randomIndex = Math.floor(Math.random() * card.affirmations.length);
+            return card.affirmations[randomIndex];
+        }
+
+        // Affiche une affirmation aléatoire dans le cadre
+        function displayRandomAffirmation() {
+            const affirmationElement = document.getElementById("affirmation");
+            const selectedCard = selectedCards[Math.floor(Math.random() * selectedCards.length)];
+            const newAffirmation = getRandomAffirmation(selectedCard);
+
+            // Ajoute la nouvelle affirmation à la liste des affirmations affichées
+            displayedAffirmations.push(newAffirmation);
+
+            // Met à jour le contenu du cadre avec toutes les affirmations affichées
+            affirmationElement.innerHTML = displayedAffirmations.join("<br>");
+
+            // Fait défiler jusqu'en bas pour afficher la dernière affirmation
+            affirmationElement.scrollTop = affirmationElement.scrollHeight;
+        }
 
         // Niveau de difficulté du jeu (1, 2 ou 3)
         const difficultyLevel = 1;
