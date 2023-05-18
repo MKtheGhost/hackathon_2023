@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jeu d'histoire et géographie</title>
+    <style>
+        #game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        #mini-game {
+            height: 40%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #player,
+        #boss {
+            width: 200px;
+            text-align: center;
+        }
+
+        #player img,
+        #boss img {
+            width: 100%;
+            max-height: 200px;
+        }
+
+        #player-health-bar,
+        #boss-health-bar {
+            width: 100%;
+            height: 20px;
+            border: 1px solid #000;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        #player-health,
+        #boss-health {
+            height: 100%;
+            background-color: green;
+        }
+
+        #guesses-container {
+            width: 30%;
+            margin-top: 20px;
+        }
+
+        #guesses-container h2 {
+            text-align: center;
+        }
+
+        #cards-container {
+            width: 70%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .card .card-inner {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card .card-front,
+        .card .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+
+        .card .card-front {
+            background-color: #f2f2f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ccc;
+        }
+
+        .card .card-back {
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotateY(180deg);
+        }
+
+        #result-container {
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+        }
+
+        #result-container h2 {
+            margin-bottom: 10px;
+        }
+
+        #restart-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="mini-game">
+            <div id="player">
+                <h2>Joueur</h2>
+                <img src="personnages/joueur.png" alt="Joueur">
+                <div id="player-health-bar">
+                    <div id="player-health"></div>
+                </div>
+            </div>
+            <div id="boss">
+                <h2>Boss</h2>
+                <img src="personnages/boss1.png" alt="Boss">
+                <div id="boss-health-bar">
+                    <div id="boss-health"></div>
+                </div>
+            </div>
+        </div>
+        <div id="guesses-container">
+            <h2>Affirmations proposées :</h2>
+            <ul id="guesses-list"></ul>
+        </div>
+        <div id="cards-container"></div>
+        <div id="result-container">
+            <h2>Résultat :</h2>
+            <p id="result-text"></p>
+            <button id="restart-button">Rejouer</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
