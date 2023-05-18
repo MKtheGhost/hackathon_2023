@@ -35,11 +35,11 @@
             display: flex;
             justify-content: center;
             gap: 50px;
-            margin-top: 50px;
+            margin-top: 0px;
         }
         .character img {
-            width: 200px;
-            height: 200px;
+            width: 170px;
+            height: 170px;
         }
 
         .card img {
@@ -49,14 +49,9 @@
     </style>
 </head>
 <body>
-    <h1>Jeux des cartes mystères</h1>
-    <div id="game" style="float:right; width:70%">
-        <div id="cards"></div>
-        <div id="result"></div>
-        <div id="score"></div>
-    </div>
-
-    <div id="characters" style="float:left; width:100%">
+    <center><h1>Jeux des cartes mystères</h1></center>
+	
+	<div id="characters" style="float:left; width:100%;">
         <div class="character">
             <img src="personnages/joueur.png" alt="Joueur">
         </div>
@@ -64,8 +59,16 @@
             <img src="personnages/boss1.png" alt="Boss">
         </div>
     </div>
+	
+	
+    <div id="game" style="float:right; width:70%">
+        <div id="cards"></div>
+        <div id="result"></div>
+        <div id="score"></div>
+    </div>
 
     <div id="affirmation-frame">
+		<br>
         <h2>Affirmations :</h2>
         <p id="affirmation"></p>
 		<button id="show-button" onclick="displayRandomAffirmation()">Afficher une autre affirmation</button>
