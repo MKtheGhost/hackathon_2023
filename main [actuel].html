@@ -42,6 +42,15 @@
             margin-top: 0px;
 			margin-bottom:10px;
         }
+		
+		.joueur {
+			margin-left:-270%;
+		}
+		
+		.boss {
+			margin-left:270%;
+		}
+		
         .character img {
             width: 150px;
             height: 150px;
@@ -63,11 +72,11 @@
     <div id="characters" style="float:left; width:100%; background-image:url('fonds/mini_jeu.PNG'); background-size:cover;">
 		<!-- <img src="fonds/mini_jeu.PNG"> -->
         <div class="character">
-            <img src="personnages/joueur.png" alt="Joueur">
+            <img src="personnages/joueur.png" class="joueur" alt="Joueur">
         </div>
 
         <div class="character">
-            <img src="personnages/boss1.png" alt="Boss">
+            <img src="personnages/boss1.png" class="boss" alt="Boss">
         </div>
     </div>
 
@@ -256,7 +265,7 @@
 
 				// Ajoute un gestionnaire d'événements de clic à chaque carte
 				cardElement.addEventListener("click", function() {
-					makeImageGray(imageElement);
+					changeImage(imageElement);
 					checkGuess(card);
 				});
 				
@@ -265,11 +274,10 @@
             }
         }
 		
-		// Rend l'image en niveaux de gris
-		function makeImageGray(imageElement) {
-			imageElement.style.filter = "grayscale(100%)";
+		// Change l'image par une nouvelle image
+		function changeImage(imageElement) {
+			imageElement.src = "cartes/dos.png";
 		}
-
 		
         // Affiche le résultat de la partie
         function displayResult(message) {
