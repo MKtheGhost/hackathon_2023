@@ -205,79 +205,83 @@
 		let playerScore = 10;
 		let bossScore = 10;
 
-        // Sélectionne une affirmation aléatoire parmi les affirmations disponibles pour une carte donnée
-        function getRandomAffirmation(card) {
-            const availableAffirmations = card.affirmations.filter(affirmation => !displayedAffirmations.includes(affirmation));
-            const randomIndex = Math.floor(Math.random() * availableAffirmations.length);
-            return availableAffirmations[randomIndex];
-        }
+        // Sélectionne une carte aléatoire parmi les cartes disponibles
+function getRandomCard() {
+  const randomIndex = Math.floor(Math.random() * cards.length);
+  return cards[randomIndex];
+}
 
-        // Affiche une affirmation aléatoire dans le cadre
-		function displayRandomAffirmation() {
-			const affirmationElement = document.getElementById("affirmation");
-			const showButtonElement = document.getElementById("show-button");
-			
-			const randomIndex = Math.floor(Math.random() * cards.length);
-			const selectedCard = cards[randomIndex];
-			
-			let newAffirmation = getRandomAffirmation(selectedCard);
+// Sélectionne une affirmation aléatoire parmi les affirmations disponibles pour une carte donnée
+function getRandomAffirmation(card) {
+  const availableAffirmations = card.affirmations.filter(affirmation => !displayedAffirmations.includes(affirmation));
+  const randomIndex = Math.floor(Math.random() * availableAffirmations.length);
+  return availableAffirmations[randomIndex];
+}
 
+// Affiche une affirmation aléatoire dans le cadre
+function displayRandomAffirmation() {
+  const affirmationElement = document.getElementById("affirmation");
+  const showButtonElement = document.getElementById("show-button");
+  
+  const selectedCard = getRandomCard();
+  let newAffirmation = getRandomAffirmation(selectedCard);
 
-			// Vérifie si l'affirmation sélectionnée a déjà été affichée
-			while (displayedAffirmations.includes(newAffirmation)){
-			  newAffirmation = getRandomAffirmation(selectedCard);
-			}
+  // Vérifie si l'affirmation sélectionnée a déjà été affichée
+  while (displayedAffirmations.includes(newAffirmation)){
+    newAffirmation = getRandomAffirmation(selectedCard);
+  }
 
-			// Ajoute la nouvelle affirmation à la liste des affirmations affichées
-			displayedAffirmations.push(newAffirmation);
+  // Ajoute la nouvelle affirmation à la liste des affirmations affichées
+  displayedAffirmations.push(newAffirmation);
 
-			// Met à jour le contenu du cadre avec toutes les affirmations affichées
-			affirmationElement.innerHTML = displayedAffirmations.join("<br>");
+  // Met à jour le contenu du cadre avec toutes les affirmations affichées
+  affirmationElement.innerHTML = displayedAffirmations.join("<br>");
 
-			// Fait défiler jusqu'en bas pour afficher la dernière affirmation
-			affirmationElement.scrollTop = affirmationElement.scrollHeight;
+  // Fait défiler jusqu'en bas pour afficher la dernière affirmation
+  affirmationElement.scrollTop = affirmationElement.scrollHeight;
 
-			// Vérifie si le nombre maximal d'affirmations est atteint
-			if (displayedAffirmations.length >= 10) {
-				showButtonElement.disabled = true;
-			}
+  // Vérifie si le nombre maximal d'affirmations est atteint
+  if (displayedAffirmations.length >= 10) {
+    showButtonElement.disabled = true;
+  }
 
-			// Diminue le score du joueur de 1
-			playerScore -= 1;
+  // Diminue le score du joueur de 1
+  playerScore -= 1;
 
-			// Met à jour la barre de vie du joueur
-			const playerHealthBar = document.getElementById("player-health");
-			const playerHealthBarSpan = playerHealthBar.querySelector("span");
-			const playerHealthPercentage = (playerScore / 10) * 100;
-			playerHealthBarSpan.style.width = playerHealthPercentage + "%";			
-			
-			const bossElement = document.querySelector(".boss");
-			const playerElement = document.querySelector(".joueur");
-			const redDot = document.createElement("div");
-			redDot.className = "red-dot";
-			document.body.appendChild(redDot);
+  // Met à jour la barre de vie du joueur
+  const playerHealthBar = document.getElementById("player-health");
+  const playerHealthBarSpan = playerHealthBar.querySelector("span");
+  const playerHealthPercentage = (playerScore / 10) * 100;
+  playerHealthBarSpan.style.width = playerHealthPercentage + "%";			
+  
+  const bossElement = document.querySelector(".boss");
+  const playerElement = document.querySelector(".joueur");
+  const redDot = document.createElement("div");
+  redDot.className = "red-dot";
+  document.body.appendChild(redDot);
 
-			const bossPosition = bossElement.getBoundingClientRect();
-			const playerPosition = playerElement.getBoundingClientRect();
-			const dotPosition = {
-				top: bossPosition.top + bossPosition.height / 2 - redDot.offsetHeight / 2,
-				left: bossPosition.left + bossPosition.width / 2 - redDot.offsetWidth / 2
-			};
-			redDot.style.top = dotPosition.top + "px";
-			redDot.style.left = dotPosition.left + "px";
+  const bossPosition = bossElement.getBoundingClientRect();
+  const playerPosition = playerElement.getBoundingClientRect();
+  const dotPosition = {
+    top: bossPosition.top + bossPosition.height / 2 - redDot.offsetHeight / 2,
+    left: bossPosition.left + bossPosition.width / 2 - redDot.offsetWidth / 2
+  };
+  redDot.style.top = dotPosition.top + "px";
+  redDot.style.left = dotPosition.left + "px";
 
-			setTimeout(() => {
-				redDot.style.top = playerPosition.top + playerPosition.height / 2 - redDot.offsetHeight / 2 + "px";
-				redDot.style.left = playerPosition.left + playerPosition.width / 2 - redDot.offsetWidth / 2 + "px";
-				setTimeout(() => {
-					redDot.remove();
-					playerScoreElement.textContent = score;
-					if (score === 0) {
-						displayResult(`Dommage ! Vous avez perdu la partie, l'événement était : ${mysteryCard.eventName}`);
-					}
-				}, 1000);
-			}, 10);
-		}
+  setTimeout(() => {
+    redDot.style.top = playerPosition.top + playerPosition.height / 2 - redDot.offsetHeight / 2 + "px";
+    redDot.style.left = playerPosition.left + playerPosition.width / 2 - redDot.offsetWidth / 2 + "px";
+    setTimeout(() => {
+      redDot.remove();
+      playerScoreElement.textContent = score;
+      if (score === 0) {
+        displayResult(`Dommage ! Vous avez perdu la partie, l'événement était : ${mysteryCard.eventName}`);
+      }
+    }, 1000);
+  }, 10);
+}
+
 
 		// Fonction pour valider le nom de l'évènement
 		function validateEventName() {
