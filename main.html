@@ -4,15 +4,6 @@
   <title>Qui est-ce ?</title>
   <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
   <style>
-    body {
-      background-image: url("background.jpg");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      margin: 0;
-      padding: 0;
-    }
-
     .game-container {
       position: relative;
       width: 100%;
@@ -72,7 +63,7 @@
       margin-bottom: 20px;
     }
 	
-	#player-hp {
+	.player-hp {
 	  background-color: green;
 	  height: 20px;
 	  width: 100%;
@@ -108,13 +99,6 @@
 	  border-radius: 50%;
 	  transition: transform 0.5s;
 	}
-	
-	.game-boss-background {
-      background-image: url("fonds/mini_jeu.png");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
   </style>
 </head>
 <body>
@@ -134,15 +118,15 @@
     <h2>Affirmations proposées</h2>
     <div id="propositions-container"></div>
   </div>
-  <div id="game-boss-background">
-  <div id="boss">
+
+	<div id="boss">
     <img src="personnages/boss1.png" alt="Boss" id="boss-img">
     <div id="boss-hp"></div>
   </div>
+  
   <img src="personnages/joueur.png" alt="player" id="player-img">
-  <div id="player-hp"></div>
-  </div>
-
+	<div id="player-hp" class="player-hp"></div>  
+  
   <script>
     const cards = [
       { name: "Person 1", category: "Category 1", affirmations: ["Affirmation 1", "Affirmation 2", "Affirmation 3", "Affirmation 4", "Affirmation 5", "Affirmation 6", "Affirmation 7", "Affirmation 8", "Affirmation 9", "Affirmation 10"] },
