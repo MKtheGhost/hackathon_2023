@@ -220,9 +220,8 @@
 			let newAffirmation = getRandomAffirmation(selectedCard);
 
 			// Vérifie si l'affirmation sélectionnée a déjà été affichée
-			while (displayedAffirmations.includes(newAffirmation)) {
-				// Sélectionne une nouvelle affirmation aléatoire
-				newAffirmation = getRandomAffirmation(selectedCard);
+			while (displayedAffirmations.includes(newAffirmation) || !selectedCard.affirmations.includes(newAffirmation)) {
+			  newAffirmation = getRandomAffirmation(selectedCard);
 			}
 
 			// Ajoute la nouvelle affirmation à la liste des affirmations affichées
