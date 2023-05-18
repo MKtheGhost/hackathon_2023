@@ -216,11 +216,15 @@
 		function displayRandomAffirmation() {
 			const affirmationElement = document.getElementById("affirmation");
 			const showButtonElement = document.getElementById("show-button");
-			const selectedCard = selectedCards[Math.floor(Math.random() * selectedCards.length)];
+			
+			const randomIndex = Math.floor(Math.random() * cards.length);
+			const selectedCard = cards[randomIndex];
+			
 			let newAffirmation = getRandomAffirmation(selectedCard);
 
+
 			// Vérifie si l'affirmation sélectionnée a déjà été affichée
-			while (displayedAffirmations.includes(newAffirmation) || !selectedCard.affirmations.includes(newAffirmation)) {
+			while (displayedAffirmations.includes(newAffirmation)){
 			  newAffirmation = getRandomAffirmation(selectedCard);
 			}
 
