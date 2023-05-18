@@ -50,19 +50,19 @@
 </head>
 <body>
     <center><h1>Jeux des cartes mystères</h1></center>
-	
-	<div id="characters" style="float:left; width:100%;">
-	
+
+    <div id="characters" style="float:left; width:100%;">
+
         <div class="character">
             <img src="personnages/joueur.png" alt="Joueur">
         </div>
-		
+
         <div class="character">
             <img src="personnages/boss1.png" alt="Boss">
         </div>
     </div>
-	
-	
+
+
     <div id="game" style="float:right; width:70%">
         <div id="cards"></div>
         <div id="result"></div>
@@ -70,16 +70,17 @@
     </div>
 
     <div id="affirmation-frame">
-		<br>
+        <br>
         <h2>Affirmations :</h2>
         <p id="affirmation"></p>
-		<button id="show-button" onclick="displayRandomAffirmation()">Afficher une autre affirmation</button>
+        <input type="text" id="eventName" placeholder="Nom de l'événement">
+        <button id="show-button" onclick="displayRandomAffirmation()">Afficher une autre affirmation</button>
     </div>
 
     <script>
         // Liste des 50 cartes possibles avec leurs affirmations
         const cards = [
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 2"] },
+            { imageUrl: "cartes/1.png", eventName:"1", affirmations: ["Affirmation 1", "Affirmation 2"] },
             { imageUrl: "cartes/1.png", affirmations: ["Affirmation 3", "Affirmation 4"] },
             { imageUrl: "cartes/1.png", affirmations: ["Affirmation 5", "Affirmation 6"] },
             { imageUrl: "cartes/1.png", affirmations: ["Affirmation 7", "Affirmation 8"] },
@@ -127,11 +128,11 @@
             const selectedCard = selectedCards[Math.floor(Math.random() * selectedCards.length)];
             let newAffirmation = getRandomAffirmation(selectedCard);
 
-			// Vérifie si l'affirmation sélectionnée a déjà été affichée
-			while (displayedAffirmations.includes(newAffirmation)) {
-				// Sélectionne une nouvelle affirmation aléatoire
-				newAffirmation = getRandomAffirmation(selectedCard);
-			}
+            // Vérifie si l'affirmation sélectionnée a déjà été affichée
+            while (displayedAffirmations.includes(newAffirmation)) {
+                // Sélectionne une nouvelle affirmation aléatoire
+                newAffirmation = getRandomAffirmation(selectedCard);
+            }
 
             // Ajoute la nouvelle affirmation à la liste des affirmations affichées
             displayedAffirmations.push(newAffirmation);
@@ -213,7 +214,7 @@
         function checkGuess(card) {
             if (card === mysteryCard) {
                 // Supposition correcte, le joueur gagne la partie
-                displayResult("Félicitations ! Vous avez gagné la partie !");
+                displayResult(`Félicitations ! Vous avez gagné la partie pour l'événement : ${card.eventName}`);
             } else {
                 // Supposition incorrecte, le joueur perd des points
                 score--;
@@ -221,31 +222,49 @@
 
                 // Vérifie si le joueur a perdu
                 if (score === 0) {
-                    displayResult("Dommage ! Vous avez perdu la partie.");
+                    displayResult(`Dommage ! Vous avez perdu la partie pour l'événement : ${mysteryCard.eventName}`);
                 }
             }
         }
 
-        // Affiche le résultat du tour de jeu
+        // Affiche le résultat de la partie
         function displayResult(message) {
             const resultElement = document.getElementById("result");
             resultElement.textContent = message;
+
+            // Désactive les cartes pour empêcher le joueur de continuer à jouer
+            const cardsElement = document.getElementById("cards");
+            cardsElement.style.pointerEvents = "none";
         }
 
-        // Met à jour le score affiché
+        // Met à jour le score du joueur
         function updateScore() {
             const scoreElement = document.getElementById("score");
-            scoreElement.textContent = "Score : " + score;
+            scoreElement.textContent = `Score : ${score}`;
         }
 
-        // Démarre le jeu
-        function startGame() {
+        // Initialise le jeu
+        function initializeGame() {
+            // Réinitialise les affirmations affichées et le score
+            displayedAffirmations = [];
+            score = 10;
+
+            // Réactive les cartes pour permettre au joueur de jouer à nouveau
+            const cardsElement = document.getElementById("cards");
+            cardsElement.style.pointerEvents = "auto";
+
+            // Affiche les cartes et sélectionne une carte mystère
             selectCards();
+
+            // Réinitialise le résultat et le score affichés
+            const resultElement = document.getElementById("result");
+            resultElement.textContent = "";
+
             updateScore();
         }
 
-        // Lance le jeu au chargement de la page
-        startGame();
+        // Initialise le jeu au chargement de la page
+        window.onload = initializeGame;
     </script>
 </body>
 </html>
