@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Qui est-ce ?</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
   <style>
     body {
       background-image: url("background.jpg");
@@ -23,15 +23,39 @@
       margin: 0 auto;
     }
 
-    #guess {
-      width: 70%;
-      margin: 0 auto;
-    }
-
     #propositions {
       width: 30%;
       margin: 0 auto;
     }
+
+	#cards {
+	  display: flex;
+	  justify-content: center;
+	  margin-top: 50px;
+	}
+
+	.card {
+	  width: 80px;
+	  height: 120px;
+	  background-color: #ccc;
+	  border: 1px solid #000;
+	  margin: 0 10px;
+	}
+
+	#guess {
+	  text-align: center;
+	  margin-top: 20px;
+	}
+
+	#result {
+	  text-align: center;
+	  margin-top: 20px;
+	}
+
+	h2 {
+	  text-align: center;
+	  margin-top: 40px;
+	}
 
     #boss {
       position: absolute;
@@ -39,25 +63,44 @@
       left: 20px;
     }
 
-    #player-hp {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-    }
-
     #player-img {
       position: absolute;
       top: 20px;
       left: 20px;
+	  width: 200px;
+	  height: 200px;
+      margin-bottom: 20px;
     }
+	#player-hp {
+	  background-color: green;
+	  height: 20px;
+	  width: 100%;
+	  margin-bottom: 20px;
+	}
 
-    .bullet {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background-color: red;
-      border-radius: 50%;
-    }
+	#boss-img {
+	  width: 200px;
+	  height: 200px;
+	  margin-bottom: 20px;
+	}
+
+	#boss-hp {
+	  background-color: red;
+	  height: 20px;
+	  width: 100%;
+	  margin-bottom: 20px;
+	}
+
+	.bullet {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 20px;
+	  height: 20px;
+	  background-color: red;
+	  border-radius: 50%;
+	  transition: transform 0.5s;
+	}
   </style>
 </head>
 <body>
@@ -85,7 +128,6 @@
   <img src="personnages/joueur.png" alt="player" id="player-img">
   <div id="player-hp"></div>
 
-  <script src="script.js"></script>  
   <script>
     const cards = [
       { name: "Person 1", category: "Category 1", affirmations: ["Affirmation 1", "Affirmation 2", "Affirmation 3", "Affirmation 4", "Affirmation 5", "Affirmation 6", "Affirmation 7", "Affirmation 8", "Affirmation 9", "Affirmation 10"] },
