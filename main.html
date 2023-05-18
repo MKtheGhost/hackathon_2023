@@ -109,12 +109,12 @@
 	  transition: transform 0.5s;
 	}
 	
-	.game-background {
-    background-image: url("background.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
+	.game-boss-background {
+      background-image: url("fonds/mini_jeu.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
   </style>
 </head>
 <body>
@@ -134,13 +134,14 @@
     <h2>Affirmations proposées</h2>
     <div id="propositions-container"></div>
   </div>
-  
+  <div id="game-boss-background">
   <div id="boss">
     <img src="personnages/boss1.png" alt="Boss" id="boss-img">
     <div id="boss-hp"></div>
   </div>
   <img src="personnages/joueur.png" alt="player" id="player-img">
   <div id="player-hp"></div>
+  </div>
 
   <script>
     const cards = [
