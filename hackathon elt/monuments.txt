@@ -20,7 +20,7 @@ golden gate, san francisco
 
 grande muraille de chine
 - en asie
--monumetn historique
+-monument historique
 - IIIe siecle à XVIIe siecle
 
 the gherkin
@@ -35,7 +35,7 @@ panthéon, rome
 
 parthénon
 - en europe
--monument historique
+-monument religieux
 - IIeme siecle
 
 tour eiffel

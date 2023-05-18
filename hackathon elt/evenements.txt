@@ -4,19 +4,19 @@ EVENEMENTS
 
 Fin de l'empire romain d'occident
 - Ve siecle
--important pour Rome
+- important pour Rome
 
 Bapteme de Clovis
 - VIe siecle
--important dans l'histoire des français
+- important dans l'histoire des français
 
 Exécution de Louis XVI
 - XVIIIe siecle
--important dans l'histoire des français
+- important dans l'histoire des français
 
 Coup d'état du 18 Brumaire
 - XVIIIe siecle
--important dans l'histoire des français
+- important dans l'histoire des français
 
 Révolution bolchévik
 - XXe siecle
@@ -29,12 +29,13 @@ Création de l'ONU
 - XXe siecle
 
 Fondation de la Ve République
--XXe siecle
--important dans l'histoire des français
+- XXe siecle
+- important dans l'histoire des français
 
 Crise de Cuba
 - XXe siecle
--
+- implique les grandes puissance de la guerre froide
 
 Chute du mur de berlin
--XXe siecle
+- XXe siecle
+
