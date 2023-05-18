@@ -118,21 +118,19 @@
     <center><h1 style="font-size:20px">Jeux des cartes mystères</h1></center>
 
     <div id="characters" style="float:left; width:100%; background-image:url('fonds/mini_jeu.PNG'); background-size:cover;">
-		<!-- <img src="fonds/mini_jeu.PNG"> -->
         <div class="character">
-		<div id="player-health" class="health-bar-player"><span id="player-score">10</span></div>		
+		<div id="player-health" class="health-bar-player" style="font-size:11px;"><span id="player-score">&nbsp;10</span></div>		
             <img src="personnages/joueur.png" class="joueur" alt="Joueur">
         </div>
 
         <div class="character">
-		<div id="boss-health" class="health-bar-boss"><span id="boss-score">10</span></div>
+		<div id="boss-health" class="health-bar-boss" style="font-size:11px;"><span id="boss-score">&nbsp;10</span></div>
             <img src="personnages/boss1.png" class="boss" alt="Boss">
         </div>
     </div>
 
     <div id="game" style="float:right; width:70%">
         <div id="cards"></div>
-        
     </div>
 
     <div id="affirmation-frame" style="margin-left:1.5%">
@@ -143,7 +141,6 @@
         <input type="text" id="eventName" placeholder="Nom de l'événement">
 		<button id="validate-button" onclick="validateEventName()">Valider</button>
         <button id="show-button" onclick="displayRandomAffirmation()">Afficher une autre affirmation</button>
-		<div id="score"></div>
     </div>
 
     <script>
@@ -216,35 +213,41 @@
         }
 
         // Affiche une affirmation aléatoire dans le cadre
-        function displayRandomAffirmation() {
-            const affirmationElement = document.getElementById("affirmation");
-            const showButtonElement = document.getElementById("show-button");
-            const selectedCard = selectedCards[Math.floor(Math.random() * selectedCards.length)];
-            let newAffirmation = getRandomAffirmation(selectedCard);
+		function displayRandomAffirmation() {
+			const affirmationElement = document.getElementById("affirmation");
+			const showButtonElement = document.getElementById("show-button");
+			const selectedCard = selectedCards[Math.floor(Math.random() * selectedCards.length)];
+			let newAffirmation = getRandomAffirmation(selectedCard);
 
-            // Vérifie si l'affirmation sélectionnée a déjà été affichée
-            while (displayedAffirmations.includes(newAffirmation)) {
-                // Sélectionne une nouvelle affirmation aléatoire
-                newAffirmation = getRandomAffirmation(selectedCard);
-            }
+			// Vérifie si l'affirmation sélectionnée a déjà été affichée
+			while (displayedAffirmations.includes(newAffirmation)) {
+				// Sélectionne une nouvelle affirmation aléatoire
+				newAffirmation = getRandomAffirmation(selectedCard);
+			}
 
-            // Ajoute la nouvelle affirmation à la liste des affirmations affichées
-            displayedAffirmations.push(newAffirmation);
+			// Ajoute la nouvelle affirmation à la liste des affirmations affichées
+			displayedAffirmations.push(newAffirmation);
 
-            // Met à jour le contenu du cadre avec toutes les affirmations affichées
-            affirmationElement.innerHTML = displayedAffirmations.join("<br>");
+			// Met à jour le contenu du cadre avec toutes les affirmations affichées
+			affirmationElement.innerHTML = displayedAffirmations.join("<br>");
 
-            // Fait défiler jusqu'en bas pour afficher la dernière affirmation
-            affirmationElement.scrollTop = affirmationElement.scrollHeight;
+			// Fait défiler jusqu'en bas pour afficher la dernière affirmation
+			affirmationElement.scrollTop = affirmationElement.scrollHeight;
 
-            // Vérifie si le nombre maximal d'affirmations est atteint
-            if (displayedAffirmations.length >= 10) {
-                showButtonElement.disabled = true;
-            }
-			
+			// Vérifie si le nombre maximal d'affirmations est atteint
+			if (displayedAffirmations.length >= 10) {
+				showButtonElement.disabled = true;
+			}
+
 			// Diminue le score du joueur de 1
-            score--;
+			playerScore -= 1;
 
+			// Met à jour la barre de vie du joueur
+			const playerHealthBar = document.getElementById("player-health");
+			const playerHealthBarSpan = playerHealthBar.querySelector("span");
+			const playerHealthPercentage = (playerScore / 10) * 100;
+			playerHealthBarSpan.style.width = playerHealthPercentage + "%";			
+			
 			const bossElement = document.querySelector(".boss");
 			const playerElement = document.querySelector(".joueur");
 			const redDot = document.createElement("div");
@@ -271,16 +274,8 @@
 					}
 				}, 1000);
 			}, 10);
+		}
 
-			const playerScoreElement = document.getElementById("player-score");
-				playerScoreElement.textContent = score;
-            updateScore();
-			// Vérifie si le joueur a perdu
-			if (score === 0) {
-				displayResult(`Dommage ! Vous avez perdu la partie, l'événement était : ${mysteryCard.eventName}`);
-			}
-        }
-		
 		// Fonction pour valider le nom de l'évènement
 		function validateEventName() {
 			const eventNameElement = document.getElementById("eventName");
