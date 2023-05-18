@@ -1,366 +1,198 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Jeu d'histoire et géographie</title>
+    <title>Jeux des cartes mystères</title>
     <style>
-        #game-container {
+        #game {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            font-family: Arial, sans-serif;
+            padding: 20px;
         }
-
-        #mini-game {
-            height: 40%;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #player,
-        #boss {
-            width: 200px;
-            text-align: center;
-        }
-
-        #player img,
-        #boss img {
-            width: 100%;
-            max-height: 200px;
-        }
-
-        #player-health-bar,
-        #boss-health-bar {
-            width: 100%;
-            height: 20px;
-            border: 1px solid #000;
-            margin-top: 10px;
-            overflow: hidden;
-        }
-
-        #player-health,
-        #boss-health {
-            height: 100%;
-            background-color: green;
-        }
-
-        #guesses-container {
-            width: 30%;
-            margin-top: 20px;
-        }
-
-        #guesses-container h2 {
-            text-align: center;
-        }
-
-        #cards-container {
-            width: 70%;
+        #cards {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            gap: 10px;
         }
-
         .card {
             width: 100px;
-            height: 100px;
-            margin: 10px;
-            perspective: 1000px;
+            height: 150px;
+            border: None;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
         }
-
-        .card .card-inner {
-            width: 100%;
-            height: 100%;
-            transition: transform 0.5s;
-            transform-style: preserve-3d;
-        }
-
-        .card.flipped .card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .card .card-front,
-        .card .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-        }
-
-        .card .card-front {
-            background-color: #f2f2f2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #ccc;
-        }
-
-        .card .card-back {
-            background-color: #333;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: rotateY(180deg);
-        }
-
-        #result-container {
+        #result {
             margin-top: 20px;
-            display: none;
-            text-align: center;
+            font-weight: bold;
+        }
+        #score {
+            margin-top: 10px;
+        }
+        #characters {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 50px;
+        }
+        .character img {
+            width: 200px;
+            height: 200px;
         }
 
-        #result-container h2 {
-            margin-bottom: 10px;
-        }
-
-        #restart-button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            cursor: pointer;
+        .card img {
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
 <body>
-    <div id="game-container">
-        <div id="mini-game">
-            <div id="player">
-                <h2>Joueur</h2>
-                <img src="personnages/joueur.png" alt="Joueur">
-                <div id="player-health-bar">
-                    <div id="player-health"></div>
-                </div>
-            </div>
-            <div id="boss">
-                <h2>Boss</h2>
-                <img src="personnages/boss1.png" alt="Boss">
-                <div id="boss-health-bar">
-                    <div id="boss-health"></div>
-                </div>
-            </div>
+    <h1>Jeux des cartes mystères</h1>
+    <div id="game">
+        <div id="cards"></div>
+        <div id="result"></div>
+        <div id="score"></div>
+    </div>
+
+    <div id="characters">
+        <div class="character">
+            <img src="personnages/joueur.png" alt="Joueur">
         </div>
-
-        <div id="guesses-container">
-            <h2>Mes réponses :</h2>
-            <ul id="guesses-list"></ul>
-        </div>
-
-        <div id="cards-container"></div>
-
-        <div id="result-container">
-            <h2 id="result-message"></h2>
-            <button id="restart-button">Rejouer</button>
+        <div class="character">
+            <img src="personnages/boss1.png" alt="Boss">
         </div>
     </div>
 
     <script>
-        // Exemple de données pour les cartes
-        const countries = [
-            { name: "a", flag: "cartes/1.png" },
-            { name: "b", flag: "cartes/1.png" },
-            { name: "c", flag: "cartes/1.png" },
-            { name: "d", flag: "cartes/1.png" },
-            { name: "e", flag: "germany.png" },
-            // Ajoutez d'autres pays ici
+        // Liste des 50 cartes possibles avec leurs affirmations
+        const cards = [
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 2", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 3", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 3", "Affirmation 2", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            // Ajoutez les autres cartes ici
         ];
 
-        // Exemple de données pour les affirmations
-        const affirmations = [
-            "a",
-            "b",
-            "c",
-            "d",
-            "e",
-            // Ajoutez d'autres affirmations ici
-        ];
+        // Niveau de difficulté du jeu (1, 2 ou 3)
+        const difficultyLevel = 1;
 
-        // Variables de jeu
+        // Nombre de cartes à sélectionner pour le jeu
+        const numCards = 15;
+
+        // Carte mystère à deviner
+        let mysteryCard;
+
+        // Cartes sélectionnées pour le jeu
         let selectedCards = [];
-        let mysteryCard = null;
-        let guesses = [];
+
+        // Score du joueur
         let score = 10;
 
-        // Fonction pour sélectionner les cartes du jeu
+        // Sélectionne les cartes pour le jeu
         function selectCards() {
-            const selectedCountries = getRandomItems(countries, 15);
-            const selectedAffirmations = getRandomItems(affirmations, 150); // 10 affirmations pour chaque carte
+            // Réinitialise les cartes sélectionnées
+            selectedCards = [];
 
-            selectedCards = selectedCountries.map((country, index) => {
-                const cardAffirmations = selectedAffirmations.slice(index * 10, (index + 1) * 10);
+            // Sélectionne les cartes au hasard
+            let availableCards = cards.slice(); // Copie de la liste des cartes
+            for (let i = 0; i < numCards; i++) {
+                const randomIndex = Math.floor(Math.random() * availableCards.length);
+                const selectedCard = availableCards.splice(randomIndex, 1)[0];
+                selectedCards.push(selectedCard);
+            }
 
-                return {
-                    country: country,
-                    flag: country.flag,
-                    affirmations: cardAffirmations,
-                    flipped: false
-                };
-            });
-
+            // Choisis une carte mystère parmi les cartes sélectionnées
             mysteryCard = selectedCards[Math.floor(Math.random() * selectedCards.length)];
+
+            // Affiche les cartes sur le plateau de jeu
+            displayCards();
         }
 
-        // Fonction pour obtenir des éléments aléatoires d'un tableau
-        function getRandomItems(array, count) {
-            const shuffled = array.sort(() => Math.random() - 0.5);
-            return shuffled.slice(0, count);
-        }
+        // Affiche les cartes sur le plateau de jeu
+        function displayCards() {
+            const cardsElement = document.getElementById("cards");
+            cardsElement.innerHTML = "";
 
-        // Fonction pour afficher les cartes
-        function renderCards() {
-            const cardsContainer = document.getElementById("cards-container");
-            cardsContainer.innerHTML = "";
+            for (let i = 0; i < selectedCards.length; i++) {
+                const card = selectedCards[i];
 
-            selectedCards.forEach((card, index) => {
                 const cardElement = document.createElement("div");
                 cardElement.className = "card";
-                if (card.flipped) {
-                    cardElement.classList.add("flipped");
-                }
-                cardElement.addEventListener("click", () => flipCard(index));
 
-                const cardInnerElement = document.createElement("div");
-                cardInnerElement.className = "card-inner";
+                const imageElement = document.createElement("img");
+                imageElement.src = card.imageUrl; // Utilisez la propriété imageUrl de la carte
+                imageElement.setAttribute("alt", "Carte"); // Ajoutez l'attribut alt pour l'accessibilité
+                imageElement.style.width = "100%"; // Ajuste la largeur de l'image à 100% de la carte
 
-                const frontElement = document.createElement("div");
-                frontElement.className = "card-front";
-                frontElement.style.backgroundImage = `url(${card.flag})`;
+                cardElement.appendChild(imageElement);
 
-                const backElement = document.createElement("div");
-                backElement.className = "card-back";
-                backElement.innerText = card.affirmations[0]; // Affiche la première affirmation de la carte
+                cardElement.addEventListener("click", () => {
+                    checkGuess(card);
+                });
 
-                cardInnerElement.appendChild(frontElement);
-                cardInnerElement.appendChild(backElement);
-                cardElement.appendChild(cardInnerElement);
-                cardsContainer.appendChild(cardElement);
-            });
-        }
-
-        // Fonction pour retourner une carte
-        function flipCard(index) {
-            if (selectedCards[index].flipped) {
-                return;
-            }
-
-            selectedCards[index].flipped = true;
-            renderCards();
-
-            guesses.push(selectedCards[index]);
-
-            if (guesses.length === 2) {
-                checkGuess();
+                cardsElement.appendChild(cardElement);
             }
         }
 
-        // Fonction pour vérifier les réponses
-        function checkGuess() {
-            const guess1 = guesses[0];
-            const guess2 = guesses[1];
-
-            if (guess1.country.name === guess2.country.name) {
-                handleCorrectGuess();
+        // Vérifie la supposition du joueur
+        function checkGuess(card) {
+            if (card === mysteryCard) {
+                // Supposition correcte, le joueur gagne la partie
+                displayResult("Félicitations ! Vous avez gagné la partie !");
             } else {
-                handleIncorrectGuess();
-            }
-        }
+                // Supposition incorrecte, le joueur perd des points
+                score--;
+                updateScore();
 
-        // Fonction en cas de réponse correcte
-        function handleCorrectGuess() {
-            document.getElementById("guesses-list").innerHTML = "";
-            guesses.forEach((guess) => {
-                const li = document.createElement("li");
-                li.innerText = guess.affirmations[0]; // Affiche la première affirmation de chaque carte
-                document.getElementById("guesses-list").appendChild(li);
-            });
-
-            document.getElementById("result-message").innerText = "Bonne réponse !";
-            document.getElementById("result-container").style.display = "block";
-
-            // Réinitialise les variables de jeu
-            selectedCards.forEach((card) => {
-                if (!card.flipped) {
-                    card.flipped = true;
+                // Vérifie si le joueur a perdu
+                if (score === 0) {
+                    displayResult("Dommage ! Vous avez perdu la partie.");
                 }
-            });
-            renderCards();
-            guesses = [];
-        }
-
-        // Fonction en cas de réponse incorrecte
-        function handleIncorrectGuess() {
-            document.getElementById("guesses-list").innerHTML = "";
-            guesses.forEach((guess) => {
-                const li = document.createElement("li");
-                li.innerText = guess.affirmations[0]; // Affiche la première affirmation de chaque carte
-                document.getElementById("guesses-list").appendChild(li);
-            });
-
-            document.getElementById("result-message").innerText = "Mauvaise réponse...";
-            document.getElementById("result-container").style.display = "block";
-
-            // Diminue le score et met à jour la barre de santé du joueur
-            score--;
-            const playerHealth = (score / 10) * 100;
-            document.getElementById("player-health").style.width = playerHealth + "%";
-
-            // Réinitialise les variables de jeu
-            selectedCards.forEach((card) => {
-                if (!card.flipped) {
-                    card.flipped = true;
-                }
-            });
-            renderCards();
-            guesses = [];
-
-            if (score === 0) {
-                handleGameOver();
             }
         }
 
-        // Fonction en cas de fin de partie
-        function handleGameOver() {
-            document.getElementById("result-message").innerText = "Partie terminée. Vous avez perdu !";
-            document.getElementById("result-container").style.display = "block";
-
-            // Désactive les cartes pour empêcher les interactions
-            const cards = document.getElementsByClassName("card");
-            for (let i = 0; i < cards.length; i++) {
-                cards[i].removeEventListener("click", () => flipCard(i));
-                cards[i].style.cursor = "default";
-            }
+        // Affiche le résultat du tour de jeu
+        function displayResult(message) {
+            const resultElement = document.getElementById("result");
+            resultElement.textContent = message;
         }
 
-        // Fonction pour redémarrer le jeu
-        function restartGame() {
-            selectedCards.forEach((card) => {
-                card.flipped = false;
-            });
+        // Met à jour le score affiché
+        function updateScore() {
+            const scoreElement = document.getElementById("score");
+            scoreElement.textContent = "Score : " + score;
+        }
 
+        // Démarre le jeu
+        function startGame() {
             selectCards();
-            renderCards();
-
-            document.getElementById("result-container").style.display = "none";
-            score = 10;
-            document.getElementById("player-health").style.width = "100%";
-
-            const cards = document.getElementsByClassName("card");
-            for (let i = 0; i < cards.length; i++) {
-                cards[i].addEventListener("click", () => flipCard(i));
-                cards[i].style.cursor = "pointer";
-            }
+            updateScore();
         }
 
-        // Sélectionne les cartes et affiche le jeu au chargement de la page
-        selectCards();
-        renderCards();
-
-        // Gestionnaire d'événement pour le bouton de redémarrage
-        document.getElementById("restart-button").addEventListener("click", restartGame);
+        // Lance le jeu au chargement de la page
+        startGame();
     </script>
 </body>
 </html>
