@@ -68,36 +68,40 @@
     <div id="affirmation-frame">
         <h2>Affirmations :</h2>
         <p id="affirmation"></p>
-        <button onclick="displayRandomAffirmation()">Afficher une autre affirmation</button>
+		<button id="show-button" onclick="displayRandomAffirmation()">Afficher une autre affirmation</button>
     </div>
 
     <script>
         // Liste des 50 cartes possibles avec leurs affirmations
         const cards = [
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 2", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 3", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 3", "Affirmation 2", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 4", "..."] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 1", "Affirmation 2"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 3", "Affirmation 4"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 5", "Affirmation 6"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 7", "Affirmation 8"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 9", "Affirmation 10"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 11", "Affirmation 12"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 13", "Affirmation 14"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 15", "Affirmation 16"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 17", "Affirmation 18"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 19", "Affirmation 20"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 21", "Affirmation 22"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 23", "Affirmation 24"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 25", "Affirmation 26"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 27", "Affirmation 28"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 29", "Affirmation 30"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 31", "Affirmation 32"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 33", "Affirmation 34"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 35", "Affirmation 36"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 37", "Affirmation 38"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 39", "Affirmation 40"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 41", "Affirmation 42"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 43", "Affirmation 44"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 45", "Affirmation 46"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 47", "Affirmation 48"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 49", "Affirmation 50"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 51", "Affirmation 52"] },
+            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 53", "Affirmation 54"] },
+
             // Ajoutez les autres cartes ici
         ];
 
@@ -106,15 +110,23 @@
 
         // Sélectionne une affirmation aléatoire parmi les affirmations disponibles pour une carte donnée
         function getRandomAffirmation(card) {
-            const randomIndex = Math.floor(Math.random() * card.affirmations.length);
-            return card.affirmations[randomIndex];
+            const availableAffirmations = card.affirmations.filter(affirmation => !displayedAffirmations.includes(affirmation));
+            const randomIndex = Math.floor(Math.random() * availableAffirmations.length);
+            return availableAffirmations[randomIndex];
         }
 
         // Affiche une affirmation aléatoire dans le cadre
         function displayRandomAffirmation() {
             const affirmationElement = document.getElementById("affirmation");
+            const showButtonElement = document.getElementById("show-button");
             const selectedCard = selectedCards[Math.floor(Math.random() * selectedCards.length)];
-            const newAffirmation = getRandomAffirmation(selectedCard);
+            let newAffirmation = getRandomAffirmation(selectedCard);
+
+			// Vérifie si l'affirmation sélectionnée a déjà été affichée
+			while (displayedAffirmations.includes(newAffirmation)) {
+				// Sélectionne une nouvelle affirmation aléatoire
+				newAffirmation = getRandomAffirmation(selectedCard);
+			}
 
             // Ajoute la nouvelle affirmation à la liste des affirmations affichées
             displayedAffirmations.push(newAffirmation);
@@ -124,6 +136,11 @@
 
             // Fait défiler jusqu'en bas pour afficher la dernière affirmation
             affirmationElement.scrollTop = affirmationElement.scrollHeight;
+
+            // Vérifie si le nombre maximal d'affirmations est atteint
+            if (displayedAffirmations.length >= 10) {
+                showButtonElement.disabled = true;
+            }
         }
 
         // Niveau de difficulté du jeu (1, 2 ou 3)
