@@ -144,167 +144,217 @@
                 </div>
             </div>
         </div>
+
         <div id="guesses-container">
-            <h2>Affirmations proposées :</h2>
+            <h2>Mes réponses :</h2>
             <ul id="guesses-list"></ul>
         </div>
+
         <div id="cards-container"></div>
+
         <div id="result-container">
-            <h2>Résultat :</h2>
-            <p id="result-text"></p>
+            <h2 id="result-message"></h2>
             <button id="restart-button">Rejouer</button>
         </div>
     </div>
 
     <script>
-	// Exemple de données pour les cartes
-	const countries = [
-		{ name: "France", flag: "france.png" },
-		{ name: "Allemagne", flag: "germany.png" },
-		// Ajoutez d'autres pays ici
-	];
+        // Exemple de données pour les cartes
+        const countries = [
+            { name: "France", flag: "cartes/1.png" },
+            { name: "Allemagne", flag: "germany.png" },
+            // Ajoutez d'autres pays ici
+        ];
 
-	// Exemple de données pour les affirmations
-	const affirmations = [
-		"La capitale de ce pays est Paris.",
-		"Ce pays est connu pour sa tour emblématique.",
-		// Ajoutez d'autres affirmations ici
-	];
+        // Exemple de données pour les affirmations
+        const affirmations = [
+            "La capitale de ce pays est Paris.",
+            "Ce pays est connu pour sa tour emblématique.",
+            // Ajoutez d'autres affirmations ici
+        ];
 
-	// Variables de jeu
-	let selectedCards = [];
-	let mysteryCard = null;
-	let guesses = [];
-	let score = 10;
+        // Variables de jeu
+        let selectedCards = [];
+        let mysteryCard = null;
+        let guesses = [];
+        let score = 10;
 
-	// Fonction pour sélectionner les cartes du jeu
-	function selectCards() {
-		const selectedCountries = getRandomItems(countries, 10);
-		const selectedAffirmations = getRandomItems(affirmations, 10);
+        // Fonction pour sélectionner les cartes du jeu
+        function selectCards() {
+            const selectedCountries = getRandomItems(countries, 15);
+            const selectedAffirmations = getRandomItems(affirmations, 150); // 10 affirmations pour chaque carte
 
-		selectedCards = selectedCountries.map((country, index) => {
-			return {
-				country: country,
-				affirmation: selectedAffirmations[index],
-				flipped: false
-			};
-		});
+            selectedCards = selectedCountries.map((country, index) => {
+                const cardAffirmations = selectedAffirmations.slice(index * 10, (index + 1) * 10);
 
-		mysteryCard = selectedCards[Math.floor(Math.random() * selectedCards.length)];
-	}
+                return {
+                    country: country,
+                    flag: country.flag,
+                    affirmations: cardAffirmations,
+                    flipped: false
+                };
+            });
 
-	// Fonction pour obtenir des éléments aléatoires d'un tableau
-	function getRandomItems(array, count) {
-		const shuffled = array.sort(() => Math.random() - 0.5);
-		return shuffled.slice(0, count);
-	}
+            mysteryCard = selectedCards[Math.floor(Math.random() * selectedCards.length)];
+        }
 
-	// Fonction pour afficher les cartes
-	function renderCards() {
-		const cardsContainer = document.getElementById("cards-container");
-		cardsContainer.innerHTML = "";
+        // Fonction pour obtenir des éléments aléatoires d'un tableau
+        function getRandomItems(array, count) {
+            const shuffled = array.sort(() => Math.random() - 0.5);
+            return shuffled.slice(0, count);
+        }
 
-		selectedCards.forEach((card, index) => {
-			const cardElement = document.createElement("div");
-			cardElement.className = "card";
-			if (card.flipped) {
-				cardElement.classList.add("flipped");
-			}
-			cardElement.addEventListener("click", () => flipCard(index));
+        // Fonction pour afficher les cartes
+        function renderCards() {
+            const cardsContainer = document.getElementById("cards-container");
+            cardsContainer.innerHTML = "";
 
-			const frontElement = document.createElement("div");
-			frontElement.className = "front";
-			frontElement.style.backgroundImage = `url(${card.country.flag})`;
+            selectedCards.forEach((card, index) => {
+                const cardElement = document.createElement("div");
+                cardElement.className = "card";
+                if (card.flipped) {
+                    cardElement.classList.add("flipped");
+                }
+                cardElement.addEventListener("click", () => flipCard(index));
 
-			const backElement = document.createElement("div");
-			backElement.className = "back";
-			backElement.innerText = card.affirmation;
+                const cardInnerElement = document.createElement("div");
+                cardInnerElement.className = "card-inner";
 
-			cardElement.appendChild(frontElement);
-			cardElement.appendChild(backElement);
-			cardsContainer.appendChild(cardElement);
-		});
-	}
+                const frontElement = document.createElement("div");
+                frontElement.className = "card-front";
+                frontElement.style.backgroundImage = `url(${card.flag})`;
 
-	// Fonction pour retourner une carte
-	function flipCard(index) {
-		if (!selectedCards[index].flipped) {
-			selectedCards[index].flipped = true;
-			renderCards();
+                const backElement = document.createElement("div");
+                backElement.className = "card-back";
+                backElement.innerText = card.affirmations[0]; // Affiche la première affirmation de la carte
 
-			if (selectedCards[index] === mysteryCard) {
-				endGame(true);
-			} else {
-				removeIncorrectCards(index);
-			}
-		}
-	}
+                cardInnerElement.appendChild(frontElement);
+                cardInnerElement.appendChild(backElement);
+                cardElement.appendChild(cardInnerElement);
+                cardsContainer.appendChild(cardElement);
+            });
+        }
 
-	// Fonction pour supprimer les cartes incorrectes
-	function removeIncorrectCards(index) {
-		const incorrectCards = selectedCards.filter((card, i) => card !== selectedCards[index] && i !== index && card.flipped);
+        // Fonction pour retourner une carte
+        function flipCard(index) {
+            if (selectedCards[index].flipped) {
+                return;
+            }
 
-		if (incorrectCards.length > 0) {
-			incorrectCards.forEach(card => {
-				card.flipped = false;
-			});
+            selectedCards[index].flipped = true;
+            renderCards();
 
-			score--;
-			updateScore();
+            guesses.push(selectedCards[index]);
 
-			renderCards();
-		}
-	}
+            if (guesses.length === 2) {
+                checkGuess();
+            }
+        }
 
-	// Fonction pour terminer le jeu
-	function endGame(won) {
-		const resultContainer = document.getElementById("result-container");
-		const resultText = document.getElementById("result-text");
-		const restartButton = document.getElementById("restart-button");
+        // Fonction pour vérifier les réponses
+        function checkGuess() {
+            const guess1 = guesses[0];
+            const guess2 = guesses[1];
 
-		if (won) {
-			resultText.innerText = "Félicitations, vous avez trouvé la carte mystère !";
-		} else {
-			resultText.innerText = "Désolé, vous avez perdu.";
-		}
+            if (guess1.country.name === guess2.country.name) {
+                handleCorrectGuess();
+            } else {
+                handleIncorrectGuess();
+            }
+        }
 
-		resultContainer.style.display = "block";
-		restartButton.addEventListener("click", restartGame);
-	}
+        // Fonction en cas de réponse correcte
+        function handleCorrectGuess() {
+            document.getElementById("guesses-list").innerHTML = "";
+            guesses.forEach((guess) => {
+                const li = document.createElement("li");
+                li.innerText = guess.affirmations[0]; // Affiche la première affirmation de chaque carte
+                document.getElementById("guesses-list").appendChild(li);
+            });
 
-	// Fonction pour redémarrer le jeu
-	function restartGame() {
-		selectedCards = [];
-		mysteryCard = null;
-		guesses = [];
-		score = 10;
+            document.getElementById("result-message").innerText = "Bonne réponse !";
+            document.getElementById("result-container").style.display = "block";
 
-		updateScore();
-		selectCards();
-		renderCards();
+            // Réinitialise les variables de jeu
+            selectedCards.forEach((card) => {
+                if (!card.flipped) {
+                    card.flipped = true;
+                }
+            });
+            renderCards();
+            guesses = [];
+        }
 
-		const resultContainer = document.getElementById("result-container");
-		resultContainer.style.display = "none";
-	}
+        // Fonction en cas de réponse incorrecte
+        function handleIncorrectGuess() {
+            document.getElementById("guesses-list").innerHTML = "";
+            guesses.forEach((guess) => {
+                const li = document.createElement("li");
+                li.innerText = guess.affirmations[0]; // Affiche la première affirmation de chaque carte
+                document.getElementById("guesses-list").appendChild(li);
+            });
 
-	// Fonction pour mettre à jour le score
-	function updateScore() {
-		const scoreText = document.getElementById("score-text");
-		scoreText.innerText = `Score: ${score}`;
-	}
+            document.getElementById("result-message").innerText = "Mauvaise réponse...";
+            document.getElementById("result-container").style.display = "block";
 
-	// Fonction pour ajouter une affirmation proposée par le joueur
-	function addGuess(affirmation) {
-		const guessesList = document.getElementById("guesses-list");
-		const guessItem = document.createElement("li");
-		guessItem.innerText = affirmation;
-		guessesList.appendChild(guessItem);
-	}
+            // Diminue le score et met à jour la barre de santé du joueur
+            score--;
+            const playerHealth = (score / 10) * 100;
+            document.getElementById("player-health").style.width = playerHealth + "%";
 
-	// Appel de la fonction pour sélectionner les cartes et démarrer le jeu
-	selectCards();
-	renderCards();
-	updateScore();	
-	</script>
+            // Réinitialise les variables de jeu
+            selectedCards.forEach((card) => {
+                if (!card.flipped) {
+                    card.flipped = true;
+                }
+            });
+            renderCards();
+            guesses = [];
+
+            if (score === 0) {
+                handleGameOver();
+            }
+        }
+
+        // Fonction en cas de fin de partie
+        function handleGameOver() {
+            document.getElementById("result-message").innerText = "Partie terminée. Vous avez perdu !";
+            document.getElementById("result-container").style.display = "block";
+
+            // Désactive les cartes pour empêcher les interactions
+            const cards = document.getElementsByClassName("card");
+            for (let i = 0; i < cards.length; i++) {
+                cards[i].removeEventListener("click", () => flipCard(i));
+                cards[i].style.cursor = "default";
+            }
+        }
+
+        // Fonction pour redémarrer le jeu
+        function restartGame() {
+            selectedCards.forEach((card) => {
+                card.flipped = false;
+            });
+
+            selectCards();
+            renderCards();
+
+            document.getElementById("result-container").style.display = "none";
+            score = 10;
+            document.getElementById("player-health").style.width = "100%";
+
+            const cards = document.getElementsByClassName("card");
+            for (let i = 0; i < cards.length; i++) {
+                cards[i].addEventListener("click", () => flipCard(i));
+                cards[i].style.cursor = "pointer";
+            }
+        }
+
+        // Sélectionne les cartes et affiche le jeu au chargement de la page
+        selectCards();
+        renderCards();
+
+        // Gestionnaire d'événement pour le bouton de redémarrage
+        document.getElementById("restart-button").addEventListener("click", restartGame);
+    </script>
 </body>
 </html>
