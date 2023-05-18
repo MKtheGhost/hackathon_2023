@@ -26,16 +26,20 @@ Londres
 
 Singapour
 - en asie
+-puissance économique
 
 Mumbai
 - en asie
 - ancien colonie
+- puissance culturelle
 
 Los Angeles
 - en amérique
+- puissance culturelle
 
 Johannesburg
 - en afrique
+- importance historique
 
 Chicago
 - en amérique
@@ -44,5 +48,6 @@ Buenos Aires
 - en amérique
 - ville historique
 - ancien colonie
+- importance historique
 
 
