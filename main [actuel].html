@@ -38,8 +38,8 @@
             margin-top: 0px;
         }
         .character img {
-            width: 170px;
-            height: 170px;
+            width: 150px;
+            height: 150px;
         }
 
         .card img {
@@ -49,7 +49,7 @@
     </style>
 </head>
 <body>
-    <center><h1>Jeux des cartes mystères</h1></center>
+    <center><h1 style="font-size:20px">Jeux des cartes mystères</h1></center>
 
     <div id="characters" style="float:left; width:100%;">
 
@@ -62,51 +62,52 @@
         </div>
     </div>
 
-
     <div id="game" style="float:right; width:70%">
         <div id="cards"></div>
-        <div id="result"></div>
-        <div id="score"></div>
+        
     </div>
 
-    <div id="affirmation-frame">
+    <div id="affirmation-frame" style="margin-left:1.5%">
         <br>
         <h2>Affirmations :</h2>
+		<div id="result"></div>
         <p id="affirmation"></p>
         <input type="text" id="eventName" placeholder="Nom de l'événement">
+		<button id="validate-button" onclick="validateEventName()">Valider</button>
         <button id="show-button" onclick="displayRandomAffirmation()">Afficher une autre affirmation</button>
+		<div id="score"></div>
     </div>
 
     <script>
         // Liste des 50 cartes possibles avec leurs affirmations
         const cards = [
             { imageUrl: "cartes/1.png", eventName:"1", affirmations: ["Affirmation 1", "Affirmation 2"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 3", "Affirmation 4"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 5", "Affirmation 6"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 7", "Affirmation 8"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 9", "Affirmation 10"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 11", "Affirmation 12"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 13", "Affirmation 14"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 15", "Affirmation 16"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 17", "Affirmation 18"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 19", "Affirmation 20"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 21", "Affirmation 22"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 23", "Affirmation 24"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 25", "Affirmation 26"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 27", "Affirmation 28"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 29", "Affirmation 30"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 31", "Affirmation 32"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 33", "Affirmation 34"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 35", "Affirmation 36"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 37", "Affirmation 38"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 39", "Affirmation 40"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 41", "Affirmation 42"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 43", "Affirmation 44"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 45", "Affirmation 46"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 47", "Affirmation 48"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 49", "Affirmation 50"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 51", "Affirmation 52"] },
-            { imageUrl: "cartes/1.png", affirmations: ["Affirmation 53", "Affirmation 54"] },
+            { imageUrl: "cartes/1.png", eventName:"2", affirmations: ["Affirmation 3", "Affirmation 4"] },
+            { imageUrl: "cartes/1.png", eventName:"3", affirmations: ["Affirmation 5", "Affirmation 6"] },
+            { imageUrl: "cartes/1.png", eventName:"4", affirmations: ["Affirmation 7", "Affirmation 8"] },
+            { imageUrl: "cartes/1.png", eventName:"5", affirmations: ["Affirmation 9", "Affirmation 10"] },
+            { imageUrl: "cartes/1.png", eventName:"6", affirmations: ["Affirmation 11", "Affirmation 12"] },
+            { imageUrl: "cartes/1.png", eventName:"7", affirmations: ["Affirmation 13", "Affirmation 14"] },
+            { imageUrl: "cartes/1.png", eventName:"8", affirmations: ["Affirmation 15", "Affirmation 16"] },
+            { imageUrl: "cartes/1.png", eventName:"9", affirmations: ["Affirmation 17", "Affirmation 18"] },
+            { imageUrl: "cartes/1.png", eventName:"10", affirmations: ["Affirmation 19", "Affirmation 20"] },
+            { imageUrl: "cartes/1.png", eventName:"11", affirmations: ["Affirmation 21", "Affirmation 22"] },
+            { imageUrl: "cartes/1.png", eventName:"12", affirmations: ["Affirmation 23", "Affirmation 24"] },
+            { imageUrl: "cartes/1.png", eventName:"13", affirmations: ["Affirmation 25", "Affirmation 26"] },
+            { imageUrl: "cartes/1.png", eventName:"14", affirmations: ["Affirmation 27", "Affirmation 28"] },
+            { imageUrl: "cartes/1.png", eventName:"15", affirmations: ["Affirmation 29", "Affirmation 30"] },
+            { imageUrl: "cartes/1.png", eventName:"16", affirmations: ["Affirmation 31", "Affirmation 32"] },
+            { imageUrl: "cartes/1.png", eventName:"17", affirmations: ["Affirmation 33", "Affirmation 34"] },
+            { imageUrl: "cartes/1.png", eventName:"18", affirmations: ["Affirmation 35", "Affirmation 36"] },
+            { imageUrl: "cartes/1.png", eventName:"19", affirmations: ["Affirmation 37", "Affirmation 38"] },
+            { imageUrl: "cartes/1.png", eventName:"20", affirmations: ["Affirmation 39", "Affirmation 40"] },
+            { imageUrl: "cartes/1.png", eventName:"21", affirmations: ["Affirmation 41", "Affirmation 42"] },
+            { imageUrl: "cartes/1.png", eventName:"22", affirmations: ["Affirmation 43", "Affirmation 44"] },
+            { imageUrl: "cartes/1.png", eventName:"23", affirmations: ["Affirmation 45", "Affirmation 46"] },
+            { imageUrl: "cartes/1.png", eventName:"24", affirmations: ["Affirmation 47", "Affirmation 48"] },
+            { imageUrl: "cartes/1.png", eventName:"25", affirmations: ["Affirmation 49", "Affirmation 50"] },
+            { imageUrl: "cartes/1.png", eventName:"26", affirmations: ["Affirmation 51", "Affirmation 52"] },
+            { imageUrl: "cartes/1.png", eventName:"27", affirmations: ["Affirmation 53", "Affirmation 54"] },
 
             // Ajoutez les autres cartes ici
         ];
@@ -147,7 +148,28 @@
             if (displayedAffirmations.length >= 10) {
                 showButtonElement.disabled = true;
             }
+			
+			// Diminue le score du joueur de 1
+            score--;
+            updateScore();
+			// Vérifie si le joueur a perdu
+			if (score === 0) {
+				displayResult(`Dommage ! Vous avez perdu la partie, l'événement était : ${mysteryCard.eventName}`);
+			}
         }
+		
+		// Fonction pour valider le nom de l'évènement
+		function validateEventName() {
+			const eventNameElement = document.getElementById("eventName");
+			const eventName = eventNameElement.value.trim(); // Récupère la valeur saisie et supprime les espaces en début et fin de chaîne
+
+			// Vérifie si la réponse est correcte
+			if (eventName.toLowerCase() === mysteryCard.eventName.toLowerCase()) {
+				displayResult("Gagné !");
+			} else {
+				displayResult("Perdu !");
+			}
+		}
 
         // Niveau de difficulté du jeu (1, 2 ou 3)
         const difficultyLevel = 1;
@@ -209,24 +231,7 @@
                 cardsElement.appendChild(cardElement);
             }
         }
-
-        // Vérifie la supposition du joueur
-        function checkGuess(card) {
-            if (card === mysteryCard) {
-                // Supposition correcte, le joueur gagne la partie
-                displayResult(`Félicitations ! Vous avez gagné la partie pour l'événement : ${card.eventName}`);
-            } else {
-                // Supposition incorrecte, le joueur perd des points
-                score--;
-                updateScore();
-
-                // Vérifie si le joueur a perdu
-                if (score === 0) {
-                    displayResult(`Dommage ! Vous avez perdu la partie pour l'événement : ${mysteryCard.eventName}`);
-                }
-            }
-        }
-
+		
         // Affiche le résultat de la partie
         function displayResult(message) {
             const resultElement = document.getElementById("result");
