@@ -456,7 +456,7 @@
 						transition: all 1s ease-in-out;
 					}
 					
-					.card.grayed-out {
+					.grayed-out img{
 						filter: grayscale(100%);
 					}
 				</style>
@@ -478,7 +478,8 @@
 					</div>
 
 					<div id="game" style="float:right; width:75%">
-						<div id="cards"></div>
+						<!-- <div id="cards"></div> -->
+						<div id="cards" onclick="changeColor(this)"></div>
 					</div>
 
 					<div id="affirmation-frame" style="margin-left:1.5%">
@@ -641,7 +642,7 @@
 					// Réinitialise le contenu du cadre d'affirmations
 					const affirmationElement = document.getElementById("affirmation");
 					affirmationElement.innerHTML = "";
-				}
+					}
 
 
 					// Fonction appelée lorsque le bouton "Sortir" est cliqué
@@ -685,13 +686,15 @@
 
 					  // Affiche les cartes sur le plateau de jeu
 					  displayCards();
-					}
-
+					}					
+					
 					// Affiche les cartes sur le plateau de jeu
 					function displayCards() {
 					  const cardsElement = document.getElementById("cards");
 					  cardsElement.innerHTML = "";
 
+					   <!-- cardsElement.querySelectorAll(".card").forEach(card => card.classList.remove("grayed-out")); -->
+						
 					  for (let i = 0; i < selectedCards.length; i++) {
 						const card = selectedCards[i];
 
@@ -714,10 +717,11 @@
 						cardsElement.appendChild(cardElement);
 					  }
 					}
-
-					// Mettre en gris la carte
-					function changeImage(imageElement) {
-					  // Ajoutez la classe "grayed-out" à l'imageElement
+					
+					// Fonction pour changer l'image de la carte (la rendre grise)
+					function changeImage(cardElement) {
+					  // Trouver l'image à l'intérieur de la carte et lui appliquer la classe grayed-out
+					  const imageElement = cardElement.querySelector("img");
 					  imageElement.classList.add("grayed-out");
 					}
 
