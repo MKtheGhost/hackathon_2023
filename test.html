@@ -1006,7 +1006,639 @@
 
 				<!-- Mini-jeu 2 -->
 				<div id="mini-jeu2" style="display:none; margin-left:20%;">
-			
+					<style>
+						body{
+							font-family:cursive;
+						}
+						#game {
+							display: flex;
+							flex-direction: column;
+							align-items: center;
+							padding: 20px;
+						}
+						#cards {
+							display: flex;
+							flex-wrap: wrap;
+							justify-content: center;
+							gap: 10px;
+						}
+						.card {
+							width: 100px;
+							height: 150px;
+							border: None;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							cursor: pointer;
+						}
+						#result {
+							margin-top: 20px;
+							font-weight: bold;
+						}
+						#score {
+							margin-top: 10px;
+						}
+						#characters {
+							display: flex;
+							width:100%;
+							justify-content: center;
+							gap: 10px;
+							margin-top: 0px;
+							margin-bottom:10px;
+						}
+						
+						.joueur {
+							margin-left:1%;
+						}
+						
+						.boss {
+							margin-left:1%;
+						}
+						
+						.character2 img {
+							width: 150px;
+							height: 150px;
+						}
+
+						.card img {
+							width: 100%;
+							height: 100%;
+						}
+						
+						.card.grayed-out {
+							background-color: gray;
+						}
+						
+						.health-bar-player {
+							font-weight: bold;
+							margin-top: 10px;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							width: 150px;
+							height: 15px;
+							border: 1px solid black;
+							margin-right:500px;
+						}
+
+						.health-bar-player span {
+							display: inline-block;
+							width: 100%;
+							height: 100%;
+							background-color: green;
+							transition: width 0.3s ease-in-out;
+						}
+						
+						.health-bar-boss {
+							font-weight: bold;
+							margin-top: 10px;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							width: 150px;
+							height: 15px;
+							border: 1px solid black;
+						}
+
+						.health-bar-boss span {
+							display: inline-block;
+							width: 100%;
+							height: 100%;
+							background-color: red;
+							transition: width 0.3s ease-in-out;
+						}
+						
+						.red-dot {
+							position: absolute;
+							width: 10px;
+							height: 10px;
+							background-color: red;
+							border-radius: 50%;
+							transition: all 1s ease-in-out;
+						}
+					</style>
+				</head>
+				<body>
+					<center><h1 style="font-size:20px">Niveau 1</h1></center>
+
+					<div id="characters" style="float:left; width:100%; background-image:url('fonds/mini_jeu.PNG'); background-size:cover;">
+						<div class="character2">
+						<div id="player-health" class="health-bar-player" style="font-size:11px;"><span id="player-score">&nbsp;Joueur</span></div>
+							<div id="selectedImageContainer" style="float:left; width:20%;" class="joueur" alt="Joueur">
+							<!-- <img class="selected-image"> -->
+							</div>
+							<!-- <img src="personnages/joueur.png" class="joueur" alt="Joueur"> -->
+						</div>
+
+						<div class="character2">
+						<div id="boss-health" class="health-bar-boss" style="font-size:11px;"><span id="boss-score">&nbsp;Boss</span></div>
+							<img src="personnages/boss1.png" class="boss" alt="Boss">
+						</div>
+					</div>
+
+					<div id="game" style="float:right; width:75%">
+						<div id="cards"></div>
+					</div>
+
+					<div id="affirmation-frame" style="margin-left:1.5%">
+						<br>
+						<h2>Affirmations :</h2>
+						<div id="result"></div>
+						<p id="affirmation"></p>
+						<input type="text" id="eventName" placeholder="Nom de l'événement">
+						<button id="validate-button" onclick="validateEventName()">Valider</button>
+						<button id="show-button" onclick="displayRandomAffirmation()">Afficher une autre affirmation</button>
+					</div>
+
+					<script>
+						// Liste des 50 cartes possibles avec leurs affirmations
+						const cards = [
+							{ imageUrl: "cartes/afghanistan.png", eventName:"afghanistan", category: "état", affirmations: [
+							"Participant au Bandung",
+							"Se situe en Europe",
+							"C'est une dictature théocratique",
+							"A une population de 39M habitants",
+							"A une organisation terroriste à la tête de l'Etat",
+							"C'est un état"] },
+							
+							{ imageUrl: "cartes/algerie.png", eventName:"algérie", category: "état", affirmations: [
+							"Important dans l'histoire des français",
+							"Se situe en Afrique",
+							"Faisait partit du tiers-monde",
+							"Il s'agit d'une République semi-présidentielle",
+							"A une population de 44M habitants",
+							"C'est un état"] },
+							
+							{ imageUrl: "cartes/chine.png", eventName:"chine", category: "état", affirmations: [
+							"Participant au Bandung",
+							"Se situe en Asie",
+							"C'est un régime autoritaire",
+							"C'est une puissance industrielle",
+							"A une population de 1,41Milliard d'habitants",
+							"A un dictateur à la tête de l'Etat",
+							"C'est un état"] },
+							
+							{ imageUrl: "cartes/coree du nord.png", eventName:"corée du nord", category: "état", affirmations: [
+							"Se situe en Asie",
+							"C'est un régime autoritaire",
+							"A une population de 25,6M habitants",
+							"A un dictateur à la tête de l'Etat",
+							"C'est un état"] },
+							
+							{ imageUrl: "cartes/cuba.png", eventName:"cuba", category: "état", affirmations: [
+							"Se situe en Amérique",
+							"Il s'agit d'une République semi-présidentielle",
+							"A une population de 11,3M habitants",
+							"C'est un état"] },
+							
+							{ imageUrl: "cartes/iran.png", eventName:"iran", category: "état", affirmations: [
+							"Participant au Bandung",
+							"Se situe en Asie",
+							"C'est une dictature théocratique",
+							"A une population de 85M habitants",
+							"C'est un état"]},
+							
+							{ imageUrl: "cartes/israel.png", eventName:"israel", category: "état", affirmations: [
+							"Se situe en Asie",
+							"C'est une démocratie parlementaire",
+							"A une population de 9,4M habitants",
+							"C'est un état"] },
+							
+							{ imageUrl: "cartes/kenya.png", eventName:"kenya", category: "état", affirmations: [
+							"Se situe en Afrique", 
+							"Il s'agit d'une République présidentielle",
+							"A une population de 55,6M habitants",
+							"C'est un état"] },					
+							
+							{ imageUrl: "cartes/mexique.png", eventName:"mexique", category: "état", affirmations: [
+							"Se situe en Amérique",
+							"Il s'agit d'une République fédérale",
+							"A une population de 129,2M habitants",
+							"C'est un état"] },
+							
+							{ imageUrl: "cartes/ukraine.png", eventName:"ukraine", category: "état", affirmations: [
+							"Se situe en Europe",
+							"Il s'agit d'une république semi-présidentielle",
+							"A une population de 44,5M habitants",
+							"C'est un état"] },
+													
+							{ imageUrl: "cartes/auguste.png", eventName:"auguste", category: "personnage", affirmations: [
+							"1er siècle avant JC",
+							"C'était un empereur",
+							"Important pour Rome",
+							"C'est un personnage historique"] },
+							
+							{ imageUrl: "cartes/charlemagne.png", eventName:"charlemagne", category: "personnage", affirmations: [
+							"IXe siècle",
+							"C'était un roi",
+							"C'est un personnage historique"] },
+							
+							{ imageUrl: "cartes/churchill.png", eventName:"winston churchill", category: "personnage", affirmations: [
+							"XXe siècle",
+							"C'était un président",
+							"C'est un personnage historique"]},
+							
+							{ imageUrl: "cartes/de gaulle.png", eventName:"charles de gaulle", category: "personnage", affirmations: [
+							"XXe siècle", 
+							"C'était un homme militaire",
+							"C'est un personnage historique"] },
+							
+							{ imageUrl: "cartes/francois ier.png", eventName:"francois Ier", category: "personnage", affirmations: [
+							"XVIe siècle",
+							"C'était un roi",
+							"C'est un personnage historique"] },
+							
+							{ imageUrl: "cartes/jehan de beauce.png", eventName:"jehan de beauce", category: "personnage", affirmations: [
+							"XVe - XVIe siècle",
+							"C'était un architecte",
+							"C'est un personnage historique"] },
+							
+							{ imageUrl: "cartes/napoléon ier.png", eventName:"napoléon I", category: "personnage", affirmations: [
+							"XIXe siècle",
+							"C'était un empereur",
+							"C'est un personnage historique"] },
+							
+							{ imageUrl: "cartes/roosevelt.png", eventName:"franklin d. roosevelt", category: "personnage", affirmations: [
+							"XIXe - XXe siècle",
+							"C'était un homme d'état",
+							"C'est un personnage historique"] },
+							
+							{ imageUrl: "cartes/staline.png", eventName:"staline", category: "personnage", affirmations: [
+							"Important pour l'URSS",
+							"XIXe-XXe siècle",
+							"C'est un personnage historique"] },
+							
+							{ imageUrl: "cartes/trump.png", eventName:"donald trump", category: "personnage", affirmations: [
+							"XXe-XXIe siècle",
+							"C'était un président",
+							"C'est un personnage historique"] },
+								
+							{ imageUrl: "cartes/bapteme de clovis.png", eventName:"baptême de clovis", category: "evenements", affirmations: [
+							"C'est un évènement", 
+							"VIe siècle",
+							"Important dans l'histoire des français"] },
+							
+							{ imageUrl: "cartes/chute du mur de berlin.png", eventName:"chute du mur de berlin", category: "evenements", affirmations: [
+							"C'est un évènement", 
+							"XXe siècle",
+							"A un lien avec l'histoire allemande"] },
+							
+							{ imageUrl: "cartes/coup d'etat.png", eventName:"coup d'état du 18 brumaire", category: "evenements", affirmations: [
+							"C'est un évènement", 
+							"XVIIIe siècle",
+							"Important dans l'histoire des français"] },
+							
+							{ imageUrl: "cartes/creation de l'onu.png", eventName:"création de l'onu", category: "evenements", affirmations: [
+							"C'est un évènement", 
+							"XXe siècle"] },
+							
+							{ imageUrl: "cartes/crise de cuba.png", eventName:"crise de cuba", category: "evenements", affirmations: [
+							"C'est un évènement", 
+							"XXe siècle",
+							"Implique les grandes puissances de la guerre froide"] },
+							
+							{ imageUrl: "cartes/execution louis xvi.png", eventName:"exécution de louis XVI", category: "evenements", affirmations: [
+							"C'est un évènement", 
+							"XVIIIe siecle",
+							"Important pour l'URSS"] },
+							
+							{ imageUrl: "cartes/fin de l'empire romain.png", eventName:"fin de l'empire romain d'occident", category: "evenements", affirmations: [
+							"C'est un évènement", 
+							"Ve siècle",
+							"Important pour Rome"] },
+							
+							{ imageUrl: "cartes/nuremberg.png", eventName:"loi de nuremberg", category: "evenements", affirmations: [
+							"C'est un évènement", 
+							"XXe siècle"] },
+							
+							{ imageUrl: "cartes/révolution bolchevique.png", eventName:"révolution bolchévique", category: "evenements", affirmations: [
+							"C'est un évènement", 
+							"XXe siècle",
+							"Important pour l'URSS"] },
+							
+							{ imageUrl: "cartes/Ve republique.png", eventName:"fondation de la Ve république", category: "evenements", affirmations: [
+							"C'est un évènement", 
+							"XXe siècle",
+							"Important dans l'histoire des français"] },
+							
+							{ imageUrl: "cartes/buenos aires.png", eventName:"buenos aires", category: "ville", affirmations: [
+							"C'est une grande ville",
+							"A une population de 3,1M habitants",
+							"Se situe en Amérique",
+							"Il s'agit d'une ville historique",
+							"Il s'agit d'une ancienne colonie",
+							" A une importance historique"
+							] },
+							
+							{ imageUrl: "cartes/johannesburg.png", eventName:"johannesburg", category: "ville", affirmations: [
+							"C'est une grande ville",
+							"A une population de 5,9M habitants",
+							"Se situe en Afrique",
+							"A une importance historique"] },
+							
+							{ imageUrl: "cartes/chicago.png", eventName:"chicago", category: "ville", affirmations: [
+							"C'est une grande ville",
+							"A une population de 2,7M habitants",
+							"Se situe en Amérique"] },
+							
+							{ imageUrl: "cartes/londres.png", eventName:"londres", category: "ville", affirmations: [
+							"C'est une grande ville",
+							"A une population de 9,3M habitants",
+							"C'est une ville monde",
+							"Se situe en Europe",
+							"POssède un pouvoir politique mondiale"] },
+							
+							{ imageUrl: "cartes/los angeles.png", eventName:"los angeles", category: "ville", affirmations: [
+							"C'est une grande ville",
+							"A une population de 3,99M habitants",
+							"Se situe en Amérique",
+							"C'est une puissance culturelle"] },
+							
+							{ imageUrl: "cartes/mewyork.png", eventName:"new york", category: "ville", affirmations: [
+							"C'est une grande ville",
+							"A une population de 8,4M habitants",
+							"Se situe en Amérique",
+							"Possède un pouvoir politique mondiale",
+							"C'est une ville monde"] },
+							
+							{ imageUrl: "cartes/mumbai.png", eventName:"mumbai", category: "ville", affirmations: [
+							"C'est une grande ville",
+							"A une population de 20,7M habitants",
+							"Se situe en Asie",
+							"Il s'agit d'une ancienne colonie",
+							"C'est une puissance culturelle"] },
+							
+							{ imageUrl: "cartes/paris.png", eventName:"paris", category: "ville", affirmations: [
+							"C'est une grande ville",
+							"A une population de 2M habitants",
+							"C'est une ville monde",
+							"Se situe en Europe",
+							"Important dans l'histoire des français",
+							"Possède un pouvoir politique mondiale",
+							"Il s'agit d'une ville historique"] },
+							
+							{ imageUrl: "cartes/singapour.png", eventName:"singapour", category: "ville", affirmations: [
+							"C'est une grande ville",
+							"A une population de 5,9M habitants",
+							"Se situe en Asie",
+							"C'est une puissance économique",
+							"C'est une cité Etat"] },
+							
+							{ imageUrl: "cartes/tokyo.png", eventName:"tokyo", category: "ville", affirmations: [
+							"C'est une grande ville",
+							"A une population de 14M habitants",
+							"C'est une ville monde",
+							"Il s'agit d'une ville historique",
+							"Se situe en Asie"] },
+							
+							{ imageUrl: "cartes/chapelle sixtine.png", eventName:"chapelle sixtine", category: "monuments", affirmations: [
+							"C'est un monument",
+							"Se situe en Europe",
+							"Il s'agit d'un monument religieux",
+							"XVe siècle"] },
+							
+							{ imageUrl: "cartes/eiffel.png", eventName:"tour eiffel", category: "monuments", affirmations: [
+							"C'est un monument",
+							"Se situe en Europe",
+							"Important dans l'histoire des français",
+							"XIXe siècle",
+							"Il s'agit d'un monument artistique"] },
+						
+							{ imageUrl: "cartes/goldengate.png", eventName:"golden gate bridge", category: "monuments", affirmations: [
+							"C'est un monument",
+							"Se situe en Amérique",
+							"Il s'agit d'un monument touristique",
+							"XXe siècle"] },
+						
+							{ imageUrl: "cartes/muiraille de chine.png", eventName:"muraille de chine", category: "monuments", affirmations: [
+							"C'est un monument",
+							"Se situe en Asie",
+							"Il s'agit d'un monument historique",
+							"IIIe à XVIIe siècle"] },
+						
+							{ imageUrl: "cartes/pantheon.png", eventName:"panthéon rome", category: "monuments", affirmations: [
+							"C'est un monument",
+							"Se situe en Europe",
+							"Important pour Rome",
+							"Il s'agit d'un monument historique"] },
+							
+							{ imageUrl: "cartes/parthénon.png", eventName:"parthénon", category: "monuments", affirmations: [
+							"C'est un monument",
+							"Se situe en Europe",
+							"Il s'agit d'un monument religieux",
+							"IIe siècle"] },
+						
+							{ imageUrl: "cartes/pise.png", eventName:"tour de pise", category: "monuments", affirmations: [
+							"C'est un monument",
+							"Se situe en Europe",
+							"XIIe - XIVe siècle",
+							"Il s'agit d'un monument touristique"] },
+						
+							{ imageUrl: "cartes/the gherkin.png", eventName:"the gherkin", category: "monuments", affirmations: [
+							"C'est un monument",
+							"Se situe en Europe",
+							"XXIe siècle",
+							"Il s'agit d'un monument économique"] },
+						
+							{ imageUrl: "cartes/tower bridge.png", eventName:"tower bridge", category: "monuments", affirmations: [
+							"C'est un monument",
+							"Se situe en Europe",
+							"XIXe siècle",
+							"Il s'agit d'un monument touristique",
+							"Il s'agit d'un monument de 'transport'"] },
+						
+							{ imageUrl: "cartes/versailles.png", eventName:"château de versailles", category: "monuments", affirmations: [
+							"C'est un monument",
+							"Se situe en Europe",
+							"Important dans l'histoire des français",
+							"Il s'agit d'un monument historique",
+							"XVIIe siècle"] }
+						];
+
+												// Liste des affirmations affichées
+						let displayedAffirmations = [];
+
+						// Initialiser les scores boss et player
+						let playerScore = 10;
+						let bossScore = 10;
+
+						// Noms de catégories
+						const categories = ["ville", "état", "monuments", "evenements", "personnage"];
+
+						// Sélectionne une affirmation aléatoire parmi les affirmations disponibles pour une carte donnée
+						function getRandomAffirmation(card) {
+						  const availableAffirmations = card.affirmations.filter(affirmation => !displayedAffirmations.includes(affirmation));
+						  const randomIndex = Math.floor(Math.random() * availableAffirmations.length);
+						  return availableAffirmations[randomIndex];
+						}
+
+						// Affiche une affirmation aléatoire dans le cadre
+						function displayRandomAffirmation() {
+						  const affirmationElement = document.getElementById("affirmation");
+						  const showButtonElement = document.getElementById("show-button");
+
+						  const randomIndex = Math.floor(Math.random() * cards.length);
+						  const selectedCard = cards[randomIndex];
+
+						  let newAffirmation = getRandomAffirmation(selectedCard);
+
+						  // Vérifie si l'affirmation sélectionnée a déjà été affichée
+						  while (displayedAffirmations.includes(newAffirmation)) {
+							newAffirmation = getRandomAffirmation(selectedCard);
+						  }
+
+						  // Ajoute la nouvelle affirmation à la liste des affirmations affichées
+						  displayedAffirmations.push(newAffirmation);
+
+						  // Met à jour le contenu du cadre avec toutes les affirmations affichées
+						  affirmationElement.innerHTML = displayedAffirmations.join("<br>");
+
+						  // Fait défiler jusqu'en bas pour afficher la dernière affirmation
+						  affirmationElement.scrollTop = affirmationElement.scrollHeight;
+
+						  // Vérifie si le nombre maximal d'affirmations est atteint
+						  if (displayedAffirmations.length >= 10) {
+							showButtonElement.disabled = true;
+						  }
+
+						  // Diminue le score du joueur de 1
+						  playerScore -= 1;
+
+						  // Met à jour la barre de vie du joueur
+						  const playerHealthBar = document.getElementById("player-health");
+						  const playerHealthBarSpan = playerHealthBar.querySelector("span");
+						  const playerHealthPercentage = (playerScore / 10) * 100;
+						  playerHealthBarSpan.style.width = playerHealthPercentage + "%";
+
+						  // Crée un élément de catégorie aléatoire
+						  const categoryElement = document.createElement("div");
+						  categoryElement.className = "category";
+						  const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+						  categoryElement.textContent = randomCategory;
+						  affirmationElement.appendChild(categoryElement);
+						}
+
+						// Fonction pour valider le nom de l'évènement
+						function validateEventName() {
+						  const eventNameElement = document.getElementById("eventName");
+						  const eventName = eventNameElement.value.trim(); // Récupère la valeur saisie et supprime les espaces en début et fin de chaîne
+
+						  // Vérifie si la réponse est correcte
+						  if (eventName.toLowerCase() === mysteryCard.eventName.toLowerCase()) {
+							displayResult("Gagné !");
+						  } else {
+							displayResult("Perdu !");
+						  }
+						}
+
+						// Niveau de difficulté du jeu (1, 2 ou 3)
+						const difficultyLevel = 1;
+
+						// Nombre de cartes à sélectionner pour le jeu
+						const numCards = 15;
+
+						// Carte mystère à deviner
+						let mysteryCard;
+
+						// Cartes sélectionnées pour le jeu
+						let selectedCards = [];
+
+						// Score du joueur
+						let score = 10;
+
+						// Sélectionne les cartes pour le jeu
+						function selectCards() {
+						  // Réinitialise les cartes sélectionnées
+						  selectedCards = [];
+
+						  // Sélectionne les cartes au hasard
+						  let availableCards = cards.slice(); // Copie de la liste des cartes
+						  for (let i = 0; i < numCards; i++) {
+							const randomIndex = Math.floor(Math.random() * availableCards.length);
+							const selectedCard = availableCards.splice(randomIndex, 1)[0];
+							selectedCards.push(selectedCard);
+						  }
+
+						  // Choisis une carte mystère parmi les cartes sélectionnées
+						  mysteryCard = selectedCards[Math.floor(Math.random() * selectedCards.length)];
+
+						  // Affiche les cartes sur le plateau de jeu
+						  displayCards();
+						}
+
+						// Affiche les cartes sur le plateau de jeu
+						function displayCards() {
+						  const cardsElement = document.getElementById("cards");
+						  cardsElement.innerHTML = "";
+
+						  for (let i = 0; i < selectedCards.length; i++) {
+							const card = selectedCards[i];
+
+							const cardElement = document.createElement("div");
+							cardElement.className = "card";
+
+							const imageElement = document.createElement("img");
+							imageElement.src = card.imageUrl; // Utilisez la propriété imageUrl de la carte
+							imageElement.setAttribute("alt", "Carte"); // Ajoutez l'attribut alt pour l'accessibilité
+							imageElement.style.width = "100%"; // Ajuste la largeur de l'image à 100% de la carte
+
+							cardElement.appendChild(imageElement);
+
+							// Ajoute un gestionnaire d'événements de clic à chaque carte
+							cardElement.addEventListener("click", function () {
+							  changeImage(imageElement);
+							  checkGuess(card);
+							});
+
+							cardElement.appendChild(imageElement);
+							cardsElement.appendChild(cardElement);
+						  }
+						}
+
+						// Change l'image par une nouvelle image
+						function changeImage(imageElement) {
+						  imageElement.src = "cartes/dos.png";
+						}
+
+						// Affiche le résultat de la partie
+						function displayResult(message) {
+						  const resultElement = document.getElementById("result");
+						  resultElement.textContent = message;
+
+						  // Désactive les cartes pour empêcher le joueur de continuer à jouer
+						  const cardsElement = document.getElementById("cards");
+						  cardsElement.style.pointerEvents = "none";
+						}
+
+						// Met à jour le score du joueur
+						function updateScore() {
+						  const scoreElement = document.getElementById("score");
+						  scoreElement.textContent = `Score : ${score}`;
+						}
+
+						// Initialise le jeu
+						function initializeGame() {
+						  // Réinitialise les affirmations affichées et le score
+						  displayedAffirmations = [];
+						  score = 10;
+
+						  // Réactive les cartes pour permettre au joueur de jouer à nouveau
+						  const cardsElement = document.getElementById("cards");
+						  cardsElement.style.pointerEvents = "auto";
+
+						  // Affiche les cartes et sélectionne une carte mystère
+						  selectCards();
+
+						  // Réinitialise le résultat et le score affichés
+						  const resultElement = document.getElementById("result");
+						  resultElement.textContent = "";
+
+						  updateScore();
+						}
+
+						// Initialise le jeu au chargement de la page
+						window.onload = initializeGame;
+					</script>
 				</div>
 				
 				<!-- Mini-jeu 3 -->
