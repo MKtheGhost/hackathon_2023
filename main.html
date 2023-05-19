@@ -713,19 +713,18 @@
 
 						// Ajoute un gestionnaire d'événements de clic à chaque carte
 						cardElement.addEventListener("click", function() {
-						  changeImage(imageElement);
-						  checkGuess(card);
+							changeImage(imageElement);
+							checkGuess(card);
 						});
-
+						
+						cardElement.appendChild(imageElement);
 						cardsElement.appendChild(cardElement);
 					  }
 					}
 					
-					// Fonction pour changer l'image de la carte (la rendre grise)
-					function changeImage(cardElement) {
-					  // Trouver l'image à l'intérieur de la carte et lui appliquer la classe grayed-out
-					  const imageElement = cardElement.querySelector("img");
-					  imageElement.classList.add("grayed-out");
+					// Change l'image par une nouvelle image
+					function changeImage(imageElement) {
+						imageElement.src = "cartes/dos.png";
 					}
 
 					// Affiche le résultat de la partie
