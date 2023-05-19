@@ -331,7 +331,8 @@
 		
 		<!-- Defis choix -->
 		<div id="niv" style="display:none;">
-			<div id="selectedImageContainer" style="float:left; width:20%; margin-top:8%;"><img class="selected-image">
+		<div style="float:left; width:20%; margin-top:8%">
+			<!-- <div id="selectedImageContainer" style="float:left; width:20%; margin-top:8%;"><img class="selected-image"> -->
 			<center><button onclick="sortir()" style="margin-right:5px">Revenir aux niveaux</button></center></div>
 				<div id="contenu_defis">
 					<!-- Défis -->
@@ -467,8 +468,11 @@
 
 					<div id="characters" style="float:left; width:100%; background-image:url('fonds/mini_jeu.PNG'); background-size:cover;">
 						<div class="character2">
-						<div id="player-health" class="health-bar-player" style="font-size:11px;"><span id="player-score">&nbsp;Joueur</span></div>		
-							<img src="personnages/joueur.png" class="joueur" alt="Joueur">
+						<div id="player-health" class="health-bar-player" style="font-size:11px;"><span id="player-score">&nbsp;Joueur</span></div>
+							<div id="selectedImageContainer" style="float:left; width:20%;" class="joueur" alt="Joueur">
+							<!-- <img class="selected-image"> -->
+							</div>
+							<!-- <img src="personnages/joueur.png" class="joueur" alt="Joueur"> -->
 						</div>
 
 						<div class="character2">
@@ -477,7 +481,7 @@
 						</div>
 					</div>
 
-					<div id="game" style="float:right; width:70%">
+					<div id="game" style="float:right; width:75%">
 						<div id="cards"></div>
 					</div>
 
@@ -506,7 +510,7 @@
 							{ imageUrl: "cartes/ukraine.png", eventName:"10", affirmations: ["Affirmation 19", "Affirmation 20"] },
 							{ imageUrl: "cartes/auguste.png", eventName:"11", affirmations: ["Affirmation 21", "Affirmation 22"] },
 							{ imageUrl: "cartes/charlemagne.png", eventName:"12", affirmations: ["Affirmation 23", "Affirmation 24"] },
-							{ imageUrl: "cartes/curchill.png", eventName:"13", affirmations: ["Affirmation 25", "Affirmation 26"] },
+							{ imageUrl: "cartes/churchill.png", eventName:"13", affirmations: ["Affirmation 25", "Affirmation 26"] },
 							{ imageUrl: "cartes/de gaulle.png", eventName:"14", affirmations: ["Affirmation 27", "Affirmation 28"] },
 							{ imageUrl: "cartes/francois ier.png", eventName:"15", affirmations: ["Affirmation 29", "Affirmation 30"] },
 							{ imageUrl: "cartes/jehan de beauce.png", eventName:"16", affirmations: ["Affirmation 31", "Affirmation 32"] },
@@ -525,7 +529,7 @@
 							{ imageUrl: "cartes/révolution bolchevique.png", eventName:"29", affirmations: ["Affirmation 57", "Affirmation 58"] },
 							{ imageUrl: "cartes/Ve republique.png", eventName:"30", affirmations: ["Affirmation 59", "Affirmation 60"] },
 							{ imageUrl: "cartes/buenos aires.png", eventName:"31", affirmations: ["Affirmation 61", "Affirmation 62"] },
-							{ imageUrl: "cartes/johannesbourg.png", eventName:"32", affirmations: ["Affirmation 63", "Affirmation 64"] },
+							{ imageUrl: "cartes/johannesburg.png", eventName:"32", affirmations: ["Affirmation 63", "Affirmation 64"] },
 							{ imageUrl: "cartes/chicago.png", eventName:"33", affirmations: ["Affirmation 65", "Affirmation 66"] },
 							{ imageUrl: "cartes/londres.png", eventName:"34", affirmations: ["Affirmation 67", "Affirmation 68"] },
 							{ imageUrl: "cartes/los angeles.png", eventName:"35", affirmations: ["Affirmation 69", "Affirmation 70"] },
