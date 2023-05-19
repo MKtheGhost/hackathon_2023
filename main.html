@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>Jeux des cartes mystères</title>
+		<title>Qui est-ce ?</title>
 		<style>
 		  body {
 			background-color: #202020;
@@ -453,7 +453,7 @@
 						transition: all 1s ease-in-out;
 					}
 					
-					.grayed-out img{
+					.grayed-out {
 						filter: grayscale(100%);
 					}
 				</style>
@@ -690,8 +690,6 @@
 					  const cardsElement = document.getElementById("cards");
 					  cardsElement.innerHTML = "";
 
-					   cardsElement.querySelectorAll(".card").forEach(card => card.classList.remove("grayed-out"));
-						
 					  for (let i = 0; i < selectedCards.length; i++) {
 						const card = selectedCards[i];
 
@@ -703,14 +701,13 @@
 						imageElement.setAttribute("alt", "Carte"); // Ajoutez l'attribut alt pour l'accessibilité
 						imageElement.style.width = "100%"; // Ajuste la largeur de l'image à 100% de la carte
 
-						cardElement.appendChild(imageElement);
-
 						// Ajoute un gestionnaire d'événements de clic à chaque carte
 						cardElement.addEventListener("click", function() {
-							changeImage(imageElement);
-							checkGuess(card);
+						  cardElement.classList.add("grayed-out"); // Ajoute la classe "grayed-out" à la carte
+						  changeImage(imageElement); // Appelle la fonction changeImage pour afficher l'image de dos de la carte
+						  checkGuess(card);
 						});
-						
+
 						cardElement.appendChild(imageElement);
 						cardsElement.appendChild(cardElement);
 					  }
@@ -718,7 +715,7 @@
 					
 					// Change l'image par une nouvelle image
 					function changeImage(imageElement) {
-						imageElement.src = "cartes/dos.png";
+					  imageElement.src = "cartes/dos.png";
 					}
 
 					// Affiche le résultat de la partie
