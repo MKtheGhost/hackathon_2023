@@ -505,9 +505,9 @@
 					let playerScore = 10;
 					let bossScore = 10;
 
-					// Sélectionne une affirmation aléatoire parmi les affirmations disponibles pour une carte donnée
-					function getRandomAffirmation(card) {
-					  const availableAffirmations = card.affirmations.filter(affirmation => !displayedAffirmations.includes(affirmation));
+					// Sélectionne une affirmation aléatoire parmi les affirmations disponibles pour la carte mystère
+					function getRandomAffirmation() {
+					  const availableAffirmations = mysteryCard.affirmations.filter(affirmation => !displayedAffirmations.includes(affirmation));
 					  const randomIndex = Math.floor(Math.random() * availableAffirmations.length);
 					  return availableAffirmations[randomIndex];
 					}
@@ -517,14 +517,11 @@
 					  const affirmationElement = document.getElementById("affirmation");
 					  const showButtonElement = document.getElementById("show-button");
 
-					  const randomIndex = Math.floor(Math.random() * cards.length);
-					  const selectedCard = cards[randomIndex];
-
-					  let newAffirmation = getRandomAffirmation(selectedCard);
+					  let newAffirmation = getRandomAffirmation();
 
 					  // Vérifie si l'affirmation sélectionnée a déjà été affichée
 					  while (displayedAffirmations.includes(newAffirmation)) {
-						newAffirmation = getRandomAffirmation(selectedCard);
+						newAffirmation = getRandomAffirmation();
 					  }
 
 					  // Ajoute la nouvelle affirmation à la liste des affirmations affichées
@@ -577,7 +574,7 @@
 						}, 1000);
 					  }, 10);
 					}
-					
+	
 					// Fonction pour valider le nom de l'évènement
 					function validateEventName() {
 					  const eventNameElement = document.getElementById("eventName");
