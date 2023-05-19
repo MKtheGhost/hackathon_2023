@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Jeux des cartes mystères</title>
+		<style>
+		  body {
+			background-color: #202020;
+			<!-- background-image: url('fonds/Accueil.jpg'); -->
+			background-repeat: no-repeat;
+			background-size: cover;
+			color: white;
+			font-family: Arial, sans-serif;
+		  }
+		  
+		  #header {
+			background-image: url('banniere/banniere.png');
+			background-size: contain;
+			background-repeat: no-repeat;
+			height: 200px;
+			margin-bottom: 50px;
+		  }
+		  
+		  #settings {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 60px;
+			background-color: rgba(0, 0, 0, 0.5);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		  }
+		  	  
+		  #info {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			text-align: center;
+			padding: 3vw;
+			background-color: rgba(0, 0, 0, 0.5);
+			border-radius:10px;
+		  }
+		  
+		  #menu-boutons {
+		    opacity: 0;
+		    transition: opacity 0.5s ease;
+		  }
+		  #menu-boutons.show {
+			opacity: 1;
+		  }
+				
+		  @media only screen and (max-width: 768px) {
+			#settings {
+			  height: 30vh;
+			}
+			#sound {
+				width: 8vh;
+				max-width: 40px;
+				background-color: transparent;
+				background-image: url('boutons/son_on.png');
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center;
+				border:none;
+			}
+			#infos {
+				width: 8vh;
+				max-width: 40px;
+				background-color: transparent;
+				background-image: url('boutons/informations.png');
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center;
+				border:none;
+			}
+			#bouton-parametres {
+				width: 8vh;
+				max-width: 40px;
+				background-color: transparent;
+				background-image: url('boutons/paramètres.png');
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center;
+				border:none;
+			}
+			#play {
+				width: 8vh;
+				max-width: 40px;
+				background-color: transparent;
+				background-image: url('boutons/play.png');
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center;
+				border:none;
+			    width: 10%;
+			    height: auto;
+			    padding-bottom: 10%;
+			}
+			#info {
+			  padding: 10vw;
+			}
+		  }
+		  
+			.settings-button {
+			  position: absolute;
+			  top: 2%;
+			  left: 2%;
+			  width:7%;
+			}
+			
+			@font-face {
+				font-family: 'FullHouse';
+				src: url('polices/Hey Comic.ttf') format('woff');
+			}
+
+			p {
+				font-family: 'FullHouse', sans-serif;
+			}
+			
+			.image1 {
+			  position: relative;
+			  z-index: 1;
+			}
+
+			.image2 {
+			  position: absolute;
+			  right: 19%;
+			  z-index: 2;
+			  bottom: 45%
+			}
+			
+			#popup {
+			  position: fixed;
+			  top: 0;
+			  left: 0;
+			  width: 100%;
+			  height: 100%;
+			  background-color: rgba(0,0,0,0.4);
+			}
+			
+			#popup2 {
+			  position: fixed;
+			  top: 0;
+			  left: 0;
+			  width: 100%;
+			  height: 100%;
+			  background-color: rgba(0,0,0,0.4);
+			}
+
+			#popup-container {
+			  position: fixed;
+			  top: 50%;
+			  left: 50%;
+			  transform: translate(-50%, -50%);
+			  width: 800px;
+			  height: 450px;
+			  background-color: white;
+			  border: 1px solid black;
+			  border-radius: 5px;
+			}
+
+			#popup-header {
+			  background-color: lightgray;
+			  padding: 10px;
+			  border-bottom: 1px solid black;
+			  border-radius: 5px 5px 0 0;
+			}
+
+			#popup-title {
+			  margin: 0;
+			  font-size: 20px;
+			}
+
+			#popup-close {
+			  position: absolute;
+			  top: 10px;
+			  right: 10px;
+			  font-size: 20px;
+			  background-color: transparent;
+			  border: none;
+			  cursor: pointer;
+			}
+
+			#popup-content {
+			  padding: 20px;
+			}
+
+			#popup-message {
+			  margin: 0;
+			}
+					  
+			/* Style pour les images de personnage */
+			.selected-image {
+			  display: block;
+			  margin: auto;
+			  max-width: 50%;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<!-- Page initiale et choix des personnages -->
+		<div id="content2">
+			<!-- Page intiale -->
+			<div id="content">
+				<div id="info">	
+					<div class="image1">
+						<h1><img src="banniere/banniere.png" style="width:100%"></h1>
+					</div>
+					<div class="image2">
+						<button style="border:none; background-color:transparent;" id="play">
+								<img src="boutons/play.png" style="width:25%"/>
+						</button>
+					</div>
+					<p style="font-size:20px; letter-spacing:2px;">Texte</p>			
+				</div>
+			</div>
+
+			<!-- Choix des personnages -->
+			<div id="choix_perso" style="display:none">
+				<style>
+					body {
+					  background-color: #222;
+					  font-family: 'Arial', sans-serif;
+					  color: #fff;
+					  text-align: center;
+					  padding: 50px;
+					}
+					p {
+					  font-size: 1.2rem;
+					  margin-bottom: 28px;
+					}
+					.character {
+					  display: inline-block;
+					  margin: 20px;
+					  cursor: pointer;
+					}
+					.character img {
+					  width: 200px;
+					  height: 280px;
+					  border-radius: 10px;
+					  transition: all 0.2s ease-in-out;
+					}
+					.character img:hover {
+					  transform: scale(1.1);
+					}
+					.selected {
+					  border: 5px solid #ff0;
+					}
+					button {
+					  padding: 10px 20px;
+					  background-color: #ff0;
+					  border: none;
+					  border-radius: 5px;
+					  font-size: 1.2rem;
+					  cursor: pointer;
+					  transition: all 0.2s ease-in-out;
+					}
+					button:hover {
+					  background-color: #ff9;
+					}
+				</style>
+				<p style="font-size:25px">Qui vas-tu incarner :</p>
+				<div class="characters">
+					<div class="character" onclick="selectCharacter('c1')">
+						<img src="images/c4.png" alt="Personnage 1">
+					</div>
+					<div class="character" onclick="selectCharacter('c2')">
+						<img src="images/c5.png" alt="Personnage 2">
+					</div>
+					<div class="character" onclick="selectCharacter('c3')"> <!-- c3 a modifier avec les personnages -->
+						<img src="images/c6.png" alt="Personnage 3">
+					</div>
+				</div>
+				<button onclick="startGame()" style="border:none; background-color:transparent;">
+					<img src="boutons/Commencer.png" style="width:20%">
+				</button>
+				<script>
+				  // Script pour la gestion des personnages sélectionnés et du bouton de démarrage
+				  let selectedCharacter = '';
+				  function selectCharacter(character) {
+					// Réinitialiser la classe "selected" de tous les personnages
+					const characters = document.querySelectorAll('.character');
+					characters.forEach(char => char.classList.remove('selected'));
+					// Ajouter la classe "selected" au personnage sélectionné
+					const selected = document.querySelector(`.character[onclick*="${character}"]`);
+					selected.classList.add('selected');
+					// Enregistrer le personnage sélectionné
+					selectedCharacter = character;
+				  }
+				   function startGame() {
+					if (selectedCharacter !== '') {
+						// Récupérer l'élément #niv
+						const premierDefi = document.querySelector('#niv');
+						
+						// Créer une image pour le personnage sélectionné
+						const selectedImage = document.createElement('img');
+						selectedImage.src = `images/${selectedCharacter}.png`;
+						
+						// Ajouter l'image à la div container
+						const selectedImageContainer = premierDefi.querySelector('#selectedImageContainer');
+						selectedImageContainer.appendChild(selectedImage);
+						selectedImage.style.width = '80%';
+						
+						// Afficher la page "niv"
+						const content2 = document.querySelector('#content2');
+						content2.innerHTML = premierDefi.innerHTML;
+						
+						 // Masquer la page "choix_perso"
+						const choixPerso = document.querySelector('#choix_perso');
+						choixPerso.style.display = 'none';
+					}
+				}
+				</script>
+			</div>
+			<script>
+			  // Récupérer l'élément du bouton de play et l'élément du contenu (Accueil)
+			  const playBtn = document.querySelector('#play');
+			  const content = document.querySelector('#content');
+
+			  // Ajouter un gestionnaire d'événements pour le clic sur le bouton de play
+			  playBtn.addEventListener('click', () => {
+				// Remplacer le contenu de l'élément #content par le contenu de l'élément #choix_perso
+				content.innerHTML = document.querySelector('#choix_perso').innerHTML;
+			  });
+			</script>
+		</div>
+		
+		<!-- Defis choix -->
+		<div id="niv" style="display:none;">
+			<div style="float:left; width:20%; margin-top:8%">
+				<button onclick="sortir()" style="margin-right:5px">Revenir aux niveaux</button>
+			</div>
+				<div id="contenu_defis">
+					<!-- Défis -->
+					<button onclick="afficherMiniJeu1()" style="border:none; background-color:transparent; width:8%; margin:0px;">
+						<img class="niveau" src="images/niv1.png" style="width:93%">
+					</button>
+					
+					<button onclick="afficherMiniJeu2()" style="border:none; background-color:transparent; width:8%; margin:0px;">
+						<img class="niveau" src="images/niv2.png" style="width:93%">
+					</button>
+
+					<button onclick="afficherMiniJeu3()" style="border:none; background-color:transparent; width:8%; margin:0px;">
+						<img class="niveau" src="images/niv3.png" style="width:93%">
+					</button>
+				</div>
+				
+				<style>
+					body{
+						font-family:cursive;
+					}
+					#game {
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						padding: 20px;
+					}
+					#cards {
+						display: flex;
+						flex-wrap: wrap;
+						justify-content: center;
+						gap: 10px;
+					}
+					.card {
+						width: 100px;
+						height: 150px;
+						border: None;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						cursor: pointer;
+					}
+					#result {
+						margin-top: 20px;
+						font-weight: bold;
+					}
+					#score {
+						margin-top: 10px;
+					}
+					#characters {
+						display: flex;
+						width:100%;
+						justify-content: center;
+						gap: 10px;
+						margin-top: 0px;
+						margin-bottom:10px;
+					}
+					
+					.joueur {
+						margin-left:1%;
+					}
+					
+					.boss {
+						margin-left:1%;
+					}
+					
+					.character2 img {
+						width: 150px;
+						height: 150px;
+					}
+
+					.card img {
+						width: 100%;
+						height: 100%;
+					}
+
+					.health-bar-player {
+						font-weight: bold;
+						margin-top: 10px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						width: 150px;
+						height: 15px;
+						border: 1px solid black;
+						margin-right:500px;
+					}
+
+					.health-bar-player span {
+						display: inline-block;
+						width: 100%;
+						height: 100%;
+						background-color: green;
+						transition: width 0.3s ease-in-out;
+					}
+					
+					.health-bar-boss {
+						font-weight: bold;
+						margin-top: 10px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						width: 150px;
+						height: 15px;
+						border: 1px solid black;
+					}
+
+					.health-bar-boss span {
+						display: inline-block;
+						width: 100%;
+						height: 100%;
+						background-color: red;
+						transition: width 0.3s ease-in-out;
+					}
+					
+					.red-dot {
+						position: absolute;
+						width: 10px;
+						height: 10px;
+						background-color: red;
+						border-radius: 50%;
+						transition: all 1s ease-in-out;
+					}
+					
+					.card.grayed-out {
+						filter: grayscale(100%);
+					}
+				</style>
+			
+				<!-- Mini-jeu 1 -->
+				<div id="mini-jeu1" style="display:none; margin-left:20%;">
+					<center><h1 style="font-size:20px">Niveau 1</h1></center>
+
+					<div id="characters" style="float:left; width:100%; background-image:url('fonds/mini_jeu.PNG'); background-size:cover;">
+						<div class="character2">
+						<div id="player-health" class="health-bar-player" style="font-size:11px;"><span id="player-score">&nbsp;Joueur</span></div>
+							<div id="selectedImageContainer" style="float:left; width:20%;" class="joueur" alt="Joueur"></div>
+						</div>
+						
+						<div class="character2">
+							<div id="boss-health" class="health-bar-boss" style="font-size:11px;"><span id="boss-score">&nbsp;Boss</span></div>
+							<img src="personnages/boss1.png" class="boss" alt="Boss">
+						</div>
+					</div>
+
+					<div id="game" style="float:right; width:75%">
+						<div id="cards"></div>
+					</div>
+
+					<div id="affirmation-frame" style="margin-left:1.5%">
+						<br>
+						<h2>Affirmations :</h2>
+						<div id="score"></div>
+						<p id="affirmation"></p>
+						<input type="text" id="eventName" placeholder="Nom de l'événement">
+						<button id="validate-button" onclick="validateEventName()">Valider</button>
+						<button id="show-button" onclick="displayRandomAffirmation()">Afficher une autre affirmation</button>
+					</div>
+				</div>
+				
+				<!-- Resultat niv1 -->
+				<div id="resultat1" style="display:none;">
+					<p>pourvu que ça marche</p>
+					<button onclick="sortirresultat1()">Sortir</button>
+					<div id="result"></div>
+				</div>
+				<script>
+					// Liste des affirmations affichées
+					let displayedAffirmations = [];
+
+					// Initialiser les scores boss et player
+					let playerScore = 10;
+					let bossScore = 10;
+
+					// Sélectionne une affirmation aléatoire parmi les affirmations disponibles pour une carte donnée
+					function getRandomAffirmation(card) {
+					  const availableAffirmations = card.affirmations.filter(affirmation => !displayedAffirmations.includes(affirmation));
+					  const randomIndex = Math.floor(Math.random() * availableAffirmations.length);
+					  return availableAffirmations[randomIndex];
+					}
+
+					// Affiche une affirmation aléatoire dans le cadre
+					function displayRandomAffirmation() {
+					  const affirmationElement = document.getElementById("affirmation");
+					  const showButtonElement = document.getElementById("show-button");
+
+					  const randomIndex = Math.floor(Math.random() * cards.length);
+					  const selectedCard = cards[randomIndex];
+
+					  let newAffirmation = getRandomAffirmation(selectedCard);
+
+					  // Vérifie si l'affirmation sélectionnée a déjà été affichée
+					  while (displayedAffirmations.includes(newAffirmation)) {
+						newAffirmation = getRandomAffirmation(selectedCard);
+					  }
+
+					  // Ajoute la nouvelle affirmation à la liste des affirmations affichées
+					  displayedAffirmations.push(newAffirmation);
+
+					  // Met à jour le contenu du cadre avec toutes les affirmations affichées
+					  affirmationElement.innerHTML = displayedAffirmations.join("<br>");
+
+					  // Fait défiler jusqu'en bas pour afficher la dernière affirmation
+					  affirmationElement.scrollTop = affirmationElement.scrollHeight;
+
+					  // Vérifie si le nombre maximal d'affirmations est atteint
+					  if (displayedAffirmations.length >= 10) {
+						showButtonElement.disabled = true;
+					  }
+
+					  // Diminue le score du joueur de 1
+					  playerScore -= 1;
+
+					  // Met à jour la barre de vie du joueur
+					  const playerHealthBar = document.getElementById("player-health");
+					  const playerHealthBarSpan = playerHealthBar.querySelector("span");
+					  const playerHealthPercentage = (playerScore / 10) * 100;
+					  playerHealthBarSpan.style.width = playerHealthPercentage + "%";
+
+					  const bossElement = document.querySelector(".boss");
+					  const playerElement = document.querySelector(".joueur");
+					  const redDot = document.createElement("div");
+					  redDot.className = "red-dot";
+					  document.body.appendChild(redDot);
+
+					  const bossPosition = bossElement.getBoundingClientRect();
+					  const playerPosition = playerElement.getBoundingClientRect();
+					  const dotPosition = {
+						top: bossPosition.top + bossPosition.height / 2 - redDot.offsetHeight / 2,
+						left: bossPosition.left + bossPosition.width / 2 - redDot.offsetWidth / 2
+					  };
+					  redDot.style.top = dotPosition.top + "px";
+					  redDot.style.left = dotPosition.left + "px";
+
+					  setTimeout(() => {
+						redDot.style.top = playerPosition.top + playerPosition.height / 2 - redDot.offsetHeight / 2 + "px";
+						redDot.style.left = playerPosition.left + playerPosition.width / 2 - redDot.offsetWidth / 2 + "px";
+						setTimeout(() => {
+						  redDot.remove();
+						  playerScoreElement.textContent = score;
+						  if (score === 0) {
+							displayResult(`Dommage ! Vous avez perdu la partie, l'événement était : ${mysteryCard.eventName}`);
+						  }
+						}, 1000);
+					  }, 10);
+					}
+					
+					// Fonction pour valider le nom de l'évènement
+					function validateEventName() {
+					  const eventNameElement = document.getElementById("eventName");
+					  const eventName = eventNameElement.value.trim(); // Récupère la valeur saisie et supprime les espaces en début et fin de chaîne
+
+					  // Récupère l'élément où afficher le résultat
+					  const resultElement = document.getElementById("result");
+
+					  document.getElementById("mini-jeu1").style.display = "none";
+					  document.getElementById("resultat1").style.display = "block";
+						
+					  // Vérifie si la réponse est correcte
+					  if (eventName.toLowerCase() === mysteryCard.eventName.toLowerCase()) {
+						// Affiche l'image de gagné
+						resultElement.innerHTML = "<img src='score_boutons/victoire.png' alt='Gagné' style='width:20%'>";
+					  } else {
+						// Affiche l'image de perdu
+						resultElement.innerHTML = "<img src='score_boutons/defaite.png' alt='Perdu' style='width:20%'>";
+					  }
+					}
+
+					function sortirresultat1() {
+						document.getElementById("resultat1").style.display = "none";
+						document.getElementById("contenu_defis").style.display = "block";
+					}			
+
+					// Niveau de difficulté du jeu (1, 2 ou 3)
+					const difficultyLevel = 1;
+
+					// Nombre de cartes à sélectionner pour le jeu
+					const numCards = 15;
+
+					// Carte mystère à deviner
+					let mysteryCard;
+
+					// Cartes sélectionnées pour le jeu
+					let selectedCards = [];
+
+					// Score du joueur
+					let score = 10;
+
+					// Sélectionne les cartes pour le jeu
+					function selectCards() {
+					  // Réinitialise les cartes sélectionnées
+					  selectedCards = [];
+
+					  // Sélectionne les cartes au hasard
+					  let availableCards = cards.slice(); // Copie de la liste des cartes
+					  for (let i = 0; i < numCards; i++) {
+						const randomIndex = Math.floor(Math.random() * availableCards.length);
+						const selectedCard = availableCards.splice(randomIndex, 1)[0];
+						selectedCards.push(selectedCard);
+					  }
+
+					  // Choisis une carte mystère parmi les cartes sélectionnées
+					  mysteryCard = selectedCards[Math.floor(Math.random() * selectedCards.length)];
+
+					  // Affiche les cartes sur le plateau de jeu
+					  displayCards();
+					}
+
+					// Affiche les cartes sur le plateau de jeu
+					function displayCards() {
+					  const cardsElement = document.getElementById("cards");
+					  cardsElement.innerHTML = "";
+
+					  for (let i = 0; i < selectedCards.length; i++) {
+						const card = selectedCards[i];
+
+						const cardElement = document.createElement("div");
+						cardElement.className = "card";
+
+						const imageElement = document.createElement("img");
+						imageElement.src = card.imageUrl; // Utilisez la propriété imageUrl de la carte
+						imageElement.setAttribute("alt", "Carte"); // Ajoutez l'attribut alt pour l'accessibilité
+						imageElement.style.width = "100%"; // Ajuste la largeur de l'image à 100% de la carte
+
+						cardElement.appendChild(imageElement);
+
+						// Ajoute un gestionnaire d'événements de clic à chaque carte
+						cardElement.addEventListener("click", function() {
+						  changeImage(imageElement);
+						  checkGuess(card);
+						});
+
+						cardsElement.appendChild(cardElement);
+					  }
+					}
+
+					// Mettre en gris la carte
+					function changeImage(imageElement) {
+					  // Ajoutez la classe "grayed-out" à l'imageElement
+					  imageElement.classList.add("grayed-out");
+					}
+
+					// Affiche le résultat de la partie
+					function displayResult(message) {
+					  const resultElement = document.getElementById("result");
+					  resultElement.textContent = message;
+
+					  // Désactive les cartes pour empêcher le joueur de continuer à jouer
+					  const cardsElement = document.getElementById("cards");
+					  cardsElement.style.pointerEvents = "none";
+					}
+
+					// Met à jour le score du joueur
+					function updateScore() {
+					  const scoreElement = document.getElementById("score");
+					  scoreElement.textContent = `Score : ${score}`;
+					}
+
+					// Initialise le jeu
+					function initializeGame() {
+					  // Réinitialise les affirmations affichées et le score
+					  displayedAffirmations = [];
+					  score = 10;
+
+					  // Réactive les cartes pour permettre au joueur de jouer à nouveau
+					  const cardsElement = document.getElementById("cards");
+					  cardsElement.style.pointerEvents = "auto";
+
+					  // Affiche les cartes et sélectionne une carte mystère
+					  selectCards();
+
+					  // Réinitialise le résultat et le score affichés
+					  const resultElement = document.getElementById("result");
+					  resultElement.textContent = "";
+
+					  updateScore();
+					}
+
+					// Initialise le jeu au chargement de la page
+					window.onload = initializeGame;
+				</script>
+
+				<script> //resultat
+					function afficherresultat1() {
+						document.getElementById("mini-jeu1").style.display = "none";
+						document.getElementById("resultat1").style.display = "block";
+				  }
+					function sortirresultat1() {
+						document.getElementById("resultat1").style.display = "none";
+						document.getElementById("contenu_defis").style.display = "block";
+				  }					
+				</script>
+
+				<!-- Mini-jeu 2 -->
+				<div id="mini-jeu2" style="display:none; margin-left:20%;">
+
+				</div>
+				
+				<!-- Mini-jeu 3 -->
+				<div id="mini-jeu3" style="display:none; margin-left:20%;">
+
+				</div>
+
+				<script>
+					function afficherMiniJeu1() {
+						// Cacher le contenu_defis d'origine
+						document.getElementById("contenu_defis").style.display = "none";
+						// Afficher le mini-jeu
+						document.getElementById("mini-jeu1").style.display = "block";
+					  }
+					   function afficherMiniJeu2() {
+						document.getElementById("contenu_defis").style.display = "none";
+						document.getElementById("mini-jeu2").style.display = "block";
+					  }
+					  function afficherMiniJeu3() {
+						document.getElementById("contenu_defis").style.display = "none";
+						document.getElementById("mini-jeu3").style.display = "block";
+					  }
+					function sortir() {
+						// Cacher le mini-jeu
+						document.getElementById("mini-jeu1").style.display = "none";
+						document.getElementById("mini-jeu2").style.display = "none";
+						document.getElementById("mini-jeu3").style.display = "none";
+						// Afficher le contenu_defis d'origine
+						document.getElementById("contenu_defis").style.display = "block";
+					  }
+					  
+					// Liste des 50 cartes possibles avec leurs affirmations
+					const cards = [
+						{ imageUrl: "cartes/afghanistan.png", eventName:"afghanistan", category: "état", affirmations: [
+						"Participant au Bandung",
+						"Se situe en Europe",
+						"C'est une dictature théocratique",
+						"A une population de 39M habitants",
+						"A une organisation terroriste à la tête de l'Etat",
+						"C'est un état",
+						"Est connu pour sa géographie montagneuse",
+						"La langue officielle est le dari",
+						"Il abritait des sites archéologiques importants",
+						"Possède une riche histoire"] },
+						
+						{ imageUrl: "cartes/algerie.png", eventName:"algérie", category: "état", affirmations: [
+						"Important dans l'histoire des français",
+						"Se situe en Afrique",
+						"Faisait partit du tiers-monde",
+						"Il s'agit d'une République semi-présidentielle",
+						"A une population de 44M habitants",
+						"C'est un état",
+						"Possède une diversité géographique importante",
+						"La langue officielle est l'arabe",
+						"Réputé pour sa cuisine variée et savoureuse",
+						"La religion principale est l'Islam"] },
+						
+						{ imageUrl: "cartes/chine.png", eventName:"chine", category: "état", affirmations: [
+						"Participant au Bandung",
+						"Se situe en Asie",
+						"C'est un régime autoritaire",
+						"C'est une puissance industrielle",
+						"A une population de 1,41Milliard d'habitants",
+						"A un dictateur à la tête de l'Etat",
+						"C'est un état",
+						"La capitale est Pékin",
+						"Connu pour ses contributions à la science et la technologie",
+						"Les plats traditionnels sont à base de riz"] },
+						
+						{ imageUrl: "cartes/coree du nord.png", eventName:"corée du nord", category: "état", affirmations: [
+						"Se situe en Asie",
+						"C'est un régime autoritaire",
+						"A une population de 25,6M habitants",
+						"A un dictateur à la tête de l'Etat",
+						"C'est un état",
+						"La capitale est Pyongyang",
+						"Possède un programme nucléaire controversé",
+						"Exerce un contrôle strict sur les médias",
+						"Limite l'accès aux étrangers",
+						"Considéré comme un Etat communiste et totalitaire"] },
+						
+						{ imageUrl: "cartes/cuba.png", eventName:"cuba", category: "état", affirmations: [
+						"Se situe en Amérique",
+						"Il s'agit d'une République semi-présidentielle",
+						"A une population de 11,3M habitants",
+						"C'est un état",
+						"Connu pour sa culture et sa musique",
+						"Foyer de révolution en 1959",
+						"Célèbre pour ses plages de sable blanc, ses eaux turquoise et sa vie marine abondante",
+						"Réputé pour ses cigares, son rhum et sa musique traditionnelle",
+						"La langue officielle est l'espagnol",
+						"Est influencé par les cultures indigènes, africaines, espagnoles et caribéennes"] },
+						
+						{ imageUrl: "cartes/iran.png", eventName:"iran", category: "état", affirmations: [
+						"Participant au Bandung",
+						"Se situe en Asie",
+						"C'est une dictature théocratique",
+						"A une population de 85M habitants",
+						"C'est un état",
+						"La capitale est Téhéran",
+						"Est connu pour ses sites historiques, Persépolis et Ispahan",
+						"L'islam est la religion principale",
+						"Possède de nombreuses écoles et instituts de recherches",
+						"Connu pour son héritage culturel et sa civilisation perse"]},
+						
+						{ imageUrl: "cartes/israel.png", eventName:"israel", category: "état", affirmations: [
+						"Se situe en Asie",
+						"C'est une démocratie parlementaire",
+						"A une population de 9,4M habitants",
+						"C'est un état",
+						"Est considéré comme le berceau du judaïsme, du christianisme et de l'islam",
+						"Créer en 1948",
+						"Les langues officielles sont l'hébreux et l'arabe",
+						"Lieu de pèlerinnage important",
+						"Possède une population diversifiée",
+						"A connu une forte croissance économique"] },
+						
+						{ imageUrl: "cartes/kenya.png", eventName:"kenya", category: "état", affirmations: [
+						"Se situe en Afrique", 
+						"Il s'agit d'une République présidentielle",
+						"A une population de 55,6M habitants",
+						"C'est un état",
+						"La capitale de la plus grande ville est Nairobi",
+						"L'économie repose sur l'agriculture, le tourisme, l'industrie manufacturière et les services",
+						"Les langues officielles sont le swahili et l'anglais",
+						"Possède le deuxième plus haut sommet d'Afrique",
+						"C'est le berceau de l'humanité",
+						"Possède une cuisine traditionnelle variée : l'ugali, le nyama choma et le pilau"] },					
+						
+						{ imageUrl: "cartes/mexique.png", eventName:"mexique", category: "état", affirmations: [
+						"Se situe en Amérique",
+						"Il s'agit d'une République fédérale",
+						"A une population de 129,2M habitants",
+						"C'est un état",
+						"Connu pour d'anciennes civilisations, Aztèques et Mayas",
+						"Premier producteur mondial de tequila",
+						"A remporté plusieurs titres de football en 1970 et 1986",
+						"Connais des artistes célèbres : Diego Rivera et David Alfaro Siqueiros",
+						"Connu pour ses traditions artisanales : poterie, tissage, sculpture sur bois",
+						"La langue officielle est l'espagnol",
+						"A des fêtes traditionnelles : Dia de los Muertos"] },
+						
+						{ imageUrl: "cartes/ukraine.png", eventName:"ukraine", category: "état", affirmations: [
+						"Se situe en Europe",
+						"Il s'agit d'une république semi-présidentielle",
+						"A une population de 44,5M habitants",
+						"C'est un état",
+						"Est connu pour ses danses traditionelles : danse du 'Hopak'",
+						"Le football est un sport populaire",
+						"Connu pour son patrimoine culturelle : bortsch, varenyky, salo",
+						"Connais deux grand peintres : Kazimir Malevich et Ivan Aïvazovski",
+						"Il s'agit du deuxième plus grand pays d'Europe",
+						"Catastrophe nucléaire en 1986"] },
+												
+						{ imageUrl: "cartes/auguste.png", eventName:"auguste", category: "personnage", affirmations: [
+						"1er siècle avant Jésus Christ",
+						"C'était un empereur",
+						"Important pour Rome",
+						"C'est un personnage historique",
+						"Fils adoptif de Jules César",
+						"",
+						"",
+						"",
+						"",
+						""] },
+						
+						{ imageUrl: "cartes/charlemagne.png", eventName:"charlemagne", category: "personnage", affirmations: [
+						"IXe siècle",
+						"C'était un roi",
+						"C'est un personnage historique"] },
+						
+						{ imageUrl: "cartes/churchill.png", eventName:"winston churchill", category: "personnage", affirmations: [
+						"XXe siècle",
+						"C'était un président",
+						"C'est un personnage historique"]},
+						
+						{ imageUrl: "cartes/de gaulle.png", eventName:"charles de gaulle", category: "personnage", affirmations: [
+						"XXe siècle", 
+						"C'était un homme militaire",
+						"C'est un personnage historique"] },
+						
+						{ imageUrl: "cartes/francois ier.png", eventName:"francois Ier", category: "personnage", affirmations: [
+						"XVIe siècle",
+						"C'était un roi",
+						"C'est un personnage historique"] },
+						
+						{ imageUrl: "cartes/jehan de beauce.png", eventName:"jehan de beauce", category: "personnage", affirmations: [
+						"XVe - XVIe siècle",
+						"C'était un architecte",
+						"C'est un personnage historique"] },
+						
+						{ imageUrl: "cartes/napoléon ier.png", eventName:"napoléon I", category: "personnage", affirmations: [
+						"XIXe siècle",
+						"C'était un empereur",
+						"C'est un personnage historique"] },
+						
+						{ imageUrl: "cartes/roosevelt.png", eventName:"franklin d. roosevelt", category: "personnage", affirmations: [
+						"XIXe - XXe siècle",
+						"C'était un homme d'état",
+						"C'est un personnage historique"] },
+						
+						{ imageUrl: "cartes/staline.png", eventName:"staline", category: "personnage", affirmations: [
+						"Important pour l'URSS",
+						"XIXe-XXe siècle",
+						"C'est un personnage historique"] },
+						
+						{ imageUrl: "cartes/trump.png", eventName:"donald trump", category: "personnage", affirmations: [
+						"XXe-XXIe siècle",
+						"C'était un président",
+						"C'est un personnage historique"] },
+							
+						{ imageUrl: "cartes/bapteme de clovis.png", eventName:"baptême de clovis", category: "evenements", affirmations: [
+						"C'est un évènement", 
+						"VIe siècle",
+						"Important dans l'histoire des français"] },
+						
+						{ imageUrl: "cartes/chute du mur de berlin.png", eventName:"chute du mur de berlin", category: "evenements", affirmations: [
+						"C'est un évènement", 
+						"XXe siècle",
+						"A un lien avec l'histoire allemande"] },
+						
+						{ imageUrl: "cartes/coup d'etat.png", eventName:"coup d'état du 18 brumaire", category: "evenements", affirmations: [
+						"C'est un évènement", 
+						"XVIIIe siècle",
+						"Important dans l'histoire des français"] },
+						
+						{ imageUrl: "cartes/creation de l'onu.png", eventName:"création de l'onu", category: "evenements", affirmations: [
+						"C'est un évènement", 
+						"XXe siècle"] },
+						
+						{ imageUrl: "cartes/crise de cuba.png", eventName:"crise de cuba", category: "evenements", affirmations: [
+						"C'est un évènement", 
+						"XXe siècle",
+						"Implique les grandes puissances de la guerre froide"] },
+						
+						{ imageUrl: "cartes/execution louis xvi.png", eventName:"exécution de louis XVI", category: "evenements", affirmations: [
+						"C'est un évènement", 
+						"XVIIIe siecle",
+						"Important pour l'URSS"] },
+						
+						{ imageUrl: "cartes/fin de l'empire romain.png", eventName:"fin de l'empire romain d'occident", category: "evenements", affirmations: [
+						"C'est un évènement", 
+						"Ve siècle",
+						"Important pour Rome"] },
+						
+						{ imageUrl: "cartes/nuremberg.png", eventName:"loi de nuremberg", category: "evenements", affirmations: [
+						"C'est un évènement", 
+						"XXe siècle"] },
+						
+						{ imageUrl: "cartes/révolution bolchevique.png", eventName:"révolution bolchévique", category: "evenements", affirmations: [
+						"C'est un évènement", 
+						"XXe siècle",
+						"Important pour l'URSS"] },
+						
+						{ imageUrl: "cartes/Ve republique.png", eventName:"fondation de la Ve république", category: "evenements", affirmations: [
+						"C'est un évènement", 
+						"XXe siècle",
+						"Important dans l'histoire des français"] },
+						
+						{ imageUrl: "cartes/buenos aires.png", eventName:"buenos aires", category: "ville", affirmations: [
+						"C'est une grande ville",
+						"A une population de 3,1M habitants",
+						"Se situe en Amérique",
+						"Il s'agit d'une ville historique",
+						"Il s'agit d'une ancienne colonie",
+						" A une importance historique"
+						] },
+						
+						{ imageUrl: "cartes/johannesburg.png", eventName:"johannesburg", category: "ville", affirmations: [
+						"C'est une grande ville",
+						"A une population de 5,9M habitants",
+						"Se situe en Afrique",
+						"A une importance historique"] },
+						
+						{ imageUrl: "cartes/chicago.png", eventName:"chicago", category: "ville", affirmations: [
+						"C'est une grande ville",
+						"A une population de 2,7M habitants",
+						"Se situe en Amérique"] },
+						
+						{ imageUrl: "cartes/londres.png", eventName:"londres", category: "ville", affirmations: [
+						"C'est une grande ville",
+						"A une population de 9,3M habitants",
+						"C'est une ville monde",
+						"Se situe en Europe",
+						"POssède un pouvoir politique mondiale"] },
+						
+						{ imageUrl: "cartes/los angeles.png", eventName:"los angeles", category: "ville", affirmations: [
+						"C'est une grande ville",
+						"A une population de 3,99M habitants",
+						"Se situe en Amérique",
+						"C'est une puissance culturelle"] },
+						
+						{ imageUrl: "cartes/mewyork.png", eventName:"new york", category: "ville", affirmations: [
+						"C'est une grande ville",
+						"A une population de 8,4M habitants",
+						"Se situe en Amérique",
+						"Possède un pouvoir politique mondiale",
+						"C'est une ville monde"] },
+						
+						{ imageUrl: "cartes/mumbai.png", eventName:"mumbai", category: "ville", affirmations: [
+						"C'est une grande ville",
+						"A une population de 20,7M habitants",
+						"Se situe en Asie",
+						"Il s'agit d'une ancienne colonie",
+						"C'est une puissance culturelle"] },
+						
+						{ imageUrl: "cartes/paris.png", eventName:"paris", category: "ville", affirmations: [
+						"C'est une grande ville",
+						"A une population de 2M habitants",
+						"C'est une ville monde",
+						"Se situe en Europe",
+						"Important dans l'histoire des français",
+						"Possède un pouvoir politique mondiale",
+						"Il s'agit d'une ville historique"] },
+						
+						{ imageUrl: "cartes/singapour.png", eventName:"singapour", category: "ville", affirmations: [
+						"C'est une grande ville",
+						"A une population de 5,9M habitants",
+						"Se situe en Asie",
+						"C'est une puissance économique",
+						"C'est une cité Etat"] },
+						
+						{ imageUrl: "cartes/tokyo.png", eventName:"tokyo", category: "ville", affirmations: [
+						"C'est une grande ville",
+						"A une population de 14M habitants",
+						"C'est une ville monde",
+						"Il s'agit d'une ville historique",
+						"Se situe en Asie"] },
+						
+						{ imageUrl: "cartes/chapelle sixtine.png", eventName:"chapelle sixtine", category: "monuments", affirmations: [
+						"C'est un monument",
+						"Se situe en Europe",
+						"Il s'agit d'un monument religieux",
+						"XVe siècle"] },
+						
+						{ imageUrl: "cartes/eiffel.png", eventName:"tour eiffel", category: "monuments", affirmations: [
+						"C'est un monument",
+						"Se situe en Europe",
+						"Important dans l'histoire des français",
+						"XIXe siècle",
+						"Il s'agit d'un monument artistique"] },
+					
+						{ imageUrl: "cartes/goldengate.png", eventName:"golden gate bridge", category: "monuments", affirmations: [
+						"C'est un monument",
+						"Se situe en Amérique",
+						"Il s'agit d'un monument touristique",
+						"XXe siècle"] },
+					
+						{ imageUrl: "cartes/muiraille de chine.png", eventName:"muraille de chine", category: "monuments", affirmations: [
+						"C'est un monument",
+						"Se situe en Asie",
+						"Il s'agit d'un monument historique",
+						"IIIe à XVIIe siècle"] },
+					
+						{ imageUrl: "cartes/pantheon.png", eventName:"panthéon rome", category: "monuments", affirmations: [
+						"C'est un monument",
+						"Se situe en Europe",
+						"Important pour Rome",
+						"Il s'agit d'un monument historique"] },
+						
+						{ imageUrl: "cartes/parthénon.png", eventName:"parthénon", category: "monuments", affirmations: [
+						"C'est un monument",
+						"Se situe en Europe",
+						"Il s'agit d'un monument religieux",
+						"IIe siècle"] },
+					
+						{ imageUrl: "cartes/pise.png", eventName:"tour de pise", category: "monuments", affirmations: [
+						"C'est un monument",
+						"Se situe en Europe",
+						"XIIe - XIVe siècle",
+						"Il s'agit d'un monument touristique",
+						"Il a été déclaré au patrimoine mondiale de l'UNESCO en 1987",
+						"Il est connu pour son inclinaison particulière"] },
+					
+						{ imageUrl: "cartes/the gherkin.png", eventName:"the gherkin", category: "monuments", affirmations: [
+						"C'est un monument",
+						"Se situe en Europe",
+						"XXIe siècle",
+						"Il s'agit d'un monument économique",
+						"Il a été conçu par l'architecte britannique Norman Foster",
+						"Il est connu pour son efficacité énergétique",
+						"Il est considéré comme symbole emblématique",
+						"La forme particulière en fait un monument emblématique"] },
+					
+						{ imageUrl: "cartes/tower bridge.png", eventName:"tower bridge", category: "monuments", affirmations: [
+						"C'est un monument",
+						"Se situe en Europe",
+						"XIXe siècle",
+						"Il s'agit d'un monument touristique",
+						"Il s'agit d'un monument de 'transport'",
+						"Correspond au mouvement de l'architecture victorienne",
+						"Mesure environ 244m de long et 65m de haut",
+						"Il représente l'ingénierie et l'architecture britannique"] },
+					
+						{ imageUrl: "cartes/versailles.png", eventName:"château de versailles", category: "monuments", affirmations: [
+						"C'est un monument",
+						"Se situe en Europe",
+						"Important dans l'histoire des français",
+						"Il s'agit d'un monument historique",
+						"XVIIe siècle",
+						"C'est un symbole de la monarchie absolue",
+						"Appartient au style baroque",
+						"Appartient au classicisme" ] }
+					];
+				</script>
+			</div>
+		
+		<!-- Paramètres -->
+		<button class="settings-button" onclick="afficherBoutons()" style="border:none; background-color:transparent;" id="para">
+			<img src="boutons/Parametres.png" style="width:95%;"/>
+		</button>
+	
+		<div id="menu-boutons">
+			<div id="settings">
+				<button style="border:none; background-color:transparent;" id="sound" onclick="muteSounds()">
+					<img src="boutons/son_on.png" style="width:13%"/>
+				</button>
+				
+				<button style="border:none; background-color:transparent;" id="infos" onclick="showPopup()">
+					<img src="boutons/informations.png" style="width:13%"/>
+				</button>				
+				<div id="popup" style="display:none;">
+				  <div id="popup-container">
+					<div id="popup-header">
+					  <center style="margin-right:8%">Règles du jeu</center>
+					  <button id="popup-close" onclick="closePopup()">X</button>
+					</div>
+					<div id="popup-content">
+					  <p id="popup-message" style="color:black; letter-spacing:1px; line-height:20px;">Règles du jeu :<br><br>texte</p>
+					</div>
+				  </div>
+				</div>
+				<script>
+				function showPopup() {
+					  document.getElementById("popup").style.display = "block";
+					}
+
+					function closePopup() {
+					  document.getElementById("popup").style.display = "none";
+					}
+				</script>
+			</div>
+		</div>
+		<script>	
+			function afficherBoutons() {
+			  var menuBoutons = document.getElementById("menu-boutons");
+			  menuBoutons.classList.toggle("show");
+			}
+			
+			const bouton = document.getElementById('para');
+			const son = document.getElementById('son_para');
+
+			bouton.addEventListener('click', () => {
+			  son.play();
+			});
+		</script>
+		
+		<audio id="audio" autoplay loop>
+		  <source src="musiques/Accueil.mp3" type="audio/mpeg">
+		</audio>
+			
+		<script>
+			// Sélectionne tous les éléments audio et vidéo sur la page
+			const mediaElements = document.querySelectorAll('audio, video');
+
+			// Sélectionne le bouton de mise en sourdine
+			const muteButton = document.getElementById('sound');
+			
+			// Sélectionne l'image du bouton son
+			const soundImg = document.getElementById('sound').firstElementChild;
+			
+			// Définit la source des images on et off
+			const soundImgSrcOn = 'boutons/son_on.png';
+			const soundImgSrcOff = 'boutons/son_off.png';
+
+			// Sélectionne l'élément audio de la musique de début
+			const music = document.getElementById('musique_debut');
+			
+			// Ajoute un gestionnaire d'événement pour le clic sur le bouton de mise en sourdine
+			muteButton.addEventListener('click', () => {
+			// Parcourt tous les éléments audio/vidéo et les met en sourdine ou les active
+			mediaElements.forEach(element => {
+				if (element.muted) {
+				  element.muted = false;
+				  element.volume = 1; // active le son au volume maximum
+				} else {
+				  element.muted = true;
+				}
+			  });
+
+			  // Change l'image du bouton son
+			  soundImg.src = soundImg.src.endsWith(soundImgSrcOn) ? soundImgSrcOff : soundImgSrcOn;
+			});
+		</script>
+	</body>
+</html>
+
