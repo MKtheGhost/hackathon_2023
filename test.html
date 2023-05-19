@@ -498,25 +498,84 @@
 					<script>
 						// Liste des 50 cartes possibles avec leurs affirmations
 						const cards = [
-							{ imageUrl: "cartes/afghanistan.png", eventName:"1", affirmations: ["Affirmation 1", "Affirmation 2"] },
-							{ imageUrl: "cartes/algerie.png", eventName:"2", affirmations: ["Affirmation 3", "Affirmation 4"] },
-							{ imageUrl: "cartes/chine.png", eventName:"3", affirmations: ["Affirmation 5", "Affirmation 6"] },
-							{ imageUrl: "cartes/coree du nord.png", eventName:"4", affirmations: ["Affirmation 7", "Affirmation 8"] },
-							{ imageUrl: "cartes/cuba.png", eventName:"5", affirmations: ["Affirmation 9", "Affirmation 10"] },
-							{ imageUrl: "cartes/iran.png", eventName:"6", affirmations: ["Affirmation 11", "Affirmation 12"] },
-							{ imageUrl: "cartes/israel.png", eventName:"7", affirmations: ["Affirmation 13", "Affirmation 14"] },
-							{ imageUrl: "cartes/kenya.png", eventName:"8", affirmations: ["Affirmation 15", "Affirmation 16"] },
-							{ imageUrl: "cartes/mexique.png", eventName:"9", affirmations: ["Affirmation 17", "Affirmation 18"] },
-							{ imageUrl: "cartes/ukraine.png", eventName:"10", affirmations: ["Affirmation 19", "Affirmation 20"] },
-							{ imageUrl: "cartes/auguste.png", eventName:"11", affirmations: ["Affirmation 21", "Affirmation 22"] },
-							{ imageUrl: "cartes/charlemagne.png", eventName:"12", affirmations: ["Affirmation 23", "Affirmation 24"] },
-							{ imageUrl: "cartes/churchill.png", eventName:"13", affirmations: ["Affirmation 25", "Affirmation 26"] },
-							{ imageUrl: "cartes/de gaulle.png", eventName:"14", affirmations: ["Affirmation 27", "Affirmation 28"] },
-							{ imageUrl: "cartes/francois ier.png", eventName:"15", affirmations: ["Affirmation 29", "Affirmation 30"] },
-							{ imageUrl: "cartes/jehan de beauce.png", eventName:"16", affirmations: ["Affirmation 31", "Affirmation 32"] },
-							{ imageUrl: "cartes/napoléon ier.png", eventName:"17", affirmations: ["Affirmation 33", "Affirmation 34"] },
-							{ imageUrl: "cartes/roosevelt.png", eventName:"18", affirmations: ["Affirmation 35", "Affirmation 36"] },
-							{ imageUrl: "cartes/staline.png", eventName:"19", affirmations: ["Affirmation 37", "Affirmation 38"] },
+							{ imageUrl: "cartes/afghanistan.png", eventName:"1", affirmations: [
+							"Participant au Bandung",
+							"Se situe en Europe",
+							"C'est une dictature théocratique",
+							"A une population de 39M habitants",
+							"A une organisation terroriste à la tête de l'Etat",
+							"C'est un état"] },
+							
+							{ imageUrl: "cartes/algerie.png", eventName:"2", affirmations: [
+							"Important dans l'histoire des français",
+							"Se situe en Afrique",
+							"Faisait partit du tiers-monde",
+							"Il s'agit d'une République semi-présidentielle",
+							"A une population de 44M habitants",
+							"C'est un état"] },
+							
+							{ imageUrl: "cartes/chine.png", eventName:"3", affirmations: [
+							"Participant au Bandung",
+							"Se situe en Asie",
+							"C'est un régime autoritaire",
+							"C'est une puissance industrielle",
+							"A une population de 1,41Milliard d'habitants",
+							"A un dictateur à la tête de l'Etat",
+							"C'est un état"] },
+							
+							{ imageUrl: "cartes/coree du nord.png", eventName:"4", affirmations: [
+							"Se situe en Asie",
+							"C'est un régime autoritaire",
+							"A une population de 25,6M habitants",
+							"A un dictateur à la tête de l'Etat",
+							"C'est un état"] },
+							
+							{ imageUrl: "cartes/cuba.png", eventName:"5", affirmations: [
+							"Se situe en Amérique",
+							"Il s'agit d'une République semi-présidentielle",
+							"A une population de 11,3M habitants",
+							"C'est un état"] },
+							
+							{ imageUrl: "cartes/iran.png", eventName:"6", affirmations: [
+							"Participant au Bandung",
+							"Se situe en Asie",
+							"C'est une dictature théocratique",
+							"A une population de 85M habitants",
+							"C'est un état"]},
+							
+							{ imageUrl: "cartes/israel.png", eventName:"7", affirmations: [
+							"Se situe en Asie",
+							"C'est une démocratie parlementaire",
+							"A une population de 9,4M habitants",
+							"C'est un état"] },
+							
+							{ imageUrl: "cartes/kenya.png", eventName:"8", affirmations: [
+							"Se situe en Afrique", 
+							"Il s'agit d'une République présidentielle",
+							"A une population de 55,6M habitants",
+							"C'est un état"] },					
+							
+							{ imageUrl: "cartes/mexique.png", eventName:"9", affirmations: [
+							"Se situe en Amérique",
+							"Il s'agit d'une République fédérale",
+							"A une population de 129,2M habitants",
+							"C'est un état"] },
+							
+							{ imageUrl: "cartes/ukraine.png", eventName:"10", affirmations: [
+							"Se situe en Europe",
+							"Il s'agit d'une république semi-présidentielle",
+							"A une population de 44,5M habitants",
+							"C'est un état"] },
+							
+							{ imageUrl: "cartes/auguste.png", eventName:"11", affirmations: ["21", "Affirmation 22"] },
+							{ imageUrl: "cartes/charlemagne.png", eventName:"12", affirmations: ["23", "Affirmation 24"] },
+							{ imageUrl: "cartes/churchill.png", eventName:"13", affirmations: ["25", "Affirmation 26"] },
+							{ imageUrl: "cartes/de gaulle.png", eventName:"14", affirmations: ["27", "Affirmation 28"] },
+							{ imageUrl: "cartes/francois ier.png", eventName:"15", affirmations: ["29", "Affirmation 30"] },
+							{ imageUrl: "cartes/jehan de beauce.png", eventName:"16", affirmations: ["31", "Affirmation 32"] },
+							{ imageUrl: "cartes/napoléon ier.png", eventName:"17", affirmations: ["33", "Affirmation 34"] },
+							{ imageUrl: "cartes/roosevelt.png", eventName:"18", affirmations: ["35", "Affirmation 36"] },
+							{ imageUrl: "cartes/staline.png", eventName:"19", affirmations: ["37", "Affirmation 38"] },
 							{ imageUrl: "cartes/trump.png", eventName:"20", affirmations: ["Affirmation 39", "Affirmation 40"] },
 							{ imageUrl: "cartes/bapteme de clovis.png", eventName:"21", affirmations: ["Affirmation 41", "Affirmation 42"] },
 							{ imageUrl: "cartes/chute du mur de berlin.png", eventName:"22", affirmations: ["Affirmation 43", "Affirmation 44"] },
