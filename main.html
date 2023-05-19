@@ -215,9 +215,13 @@
 								<img src="boutons/play.png" style="width:25%"/>
 						</button>
 					</div>
-					<p style="font-size:20px; letter-spacing:2px;">Texte</p>			
+					<p style="font-size:20px; letter-spacing:2px;">Des robots destructeurs crée par un génie de la robotique dérangé ont été relaché dans le monde. Dans le but de la domination du monde ils sèment la terreur sur la populace. Heureusement pour l'humanité ces machines meurtrières sont tous programmées pour s'auto-détruire au son d'un mot de passe secret initialisé par le scientifique. Vous vous chargez d'etre le héro qui sauve le monde , avec comme seule piste l'obession avec l'hitsoire géo de monsieur le scientifique</p>			
 				</div>
 			</div>
+
+			<!-- histoire -->
+
+			
 
 			<!-- Choix des personnages -->
 			<div id="choix_perso" style="display:none">
@@ -367,7 +371,7 @@
 					}
 					.card {
 						width: 15%;
-						height: 15%x;
+						height: 15%;
 						border: None;
 						display: flex;
 						align-items: center;
@@ -456,14 +460,14 @@
 						transition: all 1s ease-in-out;
 					}
 					
-					.card.grayed-out {
+					.cards.grayed-out {
 						filter: grayscale(100%);
 					}
 				</style>
 			
 				<!-- Mini-jeu 1 -->
 				<div id="mini-jeu1" style="display:none; margin-left:20%;">
-					<center><h1 style="font-size:20px">Cat vs bot : une odyssée spatio-temporelle</h1></center>
+					<center><h1 style="font-size:20px">Cat vs bot : une odyssée spatio-temporel</h1></center>
 
 					<div id="characters" style="float:left; width:100%; background-image:url('fonds/mini_jeu.PNG'); background-size:cover;">
 						<div class="character2" style="margin-top:25px;">
@@ -494,8 +498,9 @@
 				
 				<!-- Resultat niv1 -->
 				<div id="resultat1" style="display:none;">
-					<div id="result" style="width:200%"></div>
+					<p>pourvu que ça marche</p>
 					<button onclick="sortirresultat1()">Sortir</button>
+					<div id="result"></div>
 				</div>
 				<script>
 					// Liste des affirmations affichées
@@ -505,23 +510,27 @@
 					let playerScore = 10;
 					let bossScore = 10;
 
-					// Sélectionne une affirmation aléatoire parmi les affirmations disponibles pour la carte mystère
-					function getRandomAffirmation() {
-					  const availableAffirmations = mysteryCard.affirmations.filter(affirmation => !displayedAffirmations.includes(affirmation));
+					// Sélectionne une affirmation aléatoire parmi les affirmations disponibles pour une carte donnée
+					function getRandomAffirmation(card) {
+					  const availableAffirmations = card.affirmations.filter(affirmation => !displayedAffirmations.includes(affirmation));
 					  const randomIndex = Math.floor(Math.random() * availableAffirmations.length);
 					  return availableAffirmations[randomIndex];
 					}
+
 
 					// Affiche une affirmation aléatoire dans le cadre
 					function displayRandomAffirmation() {
 					  const affirmationElement = document.getElementById("affirmation");
 					  const showButtonElement = document.getElementById("show-button");
 
-					  let newAffirmation = getRandomAffirmation();
+					  const randomIndex = Math.floor(Math.random() * cards.length);
+					  const selectedCard = cards[randomIndex];
+
+					  let newAffirmation = getRandomAffirmation(selectedCard);
 
 					  // Vérifie si l'affirmation sélectionnée a déjà été affichée
 					  while (displayedAffirmations.includes(newAffirmation)) {
-						newAffirmation = getRandomAffirmation();
+						newAffirmation = getRandomAffirmation(selectedCard);
 					  }
 
 					  // Ajoute la nouvelle affirmation à la liste des affirmations affichées
@@ -574,7 +583,7 @@
 						}, 1000);
 					  }, 10);
 					}
-	
+					
 					// Fonction pour valider le nom de l'évènement
 					function validateEventName() {
 					  const eventNameElement = document.getElementById("eventName");
@@ -599,36 +608,7 @@
 					function sortirresultat1() {
 						document.getElementById("resultat1").style.display = "none";
 						document.getElementById("contenu_defis").style.display = "block";
-					}
-					
-					// Réinitialise les variables et les éléments pour remettre le jeu à zéro
-					function resetGame() {
-						displayedAffirmations = [];
-						playerScore = 10;
-						bossScore = 10;
-						// Réinitialisez d'autres variables et éléments nécessaires
-
-						// Réactive les cartes pour permettre au joueur de jouer à nouveau
-						const cardsElement = document.getElementById("cards");
-						cardsElement.style.pointerEvents = "auto";
-
-						// Réaffiche les cartes et sélectionne une nouvelle carte mystère
-						selectCards();
-
-						// Réinitialise le résultat et le score affichés
-						const resultElement = document.getElementById("result");
-						resultElement.textContent = "";
-
-						updateScore();
-					}
-
-					// Fonction appelée lorsque le bouton "Sortir" est cliqué
-					function sortirresultat1() {
-						resetGame(); // Réinitialise le jeu
-
-						document.getElementById("resultat1").style.display = "none";
-						document.getElementById("contenu_defis").style.display = "block";
-					}
+					}			
 
 					// Niveau de difficulté du jeu (1, 2 ou 3)
 					const difficultyLevel = 1;
@@ -681,6 +661,9 @@
 						imageElement.setAttribute("alt", "Carte"); // Ajoutez l'attribut alt pour l'accessibilité
 						imageElement.style.width = "100%"; // Ajuste la largeur de l'image à 100% de la carte
 
+						imageElement.setAttribute("id","imgClickandChange")
+						imageElement.setAttribute("onclick","changeImage2()")
+
 						cardElement.appendChild(imageElement);
 
 						// Ajoute un gestionnaire d'événements de clic à chaque carte
@@ -689,14 +672,25 @@
 						  checkGuess(card);
 						});
 
+						function changeImage2(){
+							document.getElementById("imgClickandChange").src = document.getElementById("imgClickandChange").src.slice(0, -4) + 2 + ".png";
+					}
+
 						cardsElement.appendChild(cardElement);
 					  }
 					}
+
+
+					function changeImage2(){
+						document.getElementById("imgClickandChange").src = document.getElementById("imgClickandChange").src.slice(0, -4) + 2 + ".png";
+					}
+
 
 					// Mettre en gris la carte
 					function changeImage(imageElement) {
 					  // Ajoutez la classe "grayed-out" à l'imageElement
 					  imageElement.classList.add("grayed-out");
+					  //imageElement.src = imageElement.src.slice(0, -4) + "2" + ".png";
 					}
 
 					// Affiche le résultat de la partie
@@ -744,7 +738,7 @@
 						document.getElementById("mini-jeu1").style.display = "none";
 						document.getElementById("resultat1").style.display = "block";
 				  }
-					function sortirResultat1() {
+					function sortirresultat1() {
 						document.getElementById("resultat1").style.display = "none";
 						document.getElementById("contenu_defis").style.display = "block";
 				  }					
@@ -912,7 +906,12 @@
 						"C'était un empereur",
 						"Important pour Rome",
 						"C'est un personnage historique",
-						"Fils adoptif de Jules César"] },
+						"Fils adoptif de Jules César",
+						"",
+						"",
+						"",
+						"",
+						""] },
 						
 						{ imageUrl: "cartes/charlemagne.png", eventName:"charlemagne", category: "personnage", affirmations: [
 						"IXe siècle",
