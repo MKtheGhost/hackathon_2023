@@ -12,3 +12,13 @@ TO-DO :
  MK :
  - Musiques et sons
  - Personnages et décors
+
+
+à faire :
+- arriere plan 
+- personnages et boss
+- affirmations
+- résoudre probleme du choix des cartes
+
+- persos doivent etre plus grands
+- les persos ne sont pas responsive
