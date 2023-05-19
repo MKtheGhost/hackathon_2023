@@ -605,6 +605,7 @@
 						displayedAffirmations = [];
 						playerScore = 10;
 						bossScore = 10;
+						resetAffirmations()
 						// Réinitialisez d'autres variables et éléments nécessaires
 
 						// Réactive les cartes pour permettre au joueur de jouer à nouveau
@@ -620,6 +621,29 @@
 
 						updateScore();
 					}
+					
+					function resetAffirmations() {
+					// Réinitialise les affirmations affichées
+					displayedAffirmations = [];
+
+					// Réinitialise d'autres variables ou éléments nécessaires pour le niveau 1
+
+					// Réaffiche les cartes et sélectionne une nouvelle carte mystère
+					selectCards();
+
+					// Réinitialise le score du joueur
+					playerScore = 10;
+
+					// Réinitialise la barre de vie du joueur
+					const playerHealthBar = document.getElementById("player-health");
+					const playerHealthBarSpan = playerHealthBar.querySelector("span");
+					playerHealthBarSpan.style.width = "100%";
+
+					// Réinitialise le contenu du cadre d'affirmations
+					const affirmationElement = document.getElementById("affirmation");
+					affirmationElement.innerHTML = "";
+				}
+
 
 					// Fonction appelée lorsque le bouton "Sortir" est cliqué
 					function sortirresultat1() {
