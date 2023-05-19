@@ -1,4 +1,4 @@
-MONUMENT
+MONUMENT c'est un monument
 
 
 
@@ -52,4 +52,5 @@ tour de pize
 tower bridge
 - en europe
 -XIXe siecles
-- fonction touristique/ transport
+- fonction touristique
+- monument de transport
