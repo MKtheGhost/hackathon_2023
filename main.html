@@ -599,7 +599,36 @@
 					function sortirresultat1() {
 						document.getElementById("resultat1").style.display = "none";
 						document.getElementById("contenu_defis").style.display = "block";
-					}			
+					}
+					
+					// Réinitialise les variables et les éléments pour remettre le jeu à zéro
+					function resetGame() {
+						displayedAffirmations = [];
+						playerScore = 10;
+						bossScore = 10;
+						// Réinitialisez d'autres variables et éléments nécessaires
+
+						// Réactive les cartes pour permettre au joueur de jouer à nouveau
+						const cardsElement = document.getElementById("cards");
+						cardsElement.style.pointerEvents = "auto";
+
+						// Réaffiche les cartes et sélectionne une nouvelle carte mystère
+						selectCards();
+
+						// Réinitialise le résultat et le score affichés
+						const resultElement = document.getElementById("result");
+						resultElement.textContent = "";
+
+						updateScore();
+					}
+
+					// Fonction appelée lorsque le bouton "Sortir" est cliqué
+					function sortirresultat1() {
+						resetGame(); // Réinitialise le jeu
+
+						document.getElementById("resultat1").style.display = "none";
+						document.getElementById("contenu_defis").style.display = "block";
+					}
 
 					// Niveau de difficulté du jeu (1, 2 ou 3)
 					const difficultyLevel = 1;
@@ -715,7 +744,7 @@
 						document.getElementById("mini-jeu1").style.display = "none";
 						document.getElementById("resultat1").style.display = "block";
 				  }
-					function sortirresultat1() {
+					function sortirResultat1() {
 						document.getElementById("resultat1").style.display = "none";
 						document.getElementById("contenu_defis").style.display = "block";
 				  }					
