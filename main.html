@@ -129,7 +129,7 @@
 			  position: absolute;
 			  right: 19%;
 			  z-index: 2;
-			  bottom: 45%
+			  bottom: 50%
 			}
 			
 			#popup {
@@ -215,7 +215,14 @@
 								<img src="boutons/play.png" style="width:25%"/>
 						</button>
 					</div>
+
 					<p style="font-size:20px; letter-spacing:2px;">Des robots destructeurs crée par un génie de la robotique dérangé ont été relaché dans le monde. Dans le but de la domination du monde ils sèment la terreur sur la populace. Heureusement pour l'humanité ces machines meurtrières sont tous programmées pour s'auto-détruire au son d'un mot de passe secret initialisé par le scientifique. Vous vous chargez d'etre le héro qui sauve le monde , avec comme seule piste l'obession avec l'hitsoire géo de monsieur le scientifique</p>			
+
+					<p style="font-size:16px; letter-spacing:2px;">Des robots destructeurs crées par un génie de la robotique dérangé ont été relachés dans le monde.
+					Dans le but de la domination du monde ils sèment la terreur sur la populace. Heureusement pour l'humanité ces machines meurtrières sont toutes programmées
+					pour s'auto-détruire au son d'un mot de passe secret initialisé par le scientifique. Vous vous chargez d'etre le héro qui sauve le monde, avec comme
+					seule piste l'obession avec l'histoire géo de monsieur le scientifique !</p>			
+
 				</div>
 			</div>
 
@@ -460,7 +467,9 @@
 						transition: all 1s ease-in-out;
 					}
 					
-					.cards.grayed-out {
+
+					.grayed-out img{
+
 						filter: grayscale(100%);
 					}
 				</style>
@@ -482,13 +491,13 @@
 					</div>
 
 					<div id="game" style="float:right; width:75%">
-						<div id="cards"></div>
+						<!-- <div id="cards"></div> -->
+						<div id="cards" onclick="changeColor(this)"></div>
 					</div>
 
 					<div id="affirmation-frame" style="margin-left:1.5%">
 						<br>
 						<h2>Affirmations :</h2>
-						<div id="score"></div>
 						<p id="affirmation"></p>
 						<input type="text" id="eventName" placeholder="Nom de l'événement">
 						<button id="validate-button" onclick="validateEventName()">Valider</button>
@@ -608,7 +617,62 @@
 					function sortirresultat1() {
 						document.getElementById("resultat1").style.display = "none";
 						document.getElementById("contenu_defis").style.display = "block";
-					}			
+		
+
+					}
+					
+					// Réinitialise les variables et les éléments pour remettre le jeu à zéro
+					function resetGame() {
+						displayedAffirmations = [];
+						playerScore = 10;
+						bossScore = 10;
+						// Réinitialisez d'autres variables et éléments nécessaires
+
+						// Réactive les cartes pour permettre au joueur de jouer à nouveau
+						const cardsElement = document.getElementById("cards");
+						cardsElement.style.pointerEvents = "auto";
+
+						// Réaffiche les cartes et sélectionne une nouvelle carte mystère
+						selectCards();
+
+						// Réinitialise le résultat et le score affichés
+						const resultElement = document.getElementById("result");
+						resultElement.textContent = "";
+
+						updateScore();
+					}
+					
+					function resetAffirmations() {
+					// Réinitialise les affirmations affichées
+					displayedAffirmations = [];
+
+					// Réinitialise d'autres variables ou éléments nécessaires pour le niveau 1
+
+					// Réaffiche les cartes et sélectionne une nouvelle carte mystère
+					selectCards();
+
+					// Réinitialise le score du joueur
+					playerScore = 10;
+
+					// Réinitialise la barre de vie du joueur
+					const playerHealthBar = document.getElementById("player-health");
+					const playerHealthBarSpan = playerHealthBar.querySelector("span");
+					playerHealthBarSpan.style.width = "100%";
+
+					// Réinitialise le contenu du cadre d'affirmations
+					const affirmationElement = document.getElementById("affirmation");
+					affirmationElement.innerHTML = "";
+					}
+
+
+					// Fonction appelée lorsque le bouton "Sortir" est cliqué
+					function sortirresultat1() {
+						resetGame(); // Réinitialise le jeu
+
+						document.getElementById("resultat1").style.display = "none";
+						document.getElementById("contenu_defis").style.display = "block";
+					}
+
 
 					// Niveau de difficulté du jeu (1, 2 ou 3)
 					const difficultyLevel = 1;
@@ -643,13 +707,15 @@
 
 					  // Affiche les cartes sur le plateau de jeu
 					  displayCards();
-					}
-
+					}					
+					
 					// Affiche les cartes sur le plateau de jeu
 					function displayCards() {
 					  const cardsElement = document.getElementById("cards");
 					  cardsElement.innerHTML = "";
 
+					   cardsElement.querySelectorAll(".card").forEach(card => card.classList.remove("grayed-out"));
+						
 					  for (let i = 0; i < selectedCards.length; i++) {
 						const card = selectedCards[i];
 
@@ -661,8 +727,7 @@
 						imageElement.setAttribute("alt", "Carte"); // Ajoutez l'attribut alt pour l'accessibilité
 						imageElement.style.width = "100%"; // Ajuste la largeur de l'image à 100% de la carte
 
-						imageElement.setAttribute("id","imgClickandChange")
-						imageElement.setAttribute("onclick","changeImage2()")
+
 
 						cardElement.appendChild(imageElement);
 
@@ -681,14 +746,17 @@
 					}
 
 
-					function changeImage2(){
-						document.getElementById("imgClickandChange").src = document.getElementById("imgClickandChange").src.slice(0, -4) + 2 + ".png";
-					}
-
 
 					// Mettre en gris la carte
 					function changeImage(imageElement) {
 					  // Ajoutez la classe "grayed-out" à l'imageElement
+
+					
+					// Fonction pour changer l'image de la carte (la rendre grise)
+					function changeImage(cardElement) {
+					  // Trouver l'image à l'intérieur de la carte et lui appliquer la classe grayed-out
+					  const imageElement = cardElement.querySelector("img");
+
 					  imageElement.classList.add("grayed-out");
 					  //imageElement.src = imageElement.src.slice(0, -4) + "2" + ".png";
 					}
