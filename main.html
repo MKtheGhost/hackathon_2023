@@ -268,7 +268,7 @@
 					<div class="character" onclick="selectCharacter('c2')">
 						<img src="images/c5.png" alt="Personnage 2">
 					</div>
-					<div class="character" onclick="selectCharacter('c3')"> <!-- c3 a modifier avec les personnages -->
+					<div class="character" onclick="selectCharacter('c3')">
 						<img src="images/c6.png" alt="Personnage 3">
 					</div>
 				</div>
@@ -491,7 +491,7 @@
 				
 				<!-- Resultat niv1 -->
 				<div id="resultat1" style="display:none;">
-					<div id="result" style="width:200%"></div>
+					<div id="result" style="width:350%"></div>
 					<button onclick="sortirresultat1()">Nouvelle partie</button>
 				</div>
 				<script>
@@ -771,6 +771,7 @@
 
 				<!-- Mini-jeu 2 -->
 				<div id="mini-jeu2" style="display:none; margin-left:20%;">
+<<<<<<< HEAD
 				  <center><h1 style="font-size:20px">Niveau 2 : Cat vs bot - Un voyage inter-spatial</h1></center>
 
 				  <div id="characters" style="float:left; width:100%; background-image:url('fonds/mini_jeu.PNG'); background-size:cover;">
@@ -1055,11 +1056,13 @@
 
 				  
 				  
+=======
+				  <center><h1 style="font-size:20px">Niveau 2 : Cat vs bot - Un voyage inter-spatial</h1></center>				  
+>>>>>>> 7275cbb22b2150de733d824dd21b7ae696d5095f
 				</div>	
 									
 				<!-- Mini-jeu 3 -->
 				<div id="mini-jeu3" style="display:none; margin-left:20%;">
-
 				</div>
 
 				<script>
@@ -1128,6 +1131,7 @@
 						document.getElementById("mini-jeu3").style.display = "none";
 						// Afficher le contenu_defis d'origine
 						document.getElementById("contenu_defis").style.display = "block";
+						resetGame(); // Réinitialise le jeu
 					  }
 					  
 					// Liste des 50 cartes possibles avec leurs affirmations
@@ -1658,11 +1662,18 @@
 				<div id="popup" style="display:none;">
 				  <div id="popup-container">
 					<div id="popup-header">
-					  <center style="margin-right:8%">Règles du jeu</center>
 					  <button id="popup-close" onclick="closePopup()">X</button>
 					</div>
 					<div id="popup-content">
-					  <p id="popup-message" style="color:black; letter-spacing:1px; line-height:20px;">Règles du jeu :<br><br>texte</p>
+					  <p id="popup-message" style="color:black; letter-spacing:1px; line-height:20px; font-size:14px">Règles du jeu :<br><br>
+					    1. Allumez le son et cliquez ensuite sur le bouton pour start.<br>
+						2. Choisissez votre personnage en cliquant sur l'un de ceux affichés. Soyez le héros qui sauve le monde !<br>
+						3. Sélectionnez le niveau de difficulté souhaité pour commencer le jeu. Il y a trois niveaux disponibles.<br>
+						4. Cliquez sur le bouton "Afficher une autre affirmation" et écrivez la bonne réponse dans la case "Nom de l'événement" puis cliquez sur "Valider" lorsque vous êtes prêt.<br>
+						5. Vous pouvez cliquer sur les cartes que vous pensez incorrectes. Elles resteront affichées au cas où vous changeriez d'avis, mais elles seront grisées.<br>
+						6. Les réponses doivent être écrites en minuscules et correspondre exactement aux informations des cartes, y compris les accents. Les chiffres romains doivent être écrits en majuscules.<br>
+						7. Votre score est représenté par une mini-bataille entre vous et un boss. Chaque mauvaise réponse vous fait perdre un point de vie !<br>
+						8. Après la partie, cliquez sur "Nouvelle partie", puis sur "Revenir aux niveaux" pour continuer à jouer.</p>
 					</div>
 				  </div>
 				</div>
