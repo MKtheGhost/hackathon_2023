@@ -16,4 +16,7 @@ TO-DO :
 
 à faire :
 - mettre 1 affirmaton au commencement
-- 
+- mise en page des niveaux
+- la boule de feu 
+- mise en page de défaite et gagné
+- compléter les affirmations
