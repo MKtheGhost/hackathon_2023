@@ -492,6 +492,7 @@
 				<!-- Resultat niv1 -->
 				<div id="resultat1" style="display:none;">
 					<div id="result" style="width:230%; margin-left:30%"></div>
+					<button onclick="sortirresultat1()">Nouvelle partie</button>
 				</div>
 				<script>
 					// Liste des affirmations affichées
@@ -785,6 +786,7 @@
 				<!-- </div> -->
 
 				<!-- <div id="game" style="float:right; width:75%"> -->
+					<!-- <div id="cards"></div> -->
 					<!-- <div id="cards" onclick="changeColor(this)"></div> -->
 				<!-- </div> -->
 
@@ -1119,7 +1121,6 @@
 						document.getElementById("mini-jeu1").style.display = "none";
 						document.getElementById("mini-jeu2").style.display = "none";
 						document.getElementById("mini-jeu3").style.display = "none";
-						resetGame(); // Réinitialise le jeu
 						// Afficher le contenu_defis d'origine
 						document.getElementById("contenu_defis").style.display = "block";
 					  }
