@@ -843,6 +843,7 @@
 						document.getElementById("mini-jeu1").style.display = "none";
 						document.getElementById("mini-jeu2").style.display = "none";
 						document.getElementById("mini-jeu3").style.display = "none";
+						resetAffirmations()
 						// Afficher le contenu_defis d'origine
 						document.getElementById("contenu_defis").style.display = "block";
 					  }
@@ -1460,11 +1461,7 @@
 		</button>
 	
 		<div id="menu-boutons">
-			<div id="settings">
-				<!-- <button style="border:none; background-color:transparent;" id="sound" onclick="muteSounds()"> -->
-					<!-- <img src="boutons/son_on.png" style="width:13%"/> -->
-				<!-- </button> -->
-				
+			<div id="settings">			
 				<button style="border:none; background-color:transparent;" id="infos" onclick="showPopup()">
 					<img src="boutons/informations.png" style="width:13%"/>
 				</button>				
@@ -1510,44 +1507,6 @@
 			  son.play();
 			});
 		</script>
-		
-		<!-- <audio id="audio" autoplay loop> -->
-		  <!-- <source src="musiques/Accueil.mp3" type="audio/mpeg"> -->
-		<!-- </audio> -->
-			
-		<!-- <script> -->
-			<!-- // Sélectionne tous les éléments audio et vidéo sur la page -->
-			<!-- const mediaElements = document.querySelectorAll('audio, video'); -->
-
-			<!-- // Sélectionne le bouton de mise en sourdine -->
-			<!-- const muteButton = document.getElementById('sound'); -->
-			
-			<!-- // Sélectionne l'image du bouton son -->
-			<!-- const soundImg = document.getElementById('sound').firstElementChild; -->
-			
-			<!-- // Définit la source des images on et off -->
-			<!-- const soundImgSrcOn = 'boutons/son_on.png'; -->
-			<!-- const soundImgSrcOff = 'boutons/son_off.png'; -->
-
-			<!-- // Sélectionne l'élément audio de la musique de début -->
-			<!-- const music = document.getElementById('musique_debut'); -->
-			
-			<!-- // Ajoute un gestionnaire d'événement pour le clic sur le bouton de mise en sourdine -->
-			<!-- muteButton.addEventListener('click', () => { -->
-			<!-- // Parcourt tous les éléments audio/vidéo et les met en sourdine ou les active -->
-			<!-- mediaElements.forEach(element => { -->
-				<!-- if (element.muted) { -->
-				  <!-- element.muted = false; -->
-				  <!-- element.volume = 1; // active le son au volume maximum -->
-				<!-- } else { -->
-				  <!-- element.muted = true; -->
-				<!-- } -->
-			  <!-- }); -->
-
-			  <!-- // Change l'image du bouton son -->
-			  <!-- soundImg.src = soundImg.src.endsWith(soundImgSrcOn) ? soundImgSrcOff : soundImgSrcOn; -->
-			<!-- }); -->
-		<!-- </script> -->
 	</body>
 </html>
 
