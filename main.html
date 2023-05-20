@@ -771,285 +771,7 @@
 
 				<!-- Mini-jeu 2 -->
 				<div id="mini-jeu2" style="display:none; margin-left:20%;">
-				  <center><h1 style="font-size:20px">Niveau 2 : Cat vs bot - Un voyage inter-spatial</h1></center>
-
-				  <!-- <div id="characters" style="float:left; width:100%; background-image:url('fonds/mini_jeu.PNG'); background-size:cover;"> -->
-					<!-- <div class="character2" style="margin-top:25px;"> -->
-					<!-- <div id="player-health" class="health-bar-player" style="font-size:11px;"><span id="player-score">&nbsp;Joueur</span></div> -->
-						<!-- <div id="selectedImageContainer" style="float:left; width:35%; margin-right:8px;" class="joueur" alt="Joueur"></div> -->
-					<!-- </div> -->
-					
-					<!-- <div class="character2" style="margin-top:15px;"> -->
-						<!-- <div id="boss-health" class="health-bar-boss" style="font-size:11px;"><span id="boss-score">&nbsp;Boss</span></div> -->
-						<!-- <img src="personnages/boss1.png" class="boss" alt="Boss"> -->
-					<!-- </div> -->
-				<!-- </div> -->
-
-				<!-- <div id="game" style="float:right; width:75%"> -->
-					<!-- <div id="cards"></div> -->
-					<!-- <div id="cards" onclick="changeColor(this)"></div> -->
-				<!-- </div> -->
-
-				<!-- <div id="affirmation-frame" style="margin-left:1.5%"> -->
-					<!-- <br> -->
-					<!-- <h2>Affirmations :</h2> -->
-					<!-- <p id="affirmation"></p> -->
-					<!-- <input type="text" id="eventName" placeholder="Nom de l'événement"> -->
-					<!-- <button id="validate-button" onclick="validateEventName()">Valider</button> -->
-					<!-- <button id="show-button" onclick="displayRandomAffirmation()">Afficher une autre affirmation</button> -->
-				<!-- </div> -->
-			<!-- </div> -->
-			
-				<!-- Resultat niv2 -->
-				<!-- <div id="resultat1" style="display:none;"> -->
-					<!-- <div id="result" style="width:200%"></div> -->
-					<!-- <button onclick="sortirresultat1()">Nouvelle partie</button> -->
-				<!-- </div> -->
-
-				<!-- <script> -->
-					
-					<!-- // Sélectionne une affirmation aléatoire parmi les affirmations disponibles pour la carte mystère -->
-					<!-- function getRandomAffirmation() { -->
-					  <!-- const availableAffirmations = mysteryCard.affirmations.filter(affirmation => !displayedAffirmations.includes(affirmation)); -->
-					  <!-- const randomIndex = Math.floor(Math.random() * availableAffirmations.length); -->
-					  <!-- return availableAffirmations[randomIndex]; -->
-					<!-- } -->
-
-					<!-- // Affiche une affirmation aléatoire dans le cadre -->
-					<!-- function displayRandomAffirmation() { -->
-					  <!-- const affirmationElement = document.getElementById("affirmation"); -->
-					  <!-- const showButtonElement = document.getElementById("show-button"); -->
-
-					  <!-- let newAffirmation = getRandomAffirmation(); -->
-
-					  <!-- // Vérifie si l'affirmation sélectionnée a déjà été affichée -->
-					  <!-- while (displayedAffirmations.includes(newAffirmation)) { -->
-						<!-- newAffirmation = getRandomAffirmation(); -->
-					  <!-- } -->
-
-					  <!-- // Ajoute la nouvelle affirmation à la liste des affirmations affichées -->
-					  <!-- displayedAffirmations.push(newAffirmation); -->
-
-					  <!-- // Met à jour le contenu du cadre avec toutes les affirmations affichées -->
-					  <!-- affirmationElement.innerHTML = displayedAffirmations.join("<br>"); -->
-
-					  <!-- // Fait défiler jusqu'en bas pour afficher la dernière affirmation -->
-					  <!-- affirmationElement.scrollTop = affirmationElement.scrollHeight; -->
-
-					  <!-- // Vérifie si le nombre maximal d'affirmations est atteint -->
-					  <!-- if (displayedAffirmations.length >= 10) { -->
-						<!-- showButtonElement.disabled = true; -->
-					  <!-- } -->
-
-					  <!-- // Diminue le score du joueur de 1 -->
-					  <!-- playerScore -= 1; -->
-
-					  <!-- // Met à jour la barre de vie du joueur -->
-					  <!-- const playerHealthBar = document.getElementById("player-health"); -->
-					  <!-- const playerHealthBarSpan = playerHealthBar.querySelector("span"); -->
-					  <!-- const playerHealthPercentage = (playerScore / 10) * 100; -->
-					  <!-- playerHealthBarSpan.style.width = playerHealthPercentage + "%"; -->
-
-					  <!-- const bossElement = document.querySelector(".boss"); -->
-					  <!-- const playerElement = document.querySelector(".joueur"); -->
-					  <!-- const redDot = document.createElement("div"); -->
-					  <!-- redDot.className = "red-dot"; -->
-					  <!-- document.body.appendChild(redDot); -->
-
-					  <!-- const bossPosition = bossElement.getBoundingClientRect(); -->
-					  <!-- const playerPosition = playerElement.getBoundingClientRect(); -->
-					  <!-- const dotPosition = { -->
-						<!-- top: bossPosition.top + bossPosition.height / 2 - redDot.offsetHeight / 2, -->
-						<!-- left: bossPosition.left + bossPosition.width / 2 - redDot.offsetWidth / 2 -->
-					  <!-- }; -->
-					  <!-- redDot.style.top = dotPosition.top + "px"; -->
-					  <!-- redDot.style.left = dotPosition.left + "px"; -->
-
-					  <!-- setTimeout(() => { -->
-						<!-- redDot.style.top = playerPosition.top + playerPosition.height / 2 - redDot.offsetHeight / 2 + "px"; -->
-						<!-- redDot.style.left = playerPosition.left + playerPosition.width / 2 - redDot.offsetWidth / 2 + "px"; -->
-						<!-- setTimeout(() => { -->
-						  <!-- redDot.remove(); -->
-						  <!-- playerScoreElement.textContent = score; -->
-						  <!-- if (score === 0) { -->
-							<!-- displayResult(`Dommage ! Vous avez perdu la partie, l'événement était : ${mysteryCard.eventName}`); -->
-						  <!-- } -->
-						<!-- }, 1000); -->
-					  <!-- }, 10); -->
-					<!-- } -->
-	
-					<!-- // Fonction pour valider le nom de l'évènement -->
-					<!-- function validateEventName() { -->
-					  <!-- const eventNameElement = document.getElementById("eventName"); -->
-					  <!-- const eventName = eventNameElement.value.trim(); // Récupère la valeur saisie et supprime les espaces en début et fin de chaîne -->
-
-					  <!-- // Récupère l'élément où afficher le résultat -->
-					  <!-- const resultElement = document.getElementById("result"); -->
-
-					  <!-- document.getElementById("mini-jeu1").style.display = "none"; -->
-					  <!-- document.getElementById("resultat1").style.display = "block"; -->
-						
-					  <!-- // Vérifie si la réponse est correcte -->
-					  <!-- if (eventName.toLowerCase() === mysteryCard.eventName.toLowerCase()) { -->
-						<!-- // Affiche l'image de gagné -->
-						<!-- resultElement.innerHTML = "<img src='score_boutons/victoire.png' alt='Gagné' style='width:20%'>"; -->
-					  <!-- } else { -->
-						<!-- // Affiche l'image de perdu -->
-						<!-- resultElement.innerHTML = "<img src='score_boutons/defaite.png' alt='Perdu' style='width:20%'>"; -->
-					  <!-- } -->
-					<!-- } -->
-
-					<!-- function sortirresultat1() { -->
-						<!-- document.getElementById("resultat1").style.display = "none"; -->
-						<!-- document.getElementById("contenu_defis").style.display = "block"; -->
-					<!-- } -->
-					
-					<!-- // Réinitialise les variables et les éléments pour remettre le jeu à zéro -->
-					<!-- function resetGame() { -->
-						<!-- displayedAffirmations = []; -->
-						<!-- playerScore = 10; -->
-						<!-- bossScore = 10; -->
-						<!-- // Réinitialisez d'autres variables et éléments nécessaires -->
-
-						<!-- // Réactive les cartes pour permettre au joueur de jouer à nouveau -->
-						<!-- const cardsElement = document.getElementById("cards"); -->
-						<!-- cardsElement.style.pointerEvents = "auto"; -->
-
-						<!-- // Réaffiche les cartes et sélectionne une nouvelle carte mystère -->
-						<!-- selectCards(); -->
-
-						<!-- // Réinitialise le résultat et le score affichés -->
-						<!-- const resultElement = document.getElementById("result"); -->
-						<!-- resultElement.textContent = ""; -->
-
-						<!-- updateScore(); -->
-					<!-- } -->
-					
-					<!-- function resetAffirmations() { -->
-					<!-- // Réinitialise les affirmations affichées -->
-					<!-- displayedAffirmations = []; -->
-
-					<!-- // Réinitialise d'autres variables ou éléments nécessaires pour le niveau 1 -->
-
-					<!-- // Réaffiche les cartes et sélectionne une nouvelle carte mystère -->
-					<!-- selectCards(); -->
-
-					<!-- // Réinitialise le score du joueur -->
-					<!-- playerScore = 10; -->
-
-					<!-- // Réinitialise la barre de vie du joueur -->
-					<!-- const playerHealthBar = document.getElementById("player-health"); -->
-					<!-- const playerHealthBarSpan = playerHealthBar.querySelector("span"); -->
-					<!-- playerHealthBarSpan.style.width = "100%"; -->
-
-					<!-- // Réinitialise le contenu du cadre d'affirmations -->
-					<!-- const affirmationElement = document.getElementById("affirmation"); -->
-					<!-- affirmationElement.innerHTML = ""; -->
-					<!-- } -->
-
-
-					<!-- // Fonction appelée lorsque le bouton "Sortir" est cliqué -->
-					<!-- function sortirresultat1() { -->
-						<!-- resetGame(); // Réinitialise le jeu -->
-
-						<!-- document.getElementById("resultat1").style.display = "none"; -->
-						<!-- document.getElementById("contenu_defis").style.display = "block"; -->
-					<!-- } -->
-
-					
-
-					<!-- // Sélectionne les cartes pour le jeu -->
-					<!-- function selectCards() { -->
-					  <!-- // Réinitialise les cartes sélectionnées -->
-					  <!-- selectedCards = []; -->
-
-					  <!-- // Sélectionne les cartes au hasard -->
-					  <!-- let availableCards = cards.slice(); // Copie de la liste des cartes -->
-					  <!-- for (let i = 0; i < numCards; i++) { -->
-						<!-- const randomIndex = Math.floor(Math.random() * availableCards.length); -->
-						<!-- const selectedCard = availableCards.splice(randomIndex, 1)[0]; -->
-						<!-- selectedCards.push(selectedCard); -->
-					  <!-- } -->
-
-					  <!-- // Choisis une carte mystère parmi les cartes sélectionnées -->
-					  <!-- mysteryCard = selectedCards[Math.floor(Math.random() * selectedCards.length)]; -->
-
-					  <!-- // Affiche les cartes sur le plateau de jeu -->
-					  <!-- displayCards(); -->
-					<!-- }					 -->
-					
-					<!-- // Affiche les cartes sur le plateau de jeu -->
-					<!-- function displayCards() { -->
-					  <!-- const cardsElement = document.getElementById("cards"); -->
-					  <!-- cardsElement.innerHTML = ""; -->
-
-					  <!-- for (let i = 0; i < selectedCards.length; i++) { -->
-						<!-- const card = selectedCards[i]; -->
-
-						<!-- const cardElement = document.createElement("div"); -->
-						<!-- cardElement.className = "card"; -->
-
-						<!-- const imageElement = document.createElement("img"); -->
-						<!-- imageElement.src = card.imageUrl; // Utilisez la propriété imageUrl de la carte -->
-						<!-- imageElement.setAttribute("alt", "Carte"); // Ajoutez l'attribut alt pour l'accessibilité -->
-						<!-- imageElement.style.width = "100%"; // Ajuste la largeur de l'image à 100% de la carte -->
-
-						<!-- // Ajoute un gestionnaire d'événements de clic à chaque carte -->
-						<!-- cardElement.addEventListener("click", function() { -->
-						  <!-- cardElement.classList.add("grayed-out"); // Ajoute la classe "grayed-out" à la carte -->
-						  <!-- changeImage(imageElement); // Appelle la fonction changeImage pour afficher l'image de dos de la carte -->
-						  <!-- checkGuess(card); -->
-						<!-- }); -->
-
-						<!-- cardElement.appendChild(imageElement); -->
-						<!-- cardsElement.appendChild(cardElement); -->
-					  <!-- } -->
-					<!-- } -->
-					
-					<!-- // Change l'image par une nouvelle image -->
-					<!-- function changeImage(imageElement) { -->
-					  <!-- imageElement.src = "cartes/dos.png"; -->
-					<!-- } -->
-
-					<!-- // Affiche le résultat de la partie -->
-					<!-- function displayResult(message) { -->
-					  <!-- const resultElement = document.getElementById("result"); -->
-					  <!-- resultElement.textContent = message; -->
-
-					  <!-- // Désactive les cartes pour empêcher le joueur de continuer à jouer -->
-					  <!-- const cardsElement = document.getElementById("cards"); -->
-					  <!-- cardsElement.style.pointerEvents = "none"; -->
-					<!-- } -->
-
-					<!-- // Met à jour le score du joueur -->
-					<!-- function updateScore() { -->
-					  <!-- const scoreElement = document.getElementById("score"); -->
-					  <!-- scoreElement.textContent = `Score : ${score}`; -->
-					<!-- } -->
-
-					<!-- // Initialise le jeu -->
-					<!-- function initializeGame() { -->
-					  <!-- // Réinitialise les affirmations affichées et le score -->
-					  <!-- displayedAffirmations = []; -->
-					  <!-- score = 10; -->
-
-					  <!-- // Réactive les cartes pour permettre au joueur de jouer à nouveau -->
-					  <!-- const cardsElement = document.getElementById("cards"); -->
-					  <!-- cardsElement.style.pointerEvents = "auto"; -->
-
-					  <!-- // Affiche les cartes et sélectionne une carte mystère -->
-					  <!-- selectCards(); -->
-
-					  <!-- // Réinitialise le résultat et le score affichés -->
-					  <!-- const resultElement = document.getElementById("result"); -->
-					  <!-- resultElement.textContent = ""; -->
-
-					  <!-- updateScore(); -->
-					<!-- } -->
-
-					<!-- // Initialise le jeu au chargement de la page -->
-					<!-- window.onload = initializeGame; -->
-				<!-- </script>				   -->
+				  <center><h1 style="font-size:20px">Niveau 2 : Cat vs bot - Un voyage inter-spatial</h1></center<
 				</div>	
 									
 				<!-- Mini-jeu 3 -->
@@ -1739,9 +1461,9 @@
 	
 		<div id="menu-boutons">
 			<div id="settings">
-				<button style="border:none; background-color:transparent;" id="sound" onclick="muteSounds()">
-					<img src="boutons/son_on.png" style="width:13%"/>
-				</button>
+				<!-- <button style="border:none; background-color:transparent;" id="sound" onclick="muteSounds()"> -->
+					<!-- <img src="boutons/son_on.png" style="width:13%"/> -->
+				<!-- </button> -->
 				
 				<button style="border:none; background-color:transparent;" id="infos" onclick="showPopup()">
 					<img src="boutons/informations.png" style="width:13%"/>
@@ -1789,43 +1511,43 @@
 			});
 		</script>
 		
-		<audio id="audio" autoplay loop>
-		  <source src="musiques/Accueil.mp3" type="audio/mpeg">
-		</audio>
+		<!-- <audio id="audio" autoplay loop> -->
+		  <!-- <source src="musiques/Accueil.mp3" type="audio/mpeg"> -->
+		<!-- </audio> -->
 			
-		<script>
-			// Sélectionne tous les éléments audio et vidéo sur la page
-			const mediaElements = document.querySelectorAll('audio, video');
+		<!-- <script> -->
+			<!-- // Sélectionne tous les éléments audio et vidéo sur la page -->
+			<!-- const mediaElements = document.querySelectorAll('audio, video'); -->
 
-			// Sélectionne le bouton de mise en sourdine
-			const muteButton = document.getElementById('sound');
+			<!-- // Sélectionne le bouton de mise en sourdine -->
+			<!-- const muteButton = document.getElementById('sound'); -->
 			
-			// Sélectionne l'image du bouton son
-			const soundImg = document.getElementById('sound').firstElementChild;
+			<!-- // Sélectionne l'image du bouton son -->
+			<!-- const soundImg = document.getElementById('sound').firstElementChild; -->
 			
-			// Définit la source des images on et off
-			const soundImgSrcOn = 'boutons/son_on.png';
-			const soundImgSrcOff = 'boutons/son_off.png';
+			<!-- // Définit la source des images on et off -->
+			<!-- const soundImgSrcOn = 'boutons/son_on.png'; -->
+			<!-- const soundImgSrcOff = 'boutons/son_off.png'; -->
 
-			// Sélectionne l'élément audio de la musique de début
-			const music = document.getElementById('musique_debut');
+			<!-- // Sélectionne l'élément audio de la musique de début -->
+			<!-- const music = document.getElementById('musique_debut'); -->
 			
-			// Ajoute un gestionnaire d'événement pour le clic sur le bouton de mise en sourdine
-			muteButton.addEventListener('click', () => {
-			// Parcourt tous les éléments audio/vidéo et les met en sourdine ou les active
-			mediaElements.forEach(element => {
-				if (element.muted) {
-				  element.muted = false;
-				  element.volume = 1; // active le son au volume maximum
-				} else {
-				  element.muted = true;
-				}
-			  });
+			<!-- // Ajoute un gestionnaire d'événement pour le clic sur le bouton de mise en sourdine -->
+			<!-- muteButton.addEventListener('click', () => { -->
+			<!-- // Parcourt tous les éléments audio/vidéo et les met en sourdine ou les active -->
+			<!-- mediaElements.forEach(element => { -->
+				<!-- if (element.muted) { -->
+				  <!-- element.muted = false; -->
+				  <!-- element.volume = 1; // active le son au volume maximum -->
+				<!-- } else { -->
+				  <!-- element.muted = true; -->
+				<!-- } -->
+			  <!-- }); -->
 
-			  // Change l'image du bouton son
-			  soundImg.src = soundImg.src.endsWith(soundImgSrcOn) ? soundImgSrcOff : soundImgSrcOn;
-			});
-		</script>
+			  <!-- // Change l'image du bouton son -->
+			  <!-- soundImg.src = soundImg.src.endsWith(soundImgSrcOn) ? soundImgSrcOff : soundImgSrcOn; -->
+			<!-- }); -->
+		<!-- </script> -->
 	</body>
 </html>
 
