@@ -334,7 +334,7 @@
 				<div id="contenu_defis">
 					<!-- Défis -->
 					<button onclick="afficherMiniJeu1()" style="border:none; background-color:transparent; width:8%; margin:0px;">
-						<img class="niveau" src="images/niv1.png" style="width:93%">
+						<img onclick="displayRandomAffirmation()" class="niveau" src="images/niv1.png" style="width:93%">
 					</button>
 					
 					<button onclick="afficherMiniJeu2()" style="border:none; background-color:transparent; width:8%; margin:0px;">
@@ -421,7 +421,7 @@
 						display: inline-block;
 						width: 100%;
 						height: 100%;
-						background-color: #5cb85c;
+						background-color: green;
 						transition: width 0.3s ease-in-out;
 					}
 					
@@ -440,14 +440,14 @@
 						display: inline-block;
 						width: 100%;
 						height: 100%;
-						background-color: #d9534f;
+						background-color: red;
 						transition: width 0.3s ease-in-out;
 					}
 					
 					.red-dot {
 						position: absolute;
-						width: 10px;
-						height: 10px;
+						width: 20px;
+						height: 20px;
 						background-color: red;
 						border-radius: 50%;
 						transition: all 1s ease-in-out;
@@ -499,7 +499,7 @@
 					let displayedAffirmations = [];
 
 					// Initialiser les scores boss et player
-					let playerScore = 10;
+					let playerScore = 11;
 					let bossScore = 10;
 
 					// Sélectionne une affirmation aléatoire parmi les affirmations disponibles pour la carte mystère
@@ -1316,12 +1316,12 @@
 						"C'était un architecte",
 						"C'est un personnage historique",
 						"Il a donné son nom à des lieux emblématiques de la ville de Chartres",
-						"",
-						"",
-						"",
-						"",
-						"",
-						""] },
+						"Il est connu pour ses travaux d'architecture religieuse",
+						"Il est français",
+						"Il avait des origines familiales dans les environs de La Ferté-Bernard",
+						"Il réside jusqu'en 1506 à Vendôme",
+						"Il a participé à la construction de l'abbaye de la Trinité",
+						"Est connu principalement pour sa participation à l'architecture de la Cathédrale de Chartres"] },
 						
 						{ imageUrl: "cartes/napoléon ier.png", eventName:"napoléon I", category: "personnage", affirmations: [
 						"XIXe siècle",
@@ -1376,120 +1376,120 @@
 						"VIe siècle",
 						"Important dans l'histoire des français",
 						"Il a été baptisé dans la cathédrale de Reims",
-						"",
-						"",
-						"",
-						"",
-						"",
-						""] },
+						"A marqué sa conversion au christianisme",
+						"Est considéré comme un tournant majeur dans l'histoire de la France",
+						"A renforcé les liens entre les rois francs et l'Église catholique",
+						"'Mettez-vous sous les eaux sacrées et adhérez à la foi que je professe, car cela seul est bon et salutaire.'",
+						"A contribué à l'unification des royaumes francs",
+						"A influencé les relations entre les rois francs et l'Église catholique "] },
 						
 						{ imageUrl: "cartes/chute du mur de berlin.png", eventName:"chute du mur de berlin", category: "evenements", affirmations: [
 						"C'est un évènement", 
 						"XXe siècle",
 						"A un lien avec l'histoire allemande",
-						"",
-						"",
-						"",
-						"",
-						"",
-						"",
-						""] },
+						"Devait empêcher la fuite des citoyens est-allemands vers l'ouest",
+						"Devenu un symbole de la liberté retrouvée",
+						"Des fragments sont conservés aujourd'hui comme monuments commémoratifs",
+						"A inspiré des mouvements de libération dans d'autres pays de l'Europe de l'Est",
+						"A marqué la fin de la guerre froide",
+						"Evènement du 3 octobre 1990",
+						"En 1989, de vastes manifestations ont eu lieu en Allemagne de l'Est"] },
 						
 						{ imageUrl: "cartes/coup d'etat.png", eventName:"coup d'état du 18 brumaire", category: "evenements", affirmations: [
 						"C'est un évènement", 
 						"XVIIIe siècle",
 						"Important dans l'histoire des français",
-						"",
-						"",
-						"",
-						"",
-						"",
-						"",
-						""] },
+						"A marqué la fin du Directoire",
+						"Organisé par Napoléon et un groupe de conspirateurs",
+						"Napoléon a prononcé un discours convaincant devant les députés",
+						"A été soutenu par une grande partie de la population française",
+						"A marqué le début du Consulat",
+						"A marqué la fin de la Révolution française",
+						"A marqué le début de l'ère napoléonienne en France"] },
 						
 						{ imageUrl: "cartes/creation de l'onu.png", eventName:"création de l'onu", category: "evenements", affirmations: [
 						"C'est un évènement", 
 						"XXe siècle",
-						"",
-						"",
-						"",
-						"",
-						"",
-						"",
-						"",
-						""] },
+						"A été fondée le 24 octobre 1945",
+						"Compte actuellement 193 États membres",
+						"Joue un rôle important dans le maintien de la paix",
+						"A son siège à New York, aux États-Unis",
+						"A marqué une étape importante dans l'histoire des relations internationales",
+						"Est chargé de maintenir la sécurité internationale",
+						"Est composée de six organes principaux",
+						"Fondée à la suite de la Seconde Guerre Mondiale"] },
 						
 						{ imageUrl: "cartes/crise de cuba.png", eventName:"crise de cuba", category: "evenements", affirmations: [
 						"C'est un évènement", 
 						"XXe siècle",
 						"Implique les grandes puissances de la guerre froide",
-						"",
-						"",
-						"",
-						"",
-						"",
-						"",
-						""] },
+						"A été déclenchée par la découverte de missiles nucléaires soviétiques",
+						"Le président de l'époque était John F. Kennedy",
+						"Kennedy a imposé un blocus naval",
+						"Pendant treize jours intenses, le monde a été au bord d'une guerre nucléaire",
+						"Une guerre nucléaire totale a été évitée grâce à un compromis diplomatique",
+						"A conduit à la création d'une ligne directe de communication entre les États-Unis et l'Union soviétique",
+						"A marqué un tournant dans la guerre froide"] },
 						
 						{ imageUrl: "cartes/execution louis xvi.png", eventName:"exécution de louis XVI", category: "evenements", affirmations: [
 						"C'est un évènement", 
 						"XVIIIe siecle",
 						"Important pour l'URSS",
-						"",
-						"",
-						"",
-						"",
-						"",
-						"",
-						""] },
+						"Dernier roi de France de la dynastie des Bourbon",
+						"A accédé au trône à l'âge de 20 ans",
+						"Il était marié à Marie-Antoinette d'Autriche",
+						"Il a eu 4 enfants",
+						"Son règne a été marqué par des problèmes économiques et financiers",
+						"Il a été confronté à une période tumultueuse de l'histoire de la France",
+						"La Révolution française a éclaté en 1789, marquant le début de la fin de la monarchie absolue en France"] },
 						
 						{ imageUrl: "cartes/fin de l'empire romain.png", eventName:"fin de l'empire romain d'occident", category: "evenements", affirmations: [
 						"C'est un évènement", 
 						"Ve siècle",
 						"Important pour Rome",
-						"",
-						"",
-						"",
-						"",
-						"",
-						"",
-						""] },
+						"Il a connu une division entre l'Empire romain d'Occident et l'Empire romain d'Orient",
+						"La prise de Constantinople par les Ottomans en 1453",
+						"Les Goths, les Vandales et les Huns, ont envahi les territoires romains",
+						"L'empereur Dioclétien a tenté de réformer l'Empire en mettant en place un système de gouvernement tetrarchique",
+						"En 455, Rome a été à nouveau pillée",
+						"A marqué la transition vers le Moyen Âge en Europe",
+						"Préservait la tradition romaine et la culture grecque"] },
 						
 						{ imageUrl: "cartes/nuremberg.png", eventName:"loi de nuremberg", category: "evenements", affirmations: [
 						"C'est un évènement", 
 						"XXe siècle",
-						"",
-						"",
-						"",
-						"",
-						"",
-						"",
-						"",
-						""] },
+						"Etaient principalement dirigées contre les Juifs",
+						"Série de lois raciales antisémites",
+						"Ont définit ce qu'était un Juif",
+						"Les Juifs étaient exclus de nombreuses professions",
+						"Ont entraîné la ségrégation des Juifs",
+						"Elément clé de la politique nazie",
+						"Ont servi de modèle législatif pour d'autres pays occupés par l'Allemagne nazie",
+						"Ont été un tournant majeur dans la montée de l'antisémitisme"] },
 						
 						{ imageUrl: "cartes/révolution bolchevique.png", eventName:"révolution bolchévique", category: "evenements", affirmations: [
 						"C'est un évènement", 
 						"XXe siècle",
 						"Important pour l'URSS",
-						"",
-						"",
-						"",
-						"",
-						"",
-						"",
-						""] },
+						"A eu lieu en Russie",
+						"A eu lieu en 1917",
+						"Etait dirigée par Vladimir Lénine",
+						"Etait principalement basée sur les idées du marxisme-léninisme",
+						"A été déclenchée par une série d'événements, dont le mécontentement des ouvriers et des soldats, les pénuries alimentaires",
+						"Le point culminant était le 25 octobre 1917",
+						"A entraîné une guerre civile prolongée en Russie"] },
 						
 						{ imageUrl: "cartes/Ve republique.png", eventName:"fondation de la Ve république", category: "evenements", affirmations: [
 						"C'est un évènement", 
 						"XXe siècle",
 						"Important dans l'histoire des français",
-						"",
-						"",
-						"",
-						"",
-						"",
-						"",
-						""] },
+						"Instaurée en France",
+						"Créer en 1958",
+						"A été créée en réponse à une crise politique et institutionnelle",
+						"A renforcé le pouvoir exécutif du président",
+						"Le Premier ministre est nommé par le président de la République et dirige le gouvernement",
+						"Les membres de l'Assemblée nationale sont élus au suffrage universel direct pour un mandat de cinq ans",
+						"A été marquée par des réformes économiques importantes"] },
 						
 						{ imageUrl: "cartes/buenos aires.png", eventName:"buenos aires", category: "ville", affirmations: [
 						"C'est une grande ville",
@@ -1497,46 +1497,84 @@
 						"Se situe en Amérique",
 						"Il s'agit d'une ville historique",
 						"Il s'agit d'une ancienne colonie",
-						" A une importance historique"
+						" A une importance historique",
+						"Capitale de l'Argentine",
+						"Elle abrite de nombreuses entreprises nationales et internationales, des universités prestigieuses, des théâtres, des musées et des centres culturels",
+						"Réputée pour son architecture européenne",
+						"Est connue pour son amour du football"
 						] },
 						
 						{ imageUrl: "cartes/johannesburg.png", eventName:"johannesburg", category: "ville", affirmations: [
 						"C'est une grande ville",
 						"A une population de 5,9M habitants",
 						"Se situe en Afrique",
-						"A une importance historique"] },
+						"A une importance historique",
+						"Fondée en 1886",
+						"C'est un centre économique et financier majeur en Afrique",
+						"Est un important hub de transport",
+						"A connu une histoire marquée par l'apartheid",
+						"Possède le complexe de loisirs de Gold Reef City",
+						"Centre culturel de l'Afrique du Sud"] },
 						
 						{ imageUrl: "cartes/chicago.png", eventName:"chicago", category: "ville", affirmations: [
 						"C'est une grande ville",
 						"A une population de 2,7M habitants",
-						"Se situe en Amérique"] },
+						"Se situe en Amérique",
+						"3e plus grande ville des Etats-Unis",
+						"Important centre économique, financier et commercial",
+						"Possède Le parc Millennium",
+						"Est réputée pour sa scène artistique et culturelle dynamique",
+						"La musique joue un rôle important dans la culture de la ville",
+						"L'une de ses universités fondée en 1890 est l'une des universités les plus prestigieuses des Etats-Unis",
+						"A le Festival de musique de Lollapalooza"] },
 						
 						{ imageUrl: "cartes/londres.png", eventName:"londres", category: "ville", affirmations: [
 						"C'est une grande ville",
 						"A une population de 9,3M habitants",
 						"C'est une ville monde",
 						"Se situe en Europe",
-						"POssède un pouvoir politique mondiale"] },
+						"Possède un pouvoir politique mondiale",
+						"Située sur les rives de la Tamise",
+						"Est connue pour son système de transport emblématique",
+						"A inspiré de nombreux écrivains, artistes et cinéastes",
+						"Est connu pour les Jeux olympiques de 2012",
+						"Centre financier mondial majeur"] },
 						
 						{ imageUrl: "cartes/los angeles.png", eventName:"los angeles", category: "ville", affirmations: [
 						"C'est une grande ville",
 						"A une population de 3,99M habitants",
 						"Se situe en Amérique",
-						"C'est une puissance culturelle"] },
+						"C'est une puissance culturelle",
+						"Deuxième plus grande ville des Etats-Unis",
+						"Célèbre pour ses plages emblématiques",
+						"Réputé pour son quartier de Beverly Hills",
+						"Réputé pour Griffith Observatory",
+						"La ville compte une grande diversité culturelle",
+						"Est réputé pour ses parcs d'attractions"] },
 						
 						{ imageUrl: "cartes/mewyork.png", eventName:"new york", category: "ville", affirmations: [
 						"C'est une grande ville",
 						"A une population de 8,4M habitants",
 						"Se situe en Amérique",
 						"Possède un pouvoir politique mondiale",
-						"C'est une ville monde"] },
+						"C'est une ville monde",
+						"Est surnommée la 'Grosse Pomme' ou la 'Ville qui ne dort jamais'",
+						"Est divisée en cinqs arrondissements",
+						"Possède la statue de la liberté",
+						"Est desservie par trois aéroports principaux",
+						"Célèbre pour son énergie dynamique"] },
 						
 						{ imageUrl: "cartes/mumbai.png", eventName:"mumbai", category: "ville", affirmations: [
 						"C'est une grande ville",
 						"A une population de 20,7M habitants",
 						"Se situe en Asie",
 						"Il s'agit d'une ancienne colonie",
-						"C'est une puissance culturelle"] },
+						"C'est une puissance culturelle",
+						"Anciennement connue sous le nom de Bombay",
+						"C'est l'un des plus grands parcs urbains d'Asie",
+						"Possède la plage de Chowpatty",
+						"Abrite les grottes d'Elephanta",
+						"Réputée pour sa vie nocturne animée"] },
 						
 						{ imageUrl: "cartes/paris.png", eventName:"paris", category: "ville", affirmations: [
 						"C'est une grande ville",
@@ -1545,58 +1583,106 @@
 						"Se situe en Europe",
 						"Important dans l'histoire des français",
 						"Possède un pouvoir politique mondiale",
-						"Il s'agit d'une ville historique"] },
+						"Il s'agit d'une ville historique",
+						"Renommée pour son architecture emblématique",
+						"Possède les jardins du Luxembourg",
+						"Siège de nombreuses institutions culturelles"] },
 						
 						{ imageUrl: "cartes/singapour.png", eventName:"singapour", category: "ville", affirmations: [
 						"C'est une grande ville",
 						"A une population de 5,9M habitants",
 						"Se situe en Asie",
 						"C'est une puissance économique",
-						"C'est une cité Etat"] },
+						"C'est une cité Etat",
+						"C'est un Etat insulaire",
+						"Le quartier de Chinatown est un lieu incontournable",
+						"Gardens by the Bay est un magnifique parc botanique",
+						"A des bâtiments historiques colorés et des rues pittoresques",
+						"Little India est un quartier animé et coloré"] },
 						
 						{ imageUrl: "cartes/tokyo.png", eventName:"tokyo", category: "ville", affirmations: [
 						"C'est une grande ville",
 						"A une population de 14M habitants",
 						"C'est une ville monde",
 						"Il s'agit d'une ville historique",
-						"Se situe en Asie"] },
+						"Se situe en Asie",
+						"L'une des plus grandes villes du monde",
+						"Possède une architecture avant-gardiste",
+						"L'une de ses tours s'élève à 333m",
+						"Réputée pour sa scène de mode",
+						"Abrite de nombreux musées"] },
 						
 						{ imageUrl: "cartes/chapelle sixtine.png", eventName:"chapelle sixtine", category: "monuments", affirmations: [
 						"C'est un monument",
 						"Se situe en Europe",
 						"Il s'agit d'un monument religieux",
-						"XVe siècle"] },
+						"XVe siècle",
+						"Lieu emblématique du Vatican",
+						"Michel-Ange a passé quatre ans (1508-1512) à peindre le plafond",
+						"La fresque du Jugement dernier, également peinte par Michel-Ange, se trouve sur le mur derrière l'autel",
+						"Est utilisée pour les cérémonies papales",
+						"Elle mesure environ 40,9 mètres de long, 13,4 mètres de large et 20,7 mètres de haut",
+						"Les murs de la chapelle sont ornés de fresques réalisées par différents artistes de la Renaissance italienne, tels que Botticelli, Ghirlandaio et Pérugin"] },
 						
 						{ imageUrl: "cartes/eiffel.png", eventName:"tour eiffel", category: "monuments", affirmations: [
 						"C'est un monument",
 						"Se situe en Europe",
 						"Important dans l'histoire des français",
 						"XIXe siècle",
-						"Il s'agit d'un monument artistique"] },
+						"Il s'agit d'un monument artistique",
+						"Construire entre 1887 et 1889",
+						"A été initialement critiquée par de nombreux artistes et intellectuels de l'époque",
+						"Est construite en fer puddlé et pèse environ 10 100 tonnes",
+						"Est illuminée la nuit avec des projecteurs qui créent un spectacle lumineux scintillant",
+						"Plusieurs antennes de télécommunication sont installées sur le sommet"] },
 					
 						{ imageUrl: "cartes/goldengate.png", eventName:"golden gate bridge", category: "monuments", affirmations: [
 						"C'est un monument",
 						"Se situe en Amérique",
 						"Il s'agit d'un monument touristique",
-						"XXe siècle"] },
+						"XXe siècle",
+						"Sa construction a débuté en 1933 et s'est achevée en 1937",
+						"Conçu par l'ingénieur Joseph Strauss et l'architecte Irving Morrow",
+						"Il mesure environ 2,7 kilomètres de long",
+						"Sa portée principale est de 1 280 mètres",
+						"Sa structure est peinte en orange-rouge vif",
+						"La plate-forme de circulation est composée de six voies de circulation pour les véhicules motorisés"] },
 					
 						{ imageUrl: "cartes/muiraille de chine.png", eventName:"muraille de chine", category: "monuments", affirmations: [
 						"C'est un monument",
 						"Se situe en Asie",
 						"Il s'agit d'un monument historique",
-						"IIIe à XVIIe siècle"] },
+						"IIIe à XVIIe siècle",
+						"Série de fortifications construites sur plusieurs siècles pour protéger la frontière nord",
+						"Mesure environ 21 196 kilomètres de longueur",
+						"Traverse plusieurs provinces, notamment le Liaoning, le Hebei, le Shanxi, le Shaanxi et le Gansu",
+						"Elle va de 5 à 8 mètres de largeur et de 6 à 14 mètres de hauteur",
+						"A été inscrite au patrimoine mondial de l'UNESCO en 1987",
+						"Est souvent considérée comme l'une des réalisations les plus impressionnantes de l'ingénierie militaire"] },
 					
 						{ imageUrl: "cartes/pantheon.png", eventName:"panthéon rome", category: "monuments", affirmations: [
 						"C'est un monument",
 						"Se situe en Europe",
 						"Important pour Rome",
-						"Il s'agit d'un monument historique"] },
+						"Il s'agit d'un monument historique",
+						"Célèbre en Italie",
+						"A été converti en église chrétienne au 7e siècle, dédiée à la Vierge Marie et à tous les martyrs",
+						"A subi plusieurs restaurations au fil des siècles pour préserver sa structure et son apparence",
+						"Est l'une des attractions touristiques les plus visitées de Rome",
+						"Sa beauté architecturale, son histoire riche et son caractère emblématique en font l'un des monuments les plus célèbres et les plus appréciés de la ville éternelle",
+						"Le diamètre de la coupole mesure environ 43,3 mètres"] },
 						
 						{ imageUrl: "cartes/parthénon.png", eventName:"parthénon", category: "monuments", affirmations: [
 						"C'est un monument",
 						"Se situe en Europe",
 						"Il s'agit d'un monument religieux",
-						"IIe siècle"] },
+						"IIe siècle",
+						"Est situé sur l'Acropole d'Athènes",
+						"A été érigé en l'honneur de la déesse grecque Athéna Parthénos",
+						"L'architecte principal était Phidias",
+						"Etait richement décoré avec des sculptures en marbre",
+						"A subi des dommages considérables au fil des siècles, notamment lors de l'occupation de l'Acropole par les Vénitiens et les Ottomans",
+						"Pendant la guerre d'indépendance grecque, il a été utilisé comme arsenal par les Ottomans"] },
 					
 						{ imageUrl: "cartes/pise.png", eventName:"tour de pise", category: "monuments", affirmations: [
 						"C'est un monument",
@@ -1604,7 +1690,11 @@
 						"XIIe - XIVe siècle",
 						"Il s'agit d'un monument touristique",
 						"Il a été déclaré au patrimoine mondiale de l'UNESCO en 1987",
-						"Il est connu pour son inclinaison particulière"] },
+						"Il est connu pour son inclinaison particulière",
+						"La construction a commencé en 1173",
+						"Il a fallu plus de 200 ans pour finir le monument",
+						"Est en réalité le clocher du Duomo di Pisa",
+						"Est composée de huit étages"] },
 					
 						{ imageUrl: "cartes/the gherkin.png", eventName:"the gherkin", category: "monuments", affirmations: [
 						"C'est un monument",
@@ -1614,7 +1704,9 @@
 						"Il a été conçu par l'architecte britannique Norman Foster",
 						"Il est connu pour son efficacité énergétique",
 						"Il est considéré comme symbole emblématique",
-						"La forme particulière en fait un monument emblématique"] },
+						"La forme particulière en fait un monument emblématique",
+						"Monument emblématique de Londres",
+						"Son nom officiel est 30 St Mary Axe"] },
 					
 						{ imageUrl: "cartes/tower bridge.png", eventName:"tower bridge", category: "monuments", affirmations: [
 						"C'est un monument",
@@ -1624,7 +1716,9 @@
 						"Il s'agit d'un monument de 'transport'",
 						"Correspond au mouvement de l'architecture victorienne",
 						"Mesure environ 244m de long et 65m de haut",
-						"Il représente l'ingénierie et l'architecture britannique"] },
+						"Il représente l'ingénierie et l'architecture britannique",
+						"Construit en 8 ans",
+						"Terminé en 1894"] },
 					
 						{ imageUrl: "cartes/versailles.png", eventName:"château de versailles", category: "monuments", affirmations: [
 						"C'est un monument",
@@ -1634,7 +1728,9 @@
 						"XVIIe siècle",
 						"C'est un symbole de la monarchie absolue",
 						"Appartient au style baroque",
-						"Appartient au classicisme" ] }
+						"Appartient au classicisme",
+						"Célèbre pour l'une des ses galeries",
+						"Des millions de visiteurs chaque année"] }
 					];				
 				</script>
 			</div>
