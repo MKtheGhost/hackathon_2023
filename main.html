@@ -6,7 +6,7 @@
 		<style>
 		  body {
 			background-color: #202020;
-			<!-- background-image: url('fonds/Accueil.jpg'); -->
+			/* background-image: url('fonds/Accueil.jpg'); */
 			background-repeat: no-repeat;
 			background-size: cover;
 			color: white;
@@ -785,7 +785,26 @@
 						document.getElementById("contenu_defis").style.display = "none";
 						// Afficher le mini-jeu
 						document.getElementById("mini-jeu1").style.display = "block";
+						// ajout des event des cartes (ne marche pas lors de la création)
+						let cardsElement = document.getElementById("cards");
+                        for (let cardElement of cardsElement.children) {
+                          cardElement.onclick = function() {
+                            if (cardElement.classList.contains("grayed-out")) {
+                                cardElement.classList.remove("grayed-out");
+                            }
+                            else {
+                                cardElement.classList.add("grayed-out"); // Ajoute la classe "grayed-out" à la carte
+                                changeImage(imageElement); // Appelle la fonction changeImage pour afficher l'image de dos de la carte
+                                checkGuess(card);
+                            }
+                          };    
+                        }
 					  }
+
+
+
+
+
 					   function afficherMiniJeu2() {
 						document.getElementById("contenu_defis").style.display = "none";
 						document.getElementById("mini-jeu2").style.display = "block";
